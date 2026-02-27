@@ -1,0 +1,48 @@
+{
+  "name": "agensy-frontend",
+  "version": "0.1.0",
+  "private": true,
+  "engines": {
+    "node": ">=18.17.0",
+    "npm": ">=9.0.0"
+  },
+  "scripts": {
+    "preinstall": "node scripts/check-node-version.js",
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint",
+    "check": "node scripts/env-check.js",
+    "check-node": "node scripts/check-node-version.js",
+    "postinstall": "node scripts/postinstall.js",
+    "generate-jwt-secret": "node scripts/generate-jwt-secret.js"
+  },
+  "dependencies": {
+    "@lottiefiles/react-lottie-player": "^3.6.0",
+    "axios": "^1.13.3",
+    "bcryptjs": "^3.0.3",
+    "cloudinary": "^2.9.0",
+    "dotenv": "^17.2.3",
+    "firebase": "^12.8.0",
+    "framer-motion": "^12.25.0",
+    "jsonwebtoken": "^9.0.3",
+    "lottie-react": "^2.4.1",
+    "lucide-react": "^0.562.0",
+    "mongodb": "^7.0.0",
+    "mongoose": "^9.1.4",
+    "next": "16.1.1",
+    "nodemailer": "^7.0.12",
+    "react": "19.2.3",
+    "react-dom": "19.2.3",
+    "react-icons": "^5.5.0",
+    "react-toastify": "^11.0.5",
+    "recharts": "^3.6.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4",
+    "babel-plugin-react-compiler": "1.0.0",
+    "eslint": "^9",
+    "eslint-config-next": "16.1.1",
+    "tailwindcss": "^4"
+  }
+}

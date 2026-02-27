@@ -1,0 +1,493 @@
+@import "tailwindcss";
+
+/* =========================
+   Root Theme Variables
+========================= */
+:root {
+  --background: #ffffff;
+  --foreground: #101a28;
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #101a28;
+    --foreground: #ededed;
+  }
+}
+
+/* =========================
+   Base Styles
+========================= */
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* =========================
+   Animations (Clean + Reusable)
+========================= */
+
+/* Fade Up (common) */
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.animate-fade-up {
+  animation: fade-up 0.8s ease forwards;
+}
+
+/* Fade In (dropdown animation) */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.animate-fade-in {
+  animation: fade-in 0.3s ease-out;
+}
+
+/* Text Slide (lighter) */
+@keyframes text-slide {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.animate-text-slide {
+  animation: text-slide 0.8s ease forwards;
+}
+
+/* Fade In Up (glassy) */
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.animate-fade-in-up {
+  animation: fade-in-up 0.8s ease forwards;
+}
+
+/* Fade-in-up delays (keep your names) */
+.animate-fade-in-up-delayed {
+  animation: fade-in-up 0.8s ease forwards;
+  animation-delay: 0.2s;
+}
+.animate-fade-in-up-more-delayed {
+  animation: fade-in-up 0.8s ease forwards;
+  animation-delay: 0.4s;
+}
+
+/* Stagger variants (keep your names) */
+.animate-fade-in-up-stagger-1 {
+  animation: fade-in-up 0.8s ease forwards;
+}
+.animate-fade-in-up-stagger-2 {
+  animation: fade-in-up 0.8s ease forwards;
+  animation-delay: 0.1s;
+}
+.animate-fade-in-up-stagger-3 {
+  animation: fade-in-up 0.8s ease forwards;
+  animation-delay: 0.2s;
+}
+
+/* Float (generic) - ALWAYS MOVING */
+@keyframes float {
+  0% {
+    transform: translateY(0) translateX(0);
+  }
+  50% {
+    transform: translateY(-18px) translateX(10px);
+  }
+  100% {
+    transform: translateY(0) translateX(0);
+  }
+}
+.animate-float {
+  animation: float 7s ease-in-out infinite both;
+  will-change: transform;
+  animation-play-state: running !important;
+}
+
+/* Float Simple - ALWAYS MOVING */
+@keyframes float-simple {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-14px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+.animate-float-simple {
+  animation: float-simple 4s ease-in-out infinite both;
+  will-change: transform;
+  animation-play-state: running !important;
+}
+
+/* Float Delayed - ALWAYS MOVING */
+@keyframes float-delayed {
+  0% {
+    transform: translateY(0) translateX(0);
+  }
+  50% {
+    transform: translateY(-15px) translateX(8px);
+  }
+  100% {
+    transform: translateY(0) translateX(0);
+  }
+}
+.animate-float-delayed {
+  animation: float-delayed 6s ease-in-out infinite both;
+  will-change: transform;
+  animation-play-state: running !important;
+}
+
+/* Float Slow - ALWAYS MOVING */
+@keyframes float-slow {
+  0% {
+    transform: translateY(0) translateX(0);
+  }
+  50% {
+    transform: translateY(-10px) translateX(-5px);
+  }
+  100% {
+    transform: translateY(0) translateX(0);
+  }
+}
+.animate-float-slow {
+  animation: float-slow 8s ease-in-out infinite both;
+  will-change: transform;
+  animation-play-state: running !important;
+}
+
+/* Float Slower - ALWAYS MOVING */
+@keyframes float-slower {
+  0% {
+    transform: translateY(0) translateX(0) scale(1);
+  }
+  33% {
+    transform: translateY(-20px) translateX(15px) scale(1.05);
+  }
+  66% {
+    transform: translateY(10px) translateX(-10px) scale(0.95);
+  }
+  100% {
+    transform: translateY(0) translateX(0) scale(1);
+  }
+}
+.animate-float-slower {
+  animation: float-slower 15s ease-in-out infinite both;
+  will-change: transform;
+  animation-play-state: running !important;
+}
+
+/* Float Reverse - ALWAYS MOVING */
+@keyframes float-reverse {
+  0% {
+    transform: translateY(0) translateX(0) scale(1);
+  }
+  33% {
+    transform: translateY(15px) translateX(-20px) scale(1.03);
+  }
+  66% {
+    transform: translateY(-12px) translateX(18px) scale(0.97);
+  }
+  100% {
+    transform: translateY(0) translateX(0) scale(1);
+  }
+}
+.animate-float-reverse {
+  animation: float-reverse 12s ease-in-out infinite both;
+  will-change: transform;
+  animation-play-state: running !important;
+}
+
+/* Gradient slow rotate - ALWAYS MOVING */
+@keyframes gradient-slow {
+  0% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(180deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+.animate-gradient-slow {
+  animation: gradient-slow 20s linear infinite;
+  will-change: transform;
+  animation-play-state: running;
+}
+
+/* Gradient move - ALWAYS MOVING */
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+.animate-gradient {
+  background-size: 200% 200%;
+  animation: gradient 3s ease infinite;
+  will-change: background-position;
+  animation-play-state: running;
+}
+
+/* Pulse slow - ALWAYS MOVING */
+@keyframes pulse-slow {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
+.animate-pulse-slow {
+  animation: pulse-slow 2s ease-in-out infinite;
+  will-change: transform;
+  animation-play-state: running;
+}
+
+/* Spin variants - ALWAYS MOVING */
+@keyframes spin-slow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+.animate-spin-slow {
+  animation: spin-slow 20s linear infinite;
+  will-change: transform;
+  animation-play-state: running;
+}
+
+@keyframes spin-slower {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+.animate-spin-slower {
+  animation: spin-slower 30s linear infinite;
+  will-change: transform;
+  animation-play-state: running;
+}
+
+@keyframes spin-reverse {
+  from {
+    transform: rotate(360deg);
+  }
+  to {
+    transform: rotate(0deg);
+  }
+}
+.animate-spin-reverse {
+  animation: spin-reverse 25s linear infinite;
+  will-change: transform;
+  animation-play-state: running;
+}
+
+/* Particle rise - ALWAYS MOVING */
+@keyframes particle {
+  0% {
+    transform: translateY(0) translateX(0) scale(1);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-100vh) translateX(50px) scale(0.5);
+    opacity: 0;
+  }
+}
+.animate-particle {
+  animation: particle linear infinite;
+  will-change: transform, opacity;
+  animation-play-state: running;
+}
+
+/* Progress bar */
+@keyframes progress {
+  0% {
+    width: 0%;
+  }
+  100% {
+    width: 99%;
+  }
+}
+.animate-progress {
+  animation: progress 2s ease-out forwards;
+}
+
+/* Bar grow (charts) */
+@keyframes bar-grow-1 {
+  0% {
+    height: 0;
+  }
+  100% {
+    height: 4rem;
+  }
+}
+.animate-bar-grow-1 {
+  animation: bar-grow-1 1.5s ease-out forwards;
+}
+
+@keyframes bar-grow-2 {
+  0% {
+    height: 0;
+  }
+  100% {
+    height: 6rem;
+  }
+}
+.animate-bar-grow-2 {
+  animation: bar-grow-2 1.8s ease-out forwards;
+}
+
+@keyframes bar-grow-3 {
+  0% {
+    height: 0;
+  }
+  100% {
+    height: 8rem;
+  }
+}
+.animate-bar-grow-3 {
+  animation: bar-grow-3 2.1s ease-out forwards;
+}
+
+/* =========================
+   Grid Pattern Background
+========================= */
+.bg-grid-pattern {
+  background-image: linear-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.06) 1px, transparent 1px);
+  background-size: 42px 42px;
+  background-position: center;
+}
+
+/* =========================
+   Signup Form Scrollbar
+========================= */
+.signup-scroll::-webkit-scrollbar {
+  width: 6px;
+}
+.signup-scroll::-webkit-scrollbar-track {
+  background: rgba(6, 78, 114, 0.1);
+  border-radius: 10px;
+}
+.signup-scroll::-webkit-scrollbar-thumb {
+  background: rgba(34, 197, 94, 0.3);
+  border-radius: 10px;
+}
+.signup-scroll::-webkit-scrollbar-thumb:hover {
+  background: rgba(34, 197, 94, 0.5);
+}
+
+/* Firefox scrollbar */
+.signup-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(34, 197, 94, 0.3) rgba(6, 78, 114, 0.1);
+}
+
+/* =========================
+   Modals / UI
+========================= */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.animate-fadeIn {
+  animation: fadeIn 0.3s ease-out forwards;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+.animate-slideUp {
+  animation: slideUp 0.4s ease-out forwards;
+}
+
+@keyframes slide-in-right {
+  from {
+    opacity: 0;
+    transform: translateX(100px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+.animate-slide-in-right {
+  animation: slide-in-right 0.3s ease-out forwards;
+}
+
+/* =========================
+   Accessibility: Reduce motion
+   NOTE: If your balls aren't moving, check if 
+   you have "Reduce motion" enabled in your OS
+========================= */
+@media (prefers-reduced-motion: reduce) {
+  /* Comment out these lines to force animations even with reduced motion preference */
+  * {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
