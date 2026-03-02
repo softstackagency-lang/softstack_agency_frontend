@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { auth } from './firebase';
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:4000/api';
 
@@ -9,6 +10,25 @@ const api = axios.create({
     'Content-Type': 'application/json',
   },
 });
+
+// Add request interceptor to include Firebase ID token
+api.interceptors.request.use(
+  async (config) => {
+    try {
+      const user = auth.currentUser;
+      if (user) {
+        const token = await user.getIdToken();
+        config.headers.Authorization = `Bearer ${token}`;
+      }
+    } catch (error) {
+      console.error('Error getting Firebase ID token:', error);
+    }
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
+  }
+);
 
 api.interceptors.response.use(
   (response) => response,
@@ -116,23 +136,23 @@ export const userApi = {
   // Get all users
   getAllUsers: async () => {
     const response = await api.get('users');
-    
+
     console.log('=== getAllUsers API Response ===');
     console.log('Full Response:', response);
     console.log('Response Data:', response.data);
-    
+
     // Handle different response structures
     const usersData = response.data.data || response.data.users || response.data;
     const usersArray = Array.isArray(usersData) ? usersData : [];
-    
+
     console.log('Extracted Users Data:', usersData);
     console.log('Users Array:', usersArray);
     console.log('Number of Users:', usersArray.length);
-    
+
     const normalizedUsers = usersArray.map(normalizeUser);
     console.log('Normalized Users:', normalizedUsers);
     console.log('================================');
-    
+
     return normalizedUsers;
   },
 
@@ -151,10 +171,10 @@ export const userApi = {
   // Get single user by ID
   getUser: async (uid) => {
     const response = await api.get(`users/${uid}`);
-    
+
     // Extract the actual user data from { success: true, data: {...} }
     const userData = response.data.data || response.data;
-    
+
     return normalizeUser(userData);
   },
 
@@ -173,10 +193,10 @@ export const userApi = {
   // Update user
   updateUser: async (uid, data) => {
     const response = await api.put(`users/${uid}`, data);
-    
+
     // Extract the actual user data from { success: true, data: {...} }
     const userData = response.data.data || response.data;
-    
+
     return normalizeUser(userData);
   },
 
