@@ -67,8 +67,8 @@ const Ecommerce = () => {
         <div className="grid grid-cols-1 items-center gap-14 md:grid-cols-2 mb-32">
           {/* ===== Left Text Content ===== */}
           <div>
-            <motion.span 
-              initial={{ opacity: 0, y: 20 }} 
+            <motion.span
+              initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               className="mb-4 inline-flex items-center gap-2 rounded-full border border-blue-400/20 bg-blue-500/10 px-4 py-1 text-sm text-blue-400"
             >
@@ -76,10 +76,10 @@ const Ecommerce = () => {
               Summer Sale: Up to 50% Off
             </motion.span>
 
-            <motion.h1 
-              initial={{ opacity: 0, y: 20 }} 
-              animate={{ opacity: 1, y: 0 }} 
-              transition={{ delay: 0.1 }} 
+            <motion.h1
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.1 }}
               className="mt-4 text-4xl font-bold leading-tight md:text-5xl lg:text-6xl"
             >
               Driving Next-Gen{" "}
@@ -88,19 +88,19 @@ const Ecommerce = () => {
               </span>
             </motion.h1>
 
-            <motion.p 
-              initial={{ opacity: 0, y: 20 }} 
-              animate={{ opacity: 1, y: 0 }} 
-              transition={{ delay: 0.2 }} 
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 }}
               className="mt-6 max-w-xl text-base text-gray-400 md:text-lg"
             >
               Experience the next generation of shopping. Clean, fast, and designed for the modern era with cutting-edge technology.
             </motion.p>
 
-            <motion.div 
-              initial={{ opacity: 0, y: 20 }} 
-              animate={{ opacity: 1, y: 0 }} 
-              transition={{ delay: 0.3 }} 
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3 }}
               className="mt-10 flex flex-wrap items-center gap-4"
             >
               <button className="group inline-flex items-center gap-2 rounded-full bg-linear-to-r from-blue-500 to-cyan-400 px-8 py-4 text-sm font-semibold text-black transition-all hover:scale-105 hover:shadow-[0_0_40px_rgba(59,130,246,0.45)]">
@@ -115,7 +115,7 @@ const Ecommerce = () => {
           </div>
 
           {/* ===== Right Lottie Animation ===== */}
-          <motion.div 
+          <motion.div
             className="w-full"
             initial={{ x: 100, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
@@ -130,18 +130,18 @@ const Ecommerce = () => {
           </motion.div>
         </div>
         {/* ===== Features Section ===== */}
-        <div className="py-20">
-          <h2 className="text-center text-4xl font-bold mb-12">Why Choose Us</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="py-8 sm:py-12 md:py-20">
+          <h2 className="text-center text-4xl font-bold mb-8 sm:mb-10 md:mb-12">Why Choose Us</h2>
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-8">
             {features.map((f, i) => {
               const IconComponent = f.icon;
               return (
-                <motion.div 
-                  key={i} 
-                  initial={{ opacity: 0, y: 20 }} 
-                  whileInView={{ opacity: 1, y: 0 }} 
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  transition={{ delay: 0.1 * i }} 
+                  transition={{ delay: 0.1 * i }}
                   className="rounded-2xl border border-white/10 bg-white/5 p-8 text-center backdrop-blur-sm transition hover:scale-105"
                 >
                   <IconComponent size={36} className="mx-auto mb-4 text-cyan-400" />
@@ -165,17 +165,17 @@ const Ecommerce = () => {
             </button>
           </div>
 
-          <div className="grid auto-rows-[300px] grid-cols-1 gap-6 md:grid-cols-3">
+          <div className="grid auto-rows-[300px] grid-cols-2 gap-6 md:grid-cols-3">
             {products.map((p) => (
-              <motion.div 
-                key={p.id} 
-                whileHover={{ y: -10 }} 
+              <motion.div
+                key={p.id}
+                whileHover={{ y: -10 }}
                 className={`${p.span} group relative overflow-hidden rounded-[2rem] border border-white/10 bg-white/5`}
               >
-                <img 
-                  src={p.img} 
-                  className="absolute inset-0 h-full w-full object-cover opacity-60 transition-all duration-700 group-hover:scale-110 group-hover:opacity-100" 
-                  alt={p.name} 
+                <img
+                  src={p.img}
+                  className="absolute inset-0 h-full w-full object-cover opacity-60 transition-all duration-700 group-hover:scale-110 group-hover:opacity-100"
+                  alt={p.name}
                 />
                 <div className="absolute inset-0 bg-linear-to-t from-black via-black/20 to-transparent" />
                 <div className="absolute bottom-0 left-0 w-full p-8">
@@ -201,7 +201,7 @@ const Ecommerce = () => {
         <div className="py-20">
           <h2 className="text-center text-4xl font-bold mb-12">What Our Customers Say</h2>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-8">
             {testimonials.map((t, i) => (
               <motion.div
                 key={i}

@@ -4,7 +4,6 @@ import React, { useEffect, useState } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import dynamic from "next/dynamic";
 import Link from "next/link";
-import animationData from "../../../../public/animation.json";
 import { useRestartAnimations } from "@/hooks/useRestartAnimations";
 
 // ================== LOTTIE (SSR SAFE) ==================
@@ -145,10 +144,10 @@ export default function WebPage() {
         <div className="absolute top-20 left-10 w-72 h-72 bg-cyan-500/40 rounded-full blur-3xl animate-float-slow"></div>
         <div className="absolute bottom-20 right-10 w-96 h-96 bg-blue-500/35 rounded-full blur-3xl animate-float-slower"></div>
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-purple-500/30 rounded-full blur-3xl animate-float-reverse"></div>
-        
+
         {/* Grid Pattern */}
         <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
-        
+
         {/* Floating Elements */}
         {particles.map((particle, i) => (
           <div
@@ -165,7 +164,7 @@ export default function WebPage() {
       </div>
 
       {/* ================= HERO ================= */}
-      <section className="relative max-w-7xl mx-auto px-4 sm:px-6 md:px-8 py-20 sm:py-24 md:py-32 grid grid-cols-1 md:grid-cols-2 gap-10 sm:gap-12 md:gap-14 items-center z-10">
+      <section className="relative max-w-7xl mx-auto px-4 sm:px-6 md:px-8 pt-32 pb-12 sm:pb-16 md:pb-8 grid grid-cols-1 md:grid-cols-2 gap-10 sm:gap-12 md:gap-14 items-center z-10">
         <motion.div
           variants={fadeSlideUp}
           initial="hidden"
@@ -220,21 +219,22 @@ export default function WebPage() {
             <Player
               autoplay
               loop
-              src={animationData}
+              src="/animation.json"
               style={{ maxWidth: 500, width: "100%" }}
+              className="w-full md:scale-125 lg:scale-110"
             />
           )}
         </motion.div>
       </section>
 
       {/* ================= SERVICES ================= */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 py-20 sm:py-24 md:py-28">
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 pt-8 pb-12 sm:py-16 md:py-20 lg:py-28">
         <motion.div
           variants={container}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-7 md:gap-8"
+          className="grid grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-7 lg:gap-8"
         >
           {services.map((s, i) => (
             <motion.div
@@ -258,13 +258,13 @@ export default function WebPage() {
       </section>
 
       {/* ================= FEATURES ================= */}
-      <section className="bg-[#020617]/60 py-20 sm:py-24 md:py-28">
+      <section className="bg-[#020617]/60 py-12 sm:py-16 md:py-20 lg:py-28">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
           <h2 className="text-3xl md:text-4xl font-bold text-center text-white mb-16">
             Capabilities & Features
           </h2>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
+          <div className="grid grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 md:gap-6">
             {features.map((f, i) => (
               <motion.div
                 key={i}
@@ -272,10 +272,10 @@ export default function WebPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.1 }}
                 whileHover={{ scale: 1.02 }}
-                className="p-5 sm:p-6 rounded-2xl bg-slate-900/40 border border-slate-800 hover:bg-slate-900/60"
+                className="p-4 sm:p-5 md:p-6 rounded-2xl bg-slate-900/40 border border-slate-800 hover:bg-slate-900/60"
               >
-                <f.icon className="text-blue-400 text-2xl mb-4" />
-                <h4 className="text-white font-semibold mb-2">
+                <f.icon className="text-blue-400 text-xl sm:text-2xl mb-3 sm:mb-4" />
+                <h4 className="text-white text-sm sm:text-base font-semibold mb-1.5 sm:mb-2">
                   {f.title}
                 </h4>
                 <p className="text-gray-400 text-sm">
@@ -288,23 +288,23 @@ export default function WebPage() {
       </section>
 
       {/* ================= CTA ================= */}
-      <section className="max-w-7xl mx-auto px-6 py-28">
+      <section className="max-w-7xl mx-auto px-6 py-8 sm:py-12 md:py-16 lg:py-28">
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           whileInView={{ opacity: 1, scale: 1 }}
-          className="p-10 md:p-16 rounded-3xl bg-linear-to-r from-cyan-600/20 to-blue-600/20 backdrop-blur-2xl border border-white/10 flex flex-col md:flex-row gap-10 justify-between items-center"
+          className="p-6 sm:p-8 md:p-16 rounded-2xl sm:rounded-3xl bg-linear-to-r from-cyan-600/20 to-blue-600/20 backdrop-blur-2xl border border-white/10 flex flex-col md:flex-row gap-6 sm:gap-8 md:gap-10 justify-between items-center"
         >
           <div>
-            <h3 className="text-3xl font-bold text-white mb-4">
+            <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-white mb-2 sm:mb-3 md:mb-4">
               Ready to build the future?
             </h3>
-            <p className="text-gray-400 max-w-xl">
+            <p className="text-sm sm:text-base text-gray-400 max-w-xl">
               Strategy-driven engineering and modern development
               tailored for your brand.
             </p>
           </div>
           <Link href="/contact">
-            <button className="group inline-flex items-center gap-2 whitespace-nowrap px-10 py-5 rounded-full bg-linear-to-r from-blue-500 to-cyan-400 text-black font-bold transition-all hover:scale-105 hover:shadow-[0_0_40px_rgba(59,130,246,0.45)] shadow-xl">
+            <button className="group inline-flex items-center gap-2 whitespace-nowrap px-6 sm:px-8 md:px-10 py-3 sm:py-4 md:py-5 rounded-full bg-linear-to-r from-blue-500 to-cyan-400 text-black text-sm sm:text-base font-bold transition-all hover:scale-105 hover:shadow-[0_0_40px_rgba(59,130,246,0.45)] shadow-xl">
               Let&apos;s Talk Projects
             </button>
           </Link>
@@ -312,24 +312,24 @@ export default function WebPage() {
       </section>
 
       {/* ================= PILLARS ================= */}
-      <section className="py-28">
+      <section className="py-8 sm:py-12 md:py-16 lg:py-28">
         <div className="max-w-7xl mx-auto px-6">
-          <h2 className="text-3xl md:text-4xl font-bold text-center text-white mb-16">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-center text-white mb-8 sm:mb-12 md:mb-16">
             Our Pillars of Excellence
           </h2>
 
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-3 gap-4 sm:gap-6 md:gap-8">
             {pillars.map((p, i) => (
               <motion.div
                 key={i}
                 whileHover={{ y: -6 }}
-                className="p-8 rounded-3xl bg-slate-900/20 border border-slate-800/50 space-y-4"
+                className="p-5 sm:p-6 md:p-8 rounded-2xl sm:rounded-3xl bg-slate-900/20 border border-slate-800/50 space-y-3 sm:space-y-4"
               >
-                <p.icon className="text-cyan-400 text-3xl" />
-                <h4 className="text-white font-bold">
+                <p.icon className="text-cyan-400 text-2xl sm:text-3xl" />
+                <h4 className="text-white font-bold text-sm sm:text-base">
                   {p.title}
                 </h4>
-                <p className="text-gray-500 text-sm leading-relaxed">
+                <p className="text-gray-500 text-xs sm:text-sm leading-relaxed">
                   {p.desc}
                 </p>
               </motion.div>
