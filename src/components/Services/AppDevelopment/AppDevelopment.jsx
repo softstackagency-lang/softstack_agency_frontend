@@ -167,10 +167,10 @@ const AppDevelopment = () => {
         <div className="absolute top-20 left-10 w-72 h-72 bg-cyan-500/40 rounded-full blur-3xl animate-float-slow"></div>
         <div className="absolute bottom-20 right-10 w-96 h-96 bg-blue-500/35 rounded-full blur-3xl animate-float-slower"></div>
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-purple-500/30 rounded-full blur-3xl animate-float-reverse"></div>
-        
+
         {/* Grid Pattern */}
         <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
-        
+
         {/* Floating Elements */}
         {particles.map((particle, i) => (
           <div
@@ -188,7 +188,7 @@ const AppDevelopment = () => {
 
       <div className="relative max-w-7xl mx-auto route-container z-10">
         {/* SECTION 1: HERO (mb-32) */}
-        <div className="flex flex-col lg:flex-row items-center justify-between gap-8 sm:gap-10 md:gap-12 mb-20 sm:mb-24 md:mb-32">
+        <div className="flex flex-col lg:flex-row items-center justify-between gap-8 sm:gap-10 md:gap-12 mb-12 sm:mb-20 md:mb-32">
           <div className="flex-1 space-y-6 sm:space-y-8 text-left scroll-anim order-2 lg:order-1">
             <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight">
               Cross-Platform App <br />
@@ -220,26 +220,26 @@ const AppDevelopment = () => {
         </div>
 
         {/* SECTION 2: SERVICES GRID (mb-32) */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-7 md:gap-8 mb-20 sm:mb-24 md:mb-32">
+        <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-7 md:gap-8 mb-12 sm:mb-20 md:mb-32">
           {services.map((service, index) => (
             <div
               key={index}
-              className="p-6 sm:p-7 md:p-8 rounded-3xl bg-slate-900/45 border border-slate-700/60 backdrop-blur-md shadow-lg transform hover:-translate-y-2 hover:scale-[1.02] transition-all duration-300 ease-out group"
+              className="p-4 sm:p-7 md:p-8 rounded-2xl sm:rounded-3xl bg-slate-900/45 border border-slate-700/60 backdrop-blur-md shadow-lg transform hover:-translate-y-2 hover:scale-[1.02] transition-all duration-300 ease-out group"
             >
-              <div className="w-14 h-14 rounded-xl flex items-center justify-center mb-6 bg-slate-800/70 group-hover:bg-cyan-500/20 text-white text-2xl transition-colors duration-300">
+              <div className="w-10 h-10 sm:w-14 sm:h-14 rounded-xl flex items-center justify-center mb-3 sm:mb-6 bg-slate-800/70 group-hover:bg-cyan-500/20 text-white text-lg sm:text-2xl transition-colors duration-300">
                 {service.icon}
               </div>
-              <h3 className="text-xl font-semibold text-white mb-3 group-hover:text-cyan-400 transition-colors duration-300">
+              <h3 className="text-sm sm:text-xl font-semibold text-white mb-2 sm:mb-3 group-hover:text-cyan-400 transition-colors duration-300">
                 {service.title}
               </h3>
-              <p className="text-gray-200/80 text-sm leading-relaxed">{service.desc}</p>
+              <p className="hidden sm:block text-gray-200/80 text-xs sm:text-sm leading-relaxed">{service.desc}</p>
             </div>
           ))}
         </div>
 
         {/* SECTION 3: CAPABILITIES (Header + Grid + Button) (mb-32) */}
-        <div className="mb-32">
-          <div className="text-center mb-12 sm:mb-14 md:mb-16 scroll-anim">
+        <div className="mb-12 sm:mb-20 md:mb-32">
+          <div className="text-center mb-8 sm:mb-12 md:mb-16 scroll-anim">
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-3 sm:mb-4">
               Integrated Mobile Capabilities
             </h2>
@@ -249,23 +249,23 @@ const AppDevelopment = () => {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-7 md:gap-8 mb-8 sm:mb-10 md:mb-12">
+          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-7 md:gap-8 mb-6 sm:mb-8 md:mb-12">
             {capabilities.map((cap, index) => (
               <div
                 key={index}
-                className="p-6 sm:p-7 md:p-8 rounded-3xl bg-slate-900/45 border border-slate-700/50 backdrop-blur-md shadow-md transition-colors duration-500 scroll-anim group hover:border-cyan-500/30 hover:bg-slate-900/55"
+                className="p-4 sm:p-7 md:p-8 rounded-2xl sm:rounded-3xl bg-slate-900/45 border border-slate-700/50 backdrop-blur-md shadow-md transition-colors duration-500 scroll-anim group hover:border-cyan-500/30 hover:bg-slate-900/55"
               >
                 <div
-                  className={`mb-6 w-14 h-14 rounded-full flex items-center justify-center border border-slate-700/50 transition-all duration-500 ${cap.bgColor} ${cap.borderColor} text-white text-2xl group-hover:bg-cyan-500/20 group-hover:border-cyan-400`}
+                  className={`mb-3 sm:mb-6 w-10 h-10 sm:w-14 sm:h-14 rounded-full flex items-center justify-center border border-slate-700/50 transition-all duration-500 ${cap.bgColor} ${cap.borderColor} text-white text-lg sm:text-2xl group-hover:bg-cyan-500/20 group-hover:border-cyan-400`}
                 >
                   {cap.icon}
                 </div>
 
-                <h3 className="text-white font-semibold text-lg mb-3 group-hover:text-cyan-400 transition-colors duration-500">
+                <h3 className="text-white font-semibold text-sm sm:text-lg mb-2 sm:mb-3 group-hover:text-cyan-400 transition-colors duration-500">
                   {cap.title}
                 </h3>
 
-                <p className="text-gray-200/80 text-sm leading-relaxed">{cap.desc}</p>
+                <p className="hidden sm:block text-gray-200/80 text-xs sm:text-sm leading-relaxed">{cap.desc}</p>
               </div>
             ))}
           </div>
@@ -280,19 +280,19 @@ const AppDevelopment = () => {
         </div>
 
         {/* SECTION 4: PARTNER CALLOUT (mb-32) */}
-        <div className="p-6 sm:p-8 md:p-12 lg:p-16 rounded-[2.5rem] bg-slate-900/45 border border-slate-800/70 backdrop-blur-md flex flex-col md:flex-row items-center justify-between gap-8 sm:gap-10 md:gap-12 mb-20 sm:mb-24 md:mb-32 scroll-anim shadow-lg hover:border-cyan-500/25 transition-colors">
+        <div className="p-5 sm:p-8 md:p-12 lg:p-16 rounded-2xl sm:rounded-[2.5rem] bg-slate-900/45 border border-slate-800/70 backdrop-blur-md flex flex-col md:flex-row items-center justify-between gap-6 sm:gap-10 md:gap-12 mb-12 sm:mb-20 md:mb-32 scroll-anim shadow-lg hover:border-cyan-500/25 transition-colors">
           <div className="max-w-xl text-left">
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4 sm:mb-5 md:mb-6 leading-snug">
+            <h2 className="text-xl sm:text-3xl md:text-4xl font-bold text-white mb-3 sm:mb-5 md:mb-6 leading-snug">
               Partner for Flawless Delivery
             </h2>
-            <p className="text-gray-200/80 text-base md:text-lg leading-relaxed">
+            <p className="text-gray-200/80 text-sm sm:text-base md:text-lg leading-relaxed">
               We handle the entire development lifecycle—from initial concept and strategic planning
               to final App Store acceptance and post-launch optimization.
             </p>
           </div>
 
           <Link href="/contact">
-            <button className="group inline-flex items-center gap-2 px-6 sm:px-7 md:px-8 py-3 sm:py-3.5 md:py-4 text-sm sm:text-base rounded-full bg-linear-to-r from-blue-500 to-cyan-400 text-black font-bold transition-all hover:scale-105 hover:shadow-[0_0_40px_rgba(59,130,246,0.45)] whitespace-nowrap">
+            <button className="group inline-flex items-center gap-2 px-5 sm:px-7 md:px-8 py-2.5 sm:py-3.5 md:py-4 text-xs sm:text-base rounded-full bg-linear-to-r from-blue-500 to-cyan-400 text-black font-bold transition-all hover:scale-105 hover:shadow-[0_0_40px_rgba(59,130,246,0.45)] whitespace-nowrap">
               Schedule a Consultation{" "}
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </button>
@@ -301,30 +301,30 @@ const AppDevelopment = () => {
 
         {/* SECTION 5: PILLARS */}
         <div className="scroll-anim">
-          <div className="text-center mb-12 sm:mb-14 md:mb-16">
+          <div className="text-center mb-8 sm:mb-12 md:mb-16">
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white tracking-tight">
               The Core Pillars of Our Delivery
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-7 md:gap-8">
+          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-7 md:gap-8">
             {pillars.map((pillar, index) => (
               <div
                 key={index}
-                className="p-6 sm:p-7 md:p-8 rounded-3xl bg-slate-900/35 border border-slate-800/60 text-left space-y-4 sm:space-y-5 scroll-anim transition-all duration-500 ease-out transform hover:-translate-y-1 hover:bg-slate-900/50 hover:border-cyan-500/40 group"
+                className="p-4 sm:p-7 md:p-8 rounded-2xl sm:rounded-3xl bg-slate-900/35 border border-slate-800/60 text-left space-y-3 sm:space-y-5 scroll-anim transition-all duration-500 ease-out transform hover:-translate-y-1 hover:bg-slate-900/50 hover:border-cyan-500/40 group"
               >
-                <div className="flex items-center space-x-4">
-                  <div className="p-3 bg-slate-800/60 rounded-2xl transition-colors duration-500 group-hover:bg-cyan-500/20">
+                <div className="flex items-center space-x-2 sm:space-x-4">
+                  <div className="p-2 sm:p-3 bg-slate-800/60 rounded-xl sm:rounded-2xl transition-colors duration-500 group-hover:bg-cyan-500/20">
                     {pillar.icon}
                   </div>
-                  <h3 className="text-lg font-bold text-white tracking-tight transition-colors duration-500 group-hover:text-cyan-400">
+                  <h3 className="text-sm sm:text-lg font-bold text-white tracking-tight transition-colors duration-500 group-hover:text-cyan-400">
                     {pillar.title}
                   </h3>
                 </div>
 
-                <div className="space-y-2">
-                  <h4 className="text-cyan-400 text-md font-bold">{pillar.subTitle}</h4>
-                  <p className="text-gray-200/75 text-sm leading-relaxed transition-colors duration-500 group-hover:text-gray-100/90">
+                <div className="space-y-1 sm:space-y-2">
+                  <h4 className="hidden sm:block text-cyan-400 text-xs sm:text-md font-bold">{pillar.subTitle}</h4>
+                  <p className="hidden sm:block text-gray-200/75 text-xs sm:text-sm leading-relaxed transition-colors duration-500 group-hover:text-gray-100/90">
                     {pillar.desc}
                   </p>
                 </div>

@@ -122,7 +122,7 @@ const HomecardSection = () => {
   ];
 
   return (
-    <section className="relative py-20 bg-linear-to-br from-slate-950 via-slate-900 to-slate-950 overflow-hidden">
+    <section className="relative py-12 sm:py-16 md:py-20 bg-linear-to-br from-slate-950 via-slate-900 to-slate-950 overflow-hidden">
       {/* glow bg */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-20 left-10 w-72 h-72 bg-purple-500/10 blur-3xl rounded-full animate-pulse" />
@@ -166,7 +166,7 @@ const HomecardSection = () => {
                 style={{ transitionDelay: `${index * 120}ms` }}
               >
                 <div
-                  className={`relative h-full rounded-2xl border border-white/10 bg-white/5 backdrop-blur-xl p-8 transition-all duration-500 hover:shadow-2xl ${
+                  className={`relative h-full rounded-2xl border border-white/10 bg-white/5 backdrop-blur-xl p-4 sm:p-6 md:p-8 transition-all duration-500 hover:shadow-2xl ${
                     active ? "scale-[1.05]" : ""
                   }`}
                 >
@@ -179,24 +179,24 @@ const HomecardSection = () => {
 
                   {/* icon */}
                   <div
-                    className={`${service.iconBg} w-16 h-16 rounded-xl flex items-center justify-center mb-6 relative z-10`}
+                    className={`${service.iconBg} w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 rounded-xl flex items-center justify-center mb-4 sm:mb-5 md:mb-6 relative z-10`}
                   >
                     <Icon
-                      className={`w-8 h-8 text-white transition-transform duration-500 ${
+                      className={`w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 text-white transition-transform duration-500 ${
                         active ? "scale-110 rotate-6" : ""
                       }`}
                     />
                   </div>
 
-                  <h3 className="text-2xl font-bold text-white mb-4 relative z-10">
+                  <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-white mb-3 sm:mb-3.5 md:mb-4 relative z-10">
                     {service.title}
                   </h3>
 
-                  <ul className="space-y-3 relative z-10">
+                  <ul className="space-y-2 sm:space-y-2.5 md:space-y-3 relative z-10">
                     {service.features.map((f, i) => (
                       <li
                         key={i}
-                        className={`text-sm text-slate-300 transition-all duration-300 ${
+                        className={`text-xs sm:text-sm text-slate-300 transition-all duration-300 ${
                           active ? "translate-x-1 text-white" : ""
                         }`}
                       >
@@ -205,9 +205,9 @@ const HomecardSection = () => {
                     ))}
                   </ul>
 
-                  <Link 
+                  <Link
                     href={service.link}
-                    className={`relative z-20 mt-8 w-full py-3 rounded-xl font-semibold bg-linear-to-r ${service.gradient} text-white transition-all duration-300 hover:shadow-lg hover:scale-[1.02] flex items-center justify-center ${
+                    className={`relative z-20 mt-6 sm:mt-7 md:mt-8 w-full py-2.5 sm:py-3 rounded-xl text-sm sm:text-base font-semibold bg-linear-to-r ${service.gradient} text-white transition-all duration-300 hover:shadow-lg hover:scale-[1.02] flex items-center justify-center ${
                       active ? "opacity-100" : "opacity-0"
                     }`}
                   >
@@ -221,7 +221,7 @@ const HomecardSection = () => {
         {/* ================= CTA ================= */}
 <div className="text-center mt-20">
   <Link href="/pricing">
-  
+
   </Link>
 </div>
 

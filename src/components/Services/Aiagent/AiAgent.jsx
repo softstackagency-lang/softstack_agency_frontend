@@ -48,7 +48,7 @@ const AiAgent = () => {
       title: "Support & Maintenance Bots",
       desc: "Automated monitoring, maintenance handling, and smart ticket triaging systems.",
     },
-  
+
   ];
 
   const pillars = [
@@ -80,10 +80,10 @@ const AiAgent = () => {
         <div className="absolute top-20 left-10 w-72 h-72 bg-cyan-500/40 rounded-full blur-3xl animate-float-slow"></div>
         <div className="absolute bottom-20 right-10 w-96 h-96 bg-blue-500/35 rounded-full blur-3xl animate-float-slower"></div>
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-purple-500/30 rounded-full blur-3xl animate-float-reverse"></div>
-        
+
         {/* Grid Pattern */}
         <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
-        
+
         {/* Floating Elements */}
         {particles.map((particle, i) => (
           <div
@@ -104,7 +104,7 @@ const AiAgent = () => {
     {/* Text Content */}
     <div className="md:w-1/2">
       <motion.h1
-        className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-5 md:mb-6"
+        className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-5 md:mb-6 mt-8 sm:mt-0"
         initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
@@ -119,7 +119,7 @@ const AiAgent = () => {
         We build intelligent automation agents combining Zapier-like workflows with advanced LLM orchestration.
       </p>
 
-     <div className="text-gray-400 grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+     <div className="text-gray-400 hidden sm:grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
   {[
     "No-Code & Low-Code Workflows",
     "Custom LLM Agents",
@@ -172,42 +172,44 @@ const AiAgent = () => {
       </section>
 
       {/* ================= CTA (NOW BEFORE PILLARS) ================= */}
-      <section className="relative py-20 text-center bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 z-10">
-        <h2 className="text-4xl font-bold mb-4">
+      <section className="relative py-10 sm:py-16 md:py-20 text-center bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 z-10 px-4 sm:px-6">
+        <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 sm:mb-4">
           Partner for Intelligent Automation
         </h2>
-        <p className="text-gray-300 max-w-2xl mx-auto mb-8">
+        <p className="text-sm sm:text-base text-gray-300 max-w-2xl mx-auto mb-6 sm:mb-8 px-4">
           Automate repetitive work and let your team focus on high-impact strategy.
         </p>
 
         <Link href="/contact" className="inline-block relative z-20">
-          <button className="group inline-flex items-center gap-2 rounded-full bg-linear-to-r from-blue-500 to-cyan-400 px-8 py-4 text-sm font-semibold text-black transition-all hover:scale-105 hover:shadow-[0_0_40px_rgba(59,130,246,0.45)]">
+          <button className="group inline-flex items-center gap-2 rounded-full bg-linear-to-r from-blue-500 to-cyan-400 px-6 sm:px-8 py-3 sm:py-4 text-xs sm:text-sm font-semibold text-black transition-all hover:scale-105 hover:shadow-[0_0_40px_rgba(59,130,246,0.45)]">
             Schedule a Call <FaArrowRight />
           </button>
         </Link>
       </section>
 
       {/* ================= PILLARS ================= */}
-      <section className="max-w-7xl mx-auto px-6 py-16">
-        <h2 className="text-4xl font-bold text-center mb-12">
+      <section className="max-w-7xl mx-auto px-6 py-8 sm:py-12 md:py-16">
+        <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-center mb-8 sm:mb-10 md:mb-12">
           Pillars of Excellence
         </h2>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 md:gap-8 text-center">
           {pillars.map((p, i) => (
             <motion.div
               key={i}
-              className="bg-gray-800 p-6 rounded-xl"
+              className="bg-gray-800 p-4 sm:p-5 md:p-6 rounded-lg sm:rounded-xl"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.2 }}
             >
-              {p.icon}
-              <h3 className="text-xl font-semibold text-blue-400 mb-2">
+              <div className="text-2xl sm:text-3xl md:text-4xl text-blue-400 mb-3 sm:mb-4 mx-auto w-fit">
+                {p.icon}
+              </div>
+              <h3 className="text-base sm:text-lg md:text-xl font-semibold text-blue-400 mb-2">
                 {p.title}
               </h3>
-              <p className="text-gray-300 text-sm">{p.desc}</p>
+              <p className="text-gray-300 text-xs sm:text-sm">{p.desc}</p>
             </motion.div>
           ))}
         </div>

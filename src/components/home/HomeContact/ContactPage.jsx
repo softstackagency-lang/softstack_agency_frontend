@@ -29,11 +29,11 @@ export default function ContactPage() {
     e.preventDefault();
     setIsSubmitting(true);
     setError("");
-    
+
     try {
       await contactApi.submitContact(formData);
       setIsSuccess(true);
-      
+
       // Reset form after 3 seconds
       setTimeout(() => {
         setFormData({ name: "", email: "", phone: "", subject: "", message: "" });
@@ -100,7 +100,7 @@ export default function ContactPage() {
             maskImage: "radial-gradient(circle at center, black 40%, transparent 100%)",
           }}
         />
-        
+
         {/* Gradient Orbs */}
         <div className="absolute top-20 left-1/4 w-96 h-96 bg-blue-500/40 rounded-full blur-[120px] animate-float-slow" />
         <div className="absolute bottom-20 right-1/4 w-96 h-96 bg-cyan-400/40 rounded-full blur-[120px] animate-float-slower delay-700" />
@@ -108,9 +108,9 @@ export default function ContactPage() {
       </div>
 
       {/* ================= CONTENT ================= */}
-      <div className="relative z-10 px-4 sm:px-6 md:px-8 py-12 sm:py-16 md:py-20 lg:py-28">
+      <div className="relative z-10 px-4 sm:px-6 md:px-8 pt-24 sm:pt-16 md:py-20 lg:py-28 pb-12 sm:pb-16">
         <div className="max-w-7xl mx-auto">
-          
+
           {/* Header Section */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -135,7 +135,7 @@ export default function ContactPage() {
 
           {/* Main Grid */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-10 md:gap-12 mb-12 sm:mb-16 md:mb-20">
-            
+
             {/* LEFT: Contact Form */}
             <motion.div
               initial={{ opacity: 0, x: -20 }}
@@ -144,18 +144,18 @@ export default function ContactPage() {
             >
               <form
                 onSubmit={handleSubmit}
-                className="relative bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl p-6 sm:p-8 md:p-10 shadow-2xl"
+                className="relative bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl sm:rounded-3xl p-4 sm:p-8 md:p-10 shadow-2xl"
               >
                 {/* Success Message Overlay */}
                 {isSuccess && (
                   <motion.div
                     initial={{ opacity: 0, scale: 0.9 }}
                     animate={{ opacity: 1, scale: 1 }}
-                    className="absolute inset-0 bg-green-500/90 backdrop-blur-xl rounded-3xl flex flex-col items-center justify-center z-20"
+                    className="absolute inset-0 bg-green-500/90 backdrop-blur-xl rounded-2xl sm:rounded-3xl flex flex-col items-center justify-center z-20"
                   >
-                    <CheckCircle2 size={64} className="text-white mb-4 animate-bounce" />
-                    <h3 className="text-2xl font-bold text-white mb-2">Message Sent!</h3>
-                    <p className="text-white/90">Well get back to you soon.</p>
+                    <CheckCircle2 size={48} className="sm:w-16 sm:h-16 text-white mb-3 sm:mb-4 animate-bounce" />
+                    <h3 className="text-xl sm:text-2xl font-bold text-white mb-2">Message Sent!</h3>
+                    <p className="text-sm sm:text-base text-white/90">Well get back to you soon.</p>
                   </motion.div>
                 )}
 
@@ -164,56 +164,56 @@ export default function ContactPage() {
                   <motion.div
                     initial={{ opacity: 0, y: -10 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className="mb-6 p-4 bg-red-500/10 border border-red-500/30 rounded-xl flex items-center gap-3"
+                    className="mb-4 sm:mb-6 p-3 sm:p-4 bg-red-500/10 border border-red-500/30 rounded-lg sm:rounded-xl flex items-center gap-2 sm:gap-3"
                   >
-                    <AlertCircle size={20} className="text-red-400 shrink-0" />
-                    <p className="text-red-400 text-sm">{error}</p>
+                    <AlertCircle size={16} className="sm:w-5 sm:h-5 text-red-400 shrink-0" />
+                    <p className="text-red-400 text-xs sm:text-sm">{error}</p>
                   </motion.div>
                 )}
 
-                <h2 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6 flex items-center gap-2">
-                  <Send className="text-blue-400" size={20} />
+                <h2 className="text-lg sm:text-2xl font-bold mb-3 sm:mb-6 flex items-center gap-2">
+                  <Send className="text-blue-400" size={16} />
                   Send us a Message
                 </h2>
 
-                <div className="space-y-4 sm:space-y-5">
+                <div className="space-y-3 sm:space-y-5">
                   {/* Name Input */}
                   <div className="relative">
-                    <User className="absolute left-3 sm:left-4 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
+                    <User className="absolute left-3 sm:left-4 top-1/2 -translate-y-1/2 text-gray-400" size={16} />
                     <input
                       type="text"
                       name="name"
                       placeholder="Your Name"
                       value={formData.name}
                       onChange={handleChange}
-                      className="w-full pl-10 sm:pl-12 pr-3 sm:pr-4 py-3 sm:py-4 text-sm sm:text-base bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:border-blue-400/50 focus:bg-white/10 transition"
+                      className="w-full pl-9 sm:pl-12 pr-3 sm:pr-4 py-2.5 sm:py-4 text-sm sm:text-base bg-white/5 border border-white/10 rounded-lg sm:rounded-xl text-white placeholder-gray-400 focus:outline-none focus:border-blue-400/50 focus:bg-white/10 transition"
                       required
                     />
                   </div>
 
                   {/* Email & Phone */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                     <div className="relative">
-                      <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" size={20} />
+                      <Mail className="absolute left-3 sm:left-4 top-1/2 -translate-y-1/2 text-gray-400" size={16} />
                       <input
                         type="email"
                         name="email"
                         placeholder="Your Email"
                         value={formData.email}
                         onChange={handleChange}
-                        className="w-full pl-12 pr-4 py-4 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:border-blue-400/50 focus:bg-white/10 transition"
+                        className="w-full pl-9 sm:pl-12 pr-3 sm:pr-4 py-2.5 sm:py-4 text-sm sm:text-base bg-white/5 border border-white/10 rounded-lg sm:rounded-xl text-white placeholder-gray-400 focus:outline-none focus:border-blue-400/50 focus:bg-white/10 transition"
                         required
                       />
                     </div>
                     <div className="relative">
-                      <Phone className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" size={20} />
+                      <Phone className="absolute left-3 sm:left-4 top-1/2 -translate-y-1/2 text-gray-400" size={16} />
                       <input
                         type="tel"
                         name="phone"
                         placeholder="Phone Number"
                         value={formData.phone}
                         onChange={handleChange}
-                        className="w-full pl-12 pr-4 py-4 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:border-blue-400/50 focus:bg-white/10 transition"
+                        className="w-full pl-9 sm:pl-12 pr-3 sm:pr-4 py-2.5 sm:py-4 text-sm sm:text-base bg-white/5 border border-white/10 rounded-lg sm:rounded-xl text-white placeholder-gray-400 focus:outline-none focus:border-blue-400/50 focus:bg-white/10 transition"
                       />
                     </div>
                   </div>
@@ -226,21 +226,21 @@ export default function ContactPage() {
                       placeholder="Subject"
                       value={formData.subject}
                       onChange={handleChange}
-                      className="w-full px-4 py-4 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:border-blue-400/50 focus:bg-white/10 transition"
+                      className="w-full px-3 sm:px-4 py-2.5 sm:py-4 text-sm sm:text-base bg-white/5 border border-white/10 rounded-lg sm:rounded-xl text-white placeholder-gray-400 focus:outline-none focus:border-blue-400/50 focus:bg-white/10 transition"
                       required
                     />
                   </div>
 
                   {/* Message */}
                   <div className="relative">
-                    <MessageSquare className="absolute left-4 top-4 text-gray-400" size={20} />
+                    <MessageSquare className="absolute left-3 sm:left-4 top-3 sm:top-4 text-gray-400" size={16} />
                     <textarea
                       name="message"
                       placeholder="Your Message"
                       value={formData.message}
                       onChange={handleChange}
-                      rows={5}
-                      className="w-full pl-12 pr-4 py-4 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:border-blue-400/50 focus:bg-white/10 transition resize-none"
+                      rows={4}
+                      className="w-full pl-9 sm:pl-12 pr-3 sm:pr-4 py-2.5 sm:py-4 text-sm sm:text-base bg-white/5 border border-white/10 rounded-lg sm:rounded-xl text-white placeholder-gray-400 focus:outline-none focus:border-blue-400/50 focus:bg-white/10 transition resize-none"
                       required
                     />
                   </div>
@@ -249,7 +249,7 @@ export default function ContactPage() {
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="group w-full py-3 sm:py-4 text-sm sm:text-base rounded-xl bg-linear-to-r from-blue-500 to-cyan-400 text-black font-semibold transition-all hover:scale-105 hover:shadow-[0_0_40px_rgba(59,130,246,0.45)] disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                    className="group w-full py-2.5 sm:py-4 text-sm sm:text-base rounded-lg sm:rounded-xl bg-linear-to-r from-blue-500 to-cyan-400 text-black font-semibold transition-all hover:scale-105 hover:shadow-[0_0_40px_rgba(59,130,246,0.45)] disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                   >
                     {isSubmitting ? (
                       <>
@@ -275,7 +275,7 @@ export default function ContactPage() {
               className="space-y-8"
             >
               {/* Lottie Animation */}
-              <div className="relative">
+              <div className="relative hidden sm:block">
                 <div className="absolute inset-0 bg-blue-500/10 blur-3xl rounded-full" />
                 <div className="relative">
                   <Lottie animationData={contactAnimation} loop className="w-full max-w-md mx-auto" />
@@ -283,22 +283,22 @@ export default function ContactPage() {
               </div>
 
               {/* Quick WhatsApp Button */}
-              <div className="bg-gradient-to-r from-green-500 to-emerald-400 rounded-2xl p-6 shadow-lg">
-                <div className="flex items-center justify-between">
+              <div className="bg-gradient-to-r from-green-500 to-emerald-400 rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-lg">
+                <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-0">
                   <div>
-                    <h3 className="text-xl font-bold text-white mb-2 flex items-center gap-2">
-                      <MessageCircle size={24} />
+                    <h3 className="text-base sm:text-xl font-bold text-white mb-1 sm:mb-2 flex items-center gap-2">
+                      <MessageCircle size={18} className="sm:w-6 sm:h-6" />
                       Quick Response via WhatsApp
                     </h3>
-                    <p className="text-white/90 text-sm">Get instant replies to your queries</p>
+                    <p className="text-white/90 text-xs sm:text-sm">Get instant replies to your queries</p>
                   </div>
                   <a
                     href="https://wa.me/8801768820891"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="bg-white text-green-600 px-6 py-3 rounded-xl font-semibold hover:bg-gray-100 transition-all hover:scale-105 flex items-center gap-2 whitespace-nowrap"
+                    className="bg-white text-green-600 px-4 sm:px-6 py-2 sm:py-3 text-sm sm:text-base rounded-lg sm:rounded-xl font-semibold hover:bg-gray-100 transition-all hover:scale-105 flex items-center gap-2 whitespace-nowrap"
                   >
-                    <MessageCircle size={20} />
+                    <MessageCircle size={16} className="sm:w-5 sm:h-5" />
                     Chat Now
                   </a>
                 </div>
@@ -327,7 +327,7 @@ export default function ContactPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.5 }}
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 md:gap-6"
+            className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-5 md:gap-6"
           >
             {contactInfo.map((info, index) => (
               <a
@@ -335,18 +335,18 @@ export default function ContactPage() {
                 href={info.link}
                 target={info.link.startsWith('http') ? '_blank' : undefined}
                 rel={info.link.startsWith('http') ? 'noopener noreferrer' : undefined}
-                className="group relative bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition-all hover:scale-105"
+                className="group relative bg-white/5 backdrop-blur-xl border border-white/10 rounded-xl sm:rounded-2xl p-4 sm:p-6 hover:bg-white/10 transition-all hover:scale-105"
               >
                 {info.recommended && (
-                  <span className="absolute -top-2 -right-2 bg-gradient-to-r from-green-500 to-emerald-400 text-white text-xs font-bold px-3 py-1 rounded-full shadow-lg">
+                  <span className="absolute -top-2 -right-2 bg-gradient-to-r from-green-500 to-emerald-400 text-white text-[10px] sm:text-xs font-bold px-2 sm:px-3 py-0.5 sm:py-1 rounded-full shadow-lg">
                     Recommended
                   </span>
                 )}
-                <div className={`w-12 h-12 rounded-xl bg-linear-to-r ${info.color} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}>
-                  <info.icon className="text-white" size={24} />
+                <div className={`w-10 h-10 sm:w-12 sm:h-12 rounded-lg sm:rounded-xl bg-linear-to-r ${info.color} flex items-center justify-center mb-3 sm:mb-4 group-hover:scale-110 transition-transform`}>
+                  <info.icon className="text-white" size={20} />
                 </div>
-                <h3 className="text-lg font-semibold mb-2">{info.title}</h3>
-                <p className="text-gray-400 group-hover:text-gray-300 transition">{info.value}</p>
+                <h3 className="text-sm sm:text-lg font-semibold mb-1 sm:mb-2">{info.title}</h3>
+                <p className="text-gray-400 group-hover:text-gray-300 transition text-xs sm:text-base break-words">{info.value}</p>
               </a>
             ))}
           </motion.div>
