@@ -151,7 +151,7 @@ export default function PricingCategoryComponent() {
   const handleDelete = async (id) => {
     setLoading(true);
     setDeleteModal({ show: false, categoryId: null, categoryName: "" });
-    
+
     try {
       const user = auth.currentUser;
       if (!user) {
@@ -250,7 +250,7 @@ export default function PricingCategoryComponent() {
                   disabled={loading}
                 />
               </div>
-              
+
               <div>
                 <label className="flex items-center gap-2 cursor-pointer">
                   <input
@@ -316,18 +316,17 @@ export default function PricingCategoryComponent() {
                     <div className="flex items-center gap-2 text-sm">
                       <span className="text-gray-400">Status:</span>
                       <span
-                        className={`px-2 py-1 rounded text-xs font-semibold ${
-                          category.isActive
+                        className={`px-2 py-1 rounded text-xs font-semibold ${category.isActive
                             ? "bg-green-500/20 text-green-400"
                             : "bg-red-500/20 text-red-400"
-                        }`}
+                          }`}
                       >
                         {category.isActive ? "Active" : "Inactive"}
                       </span>
                     </div>
                   </div>
                 </div>
-                
+
                 <div className="space-y-2 mb-4">
                   <div className="flex items-center gap-2 text-xs text-gray-500">
                     <span>ID: {category._id}</span>
@@ -367,13 +366,12 @@ export default function PricingCategoryComponent() {
       {toast.show && (
         <div className="fixed top-4 right-4 z-50 animate-slide-in-right">
           <div
-            className={`flex items-center gap-3 px-6 py-4 rounded-lg shadow-2xl border backdrop-blur-xl ${
-              toast.type === "success"
+            className={`flex items-center gap-3 px-6 py-4 rounded-lg shadow-2xl border backdrop-blur-xl ${toast.type === "success"
                 ? "bg-green-500/20 border-green-500/50 text-green-300"
                 : toast.type === "error"
-                ? "bg-red-500/20 border-red-500/50 text-red-300"
-                : "bg-blue-500/20 border-blue-500/50 text-blue-300"
-            }`}
+                  ? "bg-red-500/20 border-red-500/50 text-red-300"
+                  : "bg-blue-500/20 border-blue-500/50 text-blue-300"
+              }`}
           >
             {toast.type === "success" && <CheckCircle size={24} className="flex-shrink-0" />}
             {toast.type === "error" && <XCircle size={24} className="flex-shrink-0" />}
@@ -399,7 +397,7 @@ export default function PricingCategoryComponent() {
               </div>
               <h3 className="text-2xl font-bold text-white">Delete Category</h3>
             </div>
-            
+
             <p className="text-gray-300 mb-6">
               Are you sure you want to delete the category{" "}
               <span className="font-semibold text-white">{deleteModal.categoryName}</span>?

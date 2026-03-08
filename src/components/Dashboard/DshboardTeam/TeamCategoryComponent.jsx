@@ -59,7 +59,7 @@ export default function TeamCategoryComponent() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     try {
       if (isEditing) {
         // Update existing department
@@ -226,88 +226,88 @@ export default function TeamCategoryComponent() {
         <>
           {/* Add/Edit Category Form */}
           <div className="bg-gradient-to-br from-blue-900/20 to-purple-900/20 backdrop-blur-sm border border-blue-500/20 rounded-xl p-6 mb-6">
-        <h2 className="text-xl font-semibold text-white mb-4">
-          {isEditing ? "Edit Category" : "Add New Category"}
-        </h2>
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div>
-            <label className="block text-gray-300 mb-2">Category Name</label>
-            <input
-              type="text"
-              name="name"
-              value={formData.name}
-              onChange={handleInputChange}
-              required
-              className="w-full px-4 py-2 bg-slate-900/50 border border-blue-500/30 rounded-lg text-white focus:outline-none focus:border-blue-500"
-              placeholder="Enter category name"
-            />
+            <h2 className="text-xl font-semibold text-white mb-4">
+              {isEditing ? "Edit Category" : "Add New Category"}
+            </h2>
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <div>
+                <label className="block text-gray-300 mb-2">Category Name</label>
+                <input
+                  type="text"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleInputChange}
+                  required
+                  className="w-full px-4 py-2 bg-slate-900/50 border border-blue-500/30 rounded-lg text-white focus:outline-none focus:border-blue-500"
+                  placeholder="Enter category name"
+                />
+              </div>
+              <div>
+                <label className="block text-gray-300 mb-2">Description</label>
+                <textarea
+                  name="description"
+                  value={formData.description}
+                  onChange={handleInputChange}
+                  required
+                  rows="3"
+                  className="w-full px-4 py-2 bg-slate-900/50 border border-blue-500/30 rounded-lg text-white focus:outline-none focus:border-blue-500"
+                  placeholder="Enter category description"
+                />
+              </div>
+              <div className="flex gap-3">
+                <button
+                  type="submit"
+                  className="px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors"
+                >
+                  {isEditing ? "Update Category" : "Add Category"}
+                </button>
+                {isEditing && (
+                  <button
+                    type="button"
+                    onClick={handleCancel}
+                    className="px-6 py-2 bg-gray-600 hover:bg-gray-700 text-white rounded-lg transition-colors"
+                  >
+                    Cancel
+                  </button>
+                )}
+              </div>
+            </form>
           </div>
-          <div>
-            <label className="block text-gray-300 mb-2">Description</label>
-            <textarea
-              name="description"
-              value={formData.description}
-              onChange={handleInputChange}
-              required
-              rows="3"
-              className="w-full px-4 py-2 bg-slate-900/50 border border-blue-500/30 rounded-lg text-white focus:outline-none focus:border-blue-500"
-              placeholder="Enter category description"
-            />
-          </div>
-          <div className="flex gap-3">
-            <button
-              type="submit"
-              className="px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors"
-            >
-              {isEditing ? "Update Category" : "Add Category"}
-            </button>
-            {isEditing && (
-              <button
-                type="button"
-                onClick={handleCancel}
-                className="px-6 py-2 bg-gray-600 hover:bg-gray-700 text-white rounded-lg transition-colors"
-              >
-                Cancel
-              </button>
+
+          {/* Categories List */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {categories.length === 0 ? (
+              <div className="col-span-full text-center text-gray-400 py-8">
+                No departments found. Add your first department above.
+              </div>
+            ) : (
+              categories.map((category) => (
+                <div
+                  key={category._id || category.name}
+                  className="bg-gradient-to-br from-blue-900/20 to-purple-900/20 backdrop-blur-sm border border-blue-500/20 rounded-xl p-5 hover:border-blue-500/40 transition-all"
+                >
+                  <h3 className="text-xl font-semibold text-white mb-2">
+                    {category.name}
+                  </h3>
+                  <p className="text-gray-400 mb-4 text-sm">{category.description}</p>
+                  <div className="flex gap-2">
+                    <button
+                      onClick={() => handleEdit(category)}
+                      className="px-4 py-1.5 bg-blue-600/80 hover:bg-blue-600 text-white rounded-lg text-sm transition-colors"
+                    >
+                      Edit
+                    </button>
+                    <button
+                      onClick={() => openDeleteModal(category.name)}
+                      className="px-4 py-1.5 bg-red-600/80 hover:bg-red-600 text-white rounded-lg text-sm transition-colors"
+                    >
+                      Delete
+                    </button>
+                  </div>
+                </div>
+              ))
             )}
           </div>
-        </form>
-      </div>
-
-      {/* Categories List */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {categories.length === 0 ? (
-          <div className="col-span-full text-center text-gray-400 py-8">
-            No departments found. Add your first department above.
-          </div>
-        ) : (
-          categories.map((category) => (
-            <div
-              key={category._id || category.name}
-              className="bg-gradient-to-br from-blue-900/20 to-purple-900/20 backdrop-blur-sm border border-blue-500/20 rounded-xl p-5 hover:border-blue-500/40 transition-all"
-            >
-              <h3 className="text-xl font-semibold text-white mb-2">
-                {category.name}
-              </h3>
-              <p className="text-gray-400 mb-4 text-sm">{category.description}</p>
-              <div className="flex gap-2">
-                <button
-                  onClick={() => handleEdit(category)}
-                  className="px-4 py-1.5 bg-blue-600/80 hover:bg-blue-600 text-white rounded-lg text-sm transition-colors"
-                >
-                  Edit
-                </button>
-                <button
-                  onClick={() => openDeleteModal(category.name)}
-                  className="px-4 py-1.5 bg-red-600/80 hover:bg-red-600 text-white rounded-lg text-sm transition-colors"
-                >
-                  Delete
-                </button>
-              </div>
-            </div>
-          ))
-        )}
-      </div>
         </>
       )}
     </div>

@@ -222,7 +222,7 @@ export default function PricingPlanComponent() {
   const handleDelete = async (categoryId, planId) => {
     setLoading(true);
     setDeleteModal({ show: false, planId: null, planName: "" });
-    
+
     try {
       const idToken = await getAuthToken();
       if (!idToken) return;
@@ -501,9 +501,8 @@ export default function PricingPlanComponent() {
             {plans.map((plan) => (
               <div
                 key={plan.id}
-                className={`${cardStyle} relative ${
-                  plan.recommended ? "border-2 border-blue-500" : ""
-                }`}
+                className={`${cardStyle} relative ${plan.recommended ? "border-2 border-blue-500" : ""
+                  }`}
               >
                 {plan.recommended && (
                   <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 bg-blue-500 text-white text-xs font-semibold rounded-full">
@@ -580,13 +579,12 @@ export default function PricingPlanComponent() {
       {toast.show && (
         <div className="fixed top-4 right-4 z-50 animate-slide-in-right">
           <div
-            className={`flex items-center gap-3 px-6 py-4 rounded-lg shadow-2xl border backdrop-blur-xl ${
-              toast.type === "success"
+            className={`flex items-center gap-3 px-6 py-4 rounded-lg shadow-2xl border backdrop-blur-xl ${toast.type === "success"
                 ? "bg-green-500/20 border-green-500/50 text-green-300"
                 : toast.type === "error"
-                ? "bg-red-500/20 border-red-500/50 text-red-300"
-                : "bg-blue-500/20 border-blue-500/50 text-blue-300"
-            }`}
+                  ? "bg-red-500/20 border-red-500/50 text-red-300"
+                  : "bg-blue-500/20 border-blue-500/50 text-blue-300"
+              }`}
           >
             {toast.type === "success" && <CheckCircle size={24} className="flex-shrink-0" />}
             {toast.type === "error" && <XCircle size={24} className="flex-shrink-0" />}
@@ -612,7 +610,7 @@ export default function PricingPlanComponent() {
               </div>
               <h3 className="text-2xl font-bold text-white">Delete Plan</h3>
             </div>
-            
+
             <p className="text-gray-300 mb-6">
               Are you sure you want to delete the plan{" "}
               <span className="font-semibold text-white">&quot;{deleteModal.planName}&quot;</span>?

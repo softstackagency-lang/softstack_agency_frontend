@@ -76,7 +76,7 @@ export default function OrdersComponent() {
 
   const filteredOrders = orders.filter(order => {
     const matchesStatus = filterStatus === "all" || order.orderStatus === filterStatus;
-    const matchesSearch = searchTerm === "" || 
+    const matchesSearch = searchTerm === "" ||
       order.orderNumber?.toLowerCase().includes(searchTerm.toLowerCase()) ||
       order.customer?.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
       order.customer?.email?.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -225,17 +225,16 @@ export default function OrdersComponent() {
             className="w-full pl-10 pr-4 py-2 bg-[#0a0f23]/60 border border-blue-500/20 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-cyan-400"
           />
         </div>
-        
+
         <div className="flex gap-2">
           {["all", "pending", "processing", "completed", "cancelled"].map((status) => (
             <button
               key={status}
               onClick={() => setFilterStatus(status)}
-              className={`px-4 py-2 rounded-lg text-sm font-medium transition capitalize ${
-                filterStatus === status
-                  ? "bg-cyan-500 text-white"
-                  : "bg-[#0a0f23]/60 text-gray-400 hover:text-white border border-blue-500/20"
-              }`}
+              className={`px-4 py-2 rounded-lg text-sm font-medium transition capitalize ${filterStatus === status
+                ? "bg-cyan-500 text-white"
+                : "bg-[#0a0f23]/60 text-gray-400 hover:text-white border border-blue-500/20"
+                }`}
             >
               {status}
             </button>
@@ -379,7 +378,7 @@ export default function OrdersComponent() {
             </button>
 
             <h2 className="text-2xl font-bold text-white mb-6">Order Details</h2>
-            
+
             <div className="space-y-6">
               {/* Order Info */}
               <div className="grid grid-cols-2 gap-4 p-4 bg-white/5 rounded-lg">

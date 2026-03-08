@@ -47,21 +47,21 @@ export default function DemoProjectComponent() {
       const response = await fetch(`${API_BASE_URL}`, {
         credentials: 'include',
       });
-      
+
       if (!response.ok) {
         throw new Error('Failed to fetch categories');
       }
-      
+
       const result = await response.json();
-      
+
       if (result.success && result.data && Array.isArray(result.data.categories)) {
         setCategories(result.data.categories);
-        
+
         // Set first category as default if no category is selected
         if (!selectedCategoryId && result.data.categories.length > 0) {
           setSelectedCategoryId(result.data.categories[0].id);
         }
-        
+
         // Load projects for the selected category from the fetched data
         const currentCategory = result.data.categories.find(cat => cat.id === selectedCategoryId);
         if (currentCategory && Array.isArray(currentCategory.projects)) {
@@ -76,18 +76,18 @@ export default function DemoProjectComponent() {
   const fetchProjects = async () => {
     try {
       setLoading(true);
-      
+
       // Fetch all categories with projects
       const response = await fetch(`${API_BASE_URL}`, {
         credentials: 'include',
       });
-      
+
       if (!response.ok) {
         throw new Error('Failed to fetch projects');
       }
-      
+
       const result = await response.json();
-      
+
       if (result.success && result.data && Array.isArray(result.data.categories)) {
         // Find the selected category and get its projects
         const currentCategory = result.data.categories.find(cat => cat.id === selectedCategoryId);
@@ -118,7 +118,7 @@ export default function DemoProjectComponent() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     try {
       // Convert tags array to filtered array
       const tagsArray = formData.tags
@@ -138,7 +138,7 @@ export default function DemoProjectComponent() {
           credentials: 'include',
           body: JSON.stringify(submitData),
         });
-        
+
         if (!response.ok) throw new Error('Failed to update project');
         const result = await response.json();
         await fetchProjects();
@@ -154,7 +154,7 @@ export default function DemoProjectComponent() {
           credentials: 'include',
           body: JSON.stringify(submitData),
         });
-        
+
         if (!response.ok) throw new Error('Failed to create project');
         const result = await response.json();
         await fetchProjects();
@@ -162,11 +162,11 @@ export default function DemoProjectComponent() {
         setTimeout(() => setSuccessMessage(""), 3000);
       }
 
-      setFormData({ 
-        title: "", 
-        description: "", 
-        tags: [""], 
-        thumbnail: "", 
+      setFormData({
+        title: "",
+        description: "",
+        tags: [""],
+        thumbnail: "",
         previewUrl: "",
         isFeatured: false,
         order: 0
@@ -199,7 +199,7 @@ export default function DemoProjectComponent() {
         method: 'DELETE',
         credentials: 'include',
       });
-      
+
       if (!response.ok) throw new Error('Failed to delete project');
       const result = await response.json();
       await fetchProjects();
@@ -220,11 +220,11 @@ export default function DemoProjectComponent() {
   };
 
   const handleCancel = () => {
-    setFormData({ 
-      title: "", 
-      description: "", 
-      tags: [""], 
-      thumbnail: "", 
+    setFormData({
+      title: "",
+      description: "",
+      tags: [""],
+      thumbnail: "",
       previewUrl: "",
       isFeatured: false,
       order: 0
@@ -402,14 +402,14 @@ export default function DemoProjectComponent() {
                 </div>
                 <div>
                   <label className="block text-gray-300 mb-2">Thumbnail</label>
-                  
+
                   {/* Image Preview */}
                   {formData.thumbnail && (
                     <div className="mb-3 relative w-full h-48 rounded-lg overflow-hidden border-2 border-blue-500/30">
-                      <Image 
-                        src={formData.thumbnail} 
-                        alt="Thumbnail preview" 
-                        fill 
+                      <Image
+                        src={formData.thumbnail}
+                        alt="Thumbnail preview"
+                        fill
                         className="object-cover"
                       />
                     </div>
@@ -428,11 +428,10 @@ export default function DemoProjectComponent() {
                   {/* File Upload */}
                   <div className="flex gap-2">
                     <label className="flex-1 cursor-pointer">
-                      <div className={`flex items-center justify-center gap-2 px-4 py-2 rounded-lg border-2 border-dashed transition-colors ${
-                        imageUploading 
-                          ? 'border-blue-500/50 bg-blue-500/10 cursor-not-allowed' 
+                      <div className={`flex items-center justify-center gap-2 px-4 py-2 rounded-lg border-2 border-dashed transition-colors ${imageUploading
+                          ? 'border-blue-500/50 bg-blue-500/10 cursor-not-allowed'
                           : 'border-blue-500/30 bg-blue-500/5 hover:bg-blue-500/10 hover:border-blue-500/50'
-                      }`}>
+                        }`}>
                         {imageUploading ? (
                           <>
                             <Loader2 className="w-4 h-4 animate-spin" />
@@ -457,7 +456,7 @@ export default function DemoProjectComponent() {
                   <p className="text-xs text-gray-500 mt-1">Upload image or paste URL (Max 5MB)</p>
                 </div>
               </div>
-              
+
               <div>
                 <label className="block text-gray-300 mb-2">Description *</label>
                 <textarea
@@ -577,8 +576,8 @@ export default function DemoProjectComponent() {
                     </div>
                   )}
                   {project.thumbnail && (
-                    <img 
-                      src={project.thumbnail} 
+                    <img
+                      src={project.thumbnail}
                       alt={project.title}
                       className="w-full h-40 object-cover rounded-lg mb-3"
                     />
@@ -587,11 +586,11 @@ export default function DemoProjectComponent() {
                     {project.title}
                   </h3>
                   <p className="text-gray-400 mb-3 text-sm line-clamp-3">{project.description}</p>
-                  
+
                   {project.tags && project.tags.length > 0 && (
                     <div className="flex flex-wrap gap-2 mb-3">
                       {project.tags.map((tag, index) => (
-                        <span 
+                        <span
                           key={index}
                           className="px-2 py-1 bg-blue-500/20 text-blue-300 text-xs rounded"
                         >

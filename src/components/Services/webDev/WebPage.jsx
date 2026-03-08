@@ -201,7 +201,7 @@ export default function WebPage() {
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="px-8 py-4 rounded-xl border border-cyan-500/50 text-cyan-400 hover:bg-cyan-500/10"
+                className="w-full sm:w-auto px-8 py-4 rounded-xl border border-cyan-500/50 text-cyan-400 hover:bg-cyan-500/10"
               >
                 Learn More
               </motion.button>

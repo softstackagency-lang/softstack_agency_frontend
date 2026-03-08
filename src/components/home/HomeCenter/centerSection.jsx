@@ -154,7 +154,7 @@ const AboutSection = () => {
               ))}
             </div>
 
-            <div className="flex flex-col gap-4 pt-4 sm:flex-row">
+            <div className="flex flex-row flex-wrap items-center gap-4 pt-4">
               <Link href="/pricing">
                 <button className="group inline-flex items-center gap-2 rounded-full bg-linear-to-r from-blue-500 to-cyan-400 px-8 py-4 font-semibold text-black transition-all hover:scale-105 hover:shadow-[0_0_40px_rgba(59,130,246,0.45)]">
                   Get Started

@@ -479,14 +479,14 @@ export default function TeamMembersComponent() {
               </div>
               <div>
                 <label className="block text-gray-300 mb-2">Profile Image</label>
-                
+
                 {/* Image Preview */}
                 {formData.profileImage && (
                   <div className="mb-3 relative w-32 h-32 rounded-lg overflow-hidden border-2 border-blue-500/30">
-                    <Image 
-                      src={formData.profileImage} 
-                      alt="Profile preview" 
-                      fill 
+                    <Image
+                      src={formData.profileImage}
+                      alt="Profile preview"
+                      fill
                       className="object-cover"
                     />
                   </div>
@@ -505,11 +505,10 @@ export default function TeamMembersComponent() {
                 {/* File Upload */}
                 <div className="flex gap-2">
                   <label className="flex-1 cursor-pointer">
-                    <div className={`flex items-center justify-center gap-2 px-4 py-2 rounded-lg border-2 border-dashed transition-colors ${
-                      imageUploading 
-                        ? 'border-blue-500/50 bg-blue-500/10 cursor-not-allowed' 
-                        : 'border-blue-500/30 bg-blue-500/5 hover:bg-blue-500/10 hover:border-blue-500/50'
-                    }`}>
+                    <div className={`flex items-center justify-center gap-2 px-4 py-2 rounded-lg border-2 border-dashed transition-colors ${imageUploading
+                      ? 'border-blue-500/50 bg-blue-500/10 cursor-not-allowed'
+                      : 'border-blue-500/30 bg-blue-500/5 hover:bg-blue-500/10 hover:border-blue-500/50'
+                      }`}>
                       {imageUploading ? (
                         <>
                           <Loader2 className="w-4 h-4 animate-spin" />
@@ -704,8 +703,8 @@ export default function TeamMembersComponent() {
                   <div className="flex items-start gap-4 mb-4">
                     {member.profileImage ? (
                       <div className="w-16 h-16 rounded-full overflow-hidden relative">
-                        <Image 
-                          src={member.profileImage} 
+                        <Image
+                          src={member.profileImage}
                           alt={member.name}
                           width={64}
                           height={64}

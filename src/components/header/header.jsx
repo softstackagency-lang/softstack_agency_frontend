@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { Menu, X, ChevronDown, ArrowRight, LogOut, User } from "lucide-react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useCustomAuth } from "@/hooks/useCustomAuth";
 import Image from "next/image";
 
@@ -11,6 +12,7 @@ const Header = () => {
   const [activeDropdown, setActiveDropdown] = useState(null);
   const [dropdownTimeout, setDropdownTimeout] = useState(null);
   const { user, loading, signOut: handleSignOut } = useCustomAuth();
+  const pathname = usePathname();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -454,7 +456,10 @@ const Header = () => {
             <Link
               href="/product"
               onClick={() => setIsMobileMenuOpen(false)}
-              className="block px-4 py-3 text-gray-300 hover:text-white hover:bg-slate-800 rounded-lg transition-all duration-300"
+              className={`block px-4 py-3 rounded-lg transition-all duration-300 ${pathname === "/product"
+                ? "text-cyan-400 bg-cyan-500/10 font-medium"
+                : "text-gray-300 hover:text-white hover:bg-slate-800"
+                }`}
             >
               Product
             </Link>
@@ -479,7 +484,10 @@ const Header = () => {
                       key={index}
                       href={service.href || `/${service.name.toLowerCase().replace(/\s+/g, "-")}`}
                       onClick={() => setIsMobileMenuOpen(false)}
-                      className="block px-4 py-2 text-sm text-gray-400 hover:text-cyan-400 hover:bg-slate-800/50 rounded-lg transition-all duration-300"
+                      className={`block px-4 py-2 text-sm rounded-lg transition-all duration-300 ${pathname === (service.href || `/${service.name.toLowerCase().replace(/\s+/g, "-")}`)
+                        ? "text-cyan-400 bg-cyan-500/5 font-medium"
+                        : "text-gray-400 hover:text-cyan-400 hover:bg-slate-800/50"
+                        }`}
                     >
                       {service.name}
                     </Link>
@@ -491,14 +499,20 @@ const Header = () => {
             <Link
               href="/demo"
               onClick={() => setIsMobileMenuOpen(false)}
-              className="block px-4 py-3 text-gray-300 hover:text-white hover:bg-slate-800 rounded-lg transition-all duration-300"
+              className={`block px-4 py-3 rounded-lg transition-all duration-300 ${pathname === "/demo"
+                ? "text-cyan-400 bg-cyan-500/10 font-medium"
+                : "text-gray-300 hover:text-white hover:bg-slate-800"
+                }`}
             >
               Demo
             </Link>
             <Link
               href="/pricing"
               onClick={() => setIsMobileMenuOpen(false)}
-              className="block px-4 py-3 text-gray-300 hover:text-white hover:bg-slate-800 rounded-lg transition-all duration-300"
+              className={`block px-4 py-3 rounded-lg transition-all duration-300 ${pathname === "/pricing"
+                ? "text-cyan-400 bg-cyan-500/10 font-medium"
+                : "text-gray-300 hover:text-white hover:bg-slate-800"
+                }`}
             >
               Pricing
             </Link>
@@ -523,7 +537,10 @@ const Header = () => {
                       key={index}
                       href={item.href}
                       onClick={() => setIsMobileMenuOpen(false)}
-                      className="block px-4 py-2 text-sm text-gray-400 hover:text-cyan-400 hover:bg-slate-800/50 rounded-lg transition-all duration-300"
+                      className={`block px-4 py-2 text-sm rounded-lg transition-all duration-300 ${pathname === item.href
+                        ? "text-cyan-400 bg-cyan-500/5 font-medium"
+                        : "text-gray-400 hover:text-cyan-400 hover:bg-slate-800/50"
+                        }`}
                     >
                       {item.name}
                     </Link>
@@ -548,89 +565,110 @@ const Header = () => {
                 </div>
               ) : user ? (
                 <div className="space-y-3">
-                  <div className="flex items-center space-x-3 px-4 py-3 bg-slate-800/50 rounded-lg">
-                    <div className="w-10 h-10 rounded-full bg-linear-to-r from-cyan-500 to-blue-500 flex items-center justify-center">
-                      {user.image || user.picture ? (
-                        <Image
-                          src={user.image || user.picture}
-                          alt={user.name || user.firstName || "User"}
-                          width={40}
-                          height={40}
-                          className="w-full h-full rounded-full object-cover"
-                        />
-                      ) : (
-                        <User className="w-5 h-5 text-white" />
-                      )}
-                    </div>
-                    <div>
-                      <div className="text-white font-medium">
-                        {user.name || user.firstName || "User"}
-                      </div>
-                      <div className="text-gray-400 text-sm">{user.email}</div>
-                    </div>
-                  </div>
-
-                  {/* Dashboard - Only visible for admin users */}
-                  {user.role === "admin" && (
-                    <Link
-                      href="/dashboard"
-                      onClick={() => setIsMobileMenuOpen(false)}
-                      className="flex items-center space-x-3 px-4 py-3 text-gray-300 hover:text-white hover:bg-slate-800 rounded-lg transition-all duration-300"
-                    >
-                      <div className="w-8 h-8 rounded-lg bg-blue-500/20 flex items-center justify-center">
-                        <svg
-                          className="w-4 h-4 text-blue-400"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M4 5a1 1 0 011-1h4a1 1 0 011 1v7a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM14 5a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1h-4a1 1 0 01-1-1V5zM4 16a1 1 0 011-1h4a1 1 0 011 1v3a1 1 0 01-1 1H5a1 1 0 01-1-1v-3zM14 13a1 1 0 011-1h4a1 1 0 011 1v6a1 1 0 01-1 1h-4a1 1 0 01-1-1v-6z"
+                  <button
+                    onClick={() => setActiveDropdown(activeDropdown === "mobile-user" ? null : "mobile-user")}
+                    className="w-full flex items-center justify-between px-4 py-3 bg-slate-800/50 rounded-lg group transition-all duration-300 border border-slate-700/30 hover:border-cyan-500/30"
+                  >
+                    <div className="flex items-center space-x-3">
+                      <div className="w-10 h-10 rounded-full bg-linear-to-r from-cyan-500 to-blue-500 flex items-center justify-center shadow-lg shadow-cyan-500/20">
+                        {user.image || user.picture ? (
+                          <Image
+                            src={user.image || user.picture}
+                            alt={user.name || user.firstName || "User"}
+                            width={40}
+                            height={40}
+                            className="w-full h-full rounded-full object-cover"
                           />
-                        </svg>
+                        ) : (
+                          <User className="w-5 h-5 text-white" />
+                        )}
                       </div>
-                      <span className="font-medium">Dashboard</span>
-                    </Link>
-                  )}
+                      <div className="text-left">
+                        <div className="text-white font-medium group-hover:text-cyan-400 transition-colors">
+                          {user.name || user.firstName || "User"}
+                        </div>
+                        <div className="text-gray-400 text-xs sm:text-sm">{user.email}</div>
+                      </div>
+                    </div>
+                    <ChevronDown
+                      className={`w-4 h-4 text-gray-400 transition-transform duration-300 ${activeDropdown === "mobile-user" ? "rotate-180" : ""}`}
+                    />
+                  </button>
 
-                  {/* Track Order */}
-                  <Link
-                    href="/track-order"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                    className="flex items-center space-x-3 px-4 py-3 text-gray-300 hover:text-white hover:bg-slate-800 rounded-lg transition-all duration-300"
-                  >
-                    <div className="w-8 h-8 rounded-lg bg-green-500/20 flex items-center justify-center">
-                      <svg
-                        className="w-4 h-4 text-green-400"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
+                  {activeDropdown === "mobile-user" && (
+                    <div className="mt-2 ml-4 space-y-1 animate-fade-in-down border-l border-slate-700/50 pl-4 py-1">
+                      {/* Profile */}
+                      <Link
+                        href="/profile"
+                        onClick={() => setIsMobileMenuOpen(false)}
+                        className={`flex items-center space-x-3 px-4 py-3 rounded-lg transition-all duration-300 ${pathname === "/profile"
+                          ? "text-cyan-400 bg-cyan-500/10 font-medium"
+                          : "text-gray-400 hover:text-white hover:bg-slate-800"
+                          }`}
                       >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"
-                        />
-                      </svg>
-                    </div>
-                    <span className="font-medium">Track Order</span>
-                  </Link>
+                        <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${pathname === "/profile" ? "bg-cyan-500/20" : "bg-purple-500/20"}`}>
+                          <User className={`w-4 h-4 ${pathname === "/profile" ? "text-cyan-400" : "text-purple-400"}`} />
+                        </div>
+                        <span className="font-medium">Profile</span>
+                      </Link>
 
-                  {/* Profile */}
-                  <Link
-                    href="/profile"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                    className="flex items-center space-x-3 px-4 py-3 text-gray-300 hover:text-white hover:bg-slate-800 rounded-lg transition-all duration-300"
-                  >
-                    <div className="w-8 h-8 rounded-lg bg-purple-500/20 flex items-center justify-center">
-                      <User className="w-4 h-4 text-purple-400" />
+                      {/* Dashboard - Only visible for admin users */}
+                      {user.role === "admin" && (
+                        <Link
+                          href="/dashboard"
+                          onClick={() => setIsMobileMenuOpen(false)}
+                          className={`flex items-center space-x-3 px-4 py-3 rounded-lg transition-all duration-300 ${pathname === "/dashboard"
+                            ? "text-cyan-400 bg-cyan-500/10 font-medium"
+                            : "text-gray-300 hover:text-white hover:bg-slate-800"
+                            }`}
+                        >
+                          <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${pathname === "/dashboard" ? "bg-cyan-500/20" : "bg-blue-500/20"}`}>
+                            <svg
+                              className={`w-4 h-4 ${pathname === "/dashboard" ? "text-cyan-400" : "text-blue-400"}`}
+                              fill="none"
+                              stroke="currentColor"
+                              viewBox="0 0 24 24"
+                            >
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth={2}
+                                d="M4 5a1 1 0 011-1h4a1 1 0 011 1v7a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM14 5a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1h-4a1 1 0 01-1-1V5zM4 16a1 1 0 011-1h4a1 1 0 011 1v3a1 1 0 01-1 1H5a1 1 0 01-1-1v-3zM14 13a1 1 0 011-1h4a1 1 0 011 1v6a1 1 0 01-1 1h-4a1 1 0 01-1-1v-6z"
+                              />
+                            </svg>
+                          </div>
+                          <span className="font-medium">Dashboard</span>
+                        </Link>
+                      )}
+
+                      {/* Track Order */}
+                      <Link
+                        href="/track-order"
+                        onClick={() => setIsMobileMenuOpen(false)}
+                        className={`flex items-center space-x-3 px-4 py-3 rounded-lg transition-all duration-300 ${pathname === "/track-order"
+                          ? "text-cyan-400 bg-cyan-500/10 font-medium"
+                          : "text-gray-300 hover:text-white hover:bg-slate-800"
+                          }`}
+                      >
+                        <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${pathname === "/track-order" ? "bg-cyan-500/20" : "bg-green-500/20"}`}>
+                          <svg
+                            className={`w-4 h-4 ${pathname === "/track-order" ? "text-cyan-400" : "text-green-400"}`}
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={2}
+                              d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"
+                            />
+                          </svg>
+                        </div>
+                        <span className="font-medium">Track Order</span>
+                      </Link>
                     </div>
-                    <span className="font-medium">Profile</span>
-                  </Link>
+                  )}
 
                   <button
                     onClick={handleSignOut}

@@ -72,11 +72,10 @@ function TabButton({ active, onClick, icon, label }) {
   return (
     <button
       onClick={onClick}
-      className={`flex items-center gap-2 px-6 py-3 rounded-xl font-medium transition-all duration-300 whitespace-nowrap ${
-        active
-          ? "bg-gradient-to-r from-blue-500/20 to-cyan-500/10 text-white border border-blue-500/50"
-          : "bg-[#0a0f23]/40 text-gray-400 hover:text-white hover:bg-[#0a0f23]/60 border border-blue-500/10"
-      }`}
+      className={`flex items-center gap-2 px-6 py-3 rounded-xl font-medium transition-all duration-300 whitespace-nowrap ${active
+        ? "bg-gradient-to-r from-blue-500/20 to-cyan-500/10 text-white border border-blue-500/50"
+        : "bg-[#0a0f23]/40 text-gray-400 hover:text-white hover:bg-[#0a0f23]/60 border border-blue-500/10"
+        }`}
     >
       {icon}
       {label}
@@ -511,7 +510,7 @@ function BannerSection({ cardStyle }) {
   const [isAdding, setIsAdding] = useState(false);
   const [editingId, setEditingId] = useState(null);
   const [deleteModal, setDeleteModal] = useState({ show: false, bannerId: null, bannerTitle: "" });
-  
+
   const [formData, setFormData] = useState({
     badge: "",
     title: {
@@ -538,7 +537,7 @@ function BannerSection({ cardStyle }) {
     try {
       setLoading(true);
       const response = await bannerApi.getAllBanners();
-      
+
       if (response.success && Array.isArray(response.data)) {
         setBanners(response.data);
       }
@@ -585,13 +584,13 @@ function BannerSection({ cardStyle }) {
   const handleSave = async () => {
     try {
       setLoading(true);
-      
+
       if (isAdding) {
         await bannerApi.createBanner(formData);
       } else if (isEditing && editingId) {
         await bannerApi.updateBanner(editingId, formData);
       }
-      
+
       await fetchBanners();
       setIsAdding(false);
       setIsEditing(false);
@@ -903,7 +902,7 @@ function BannerSection({ cardStyle }) {
                     <span className="text-cyan-400">{banner.title?.highlight}</span> {banner.title?.text}
                   </h3>
                   <p className="text-gray-400 text-sm mb-3">{banner.description}</p>
-                  
+
                   <div className="flex gap-2 mb-3">
                     {banner.ctaButtons?.map((btn, idx) => (
                       <span key={idx} className="text-xs px-3 py-1 bg-purple-500/20 text-purple-400 rounded">
@@ -986,7 +985,7 @@ function FAQsSection({ cardStyle }) {
   const [isAdding, setIsAdding] = useState(false);
   const [editingId, setEditingId] = useState(null);
   const [deleteModal, setDeleteModal] = useState({ show: false, faqId: null, faqQuestion: "" });
-  
+
   const [formData, setFormData] = useState({
     question: "",
     answer: "",
@@ -1002,7 +1001,7 @@ function FAQsSection({ cardStyle }) {
     try {
       setLoading(true);
       const response = await faqApi.getAllFAQs();
-      
+
       if (response.success && Array.isArray(response.data)) {
         // Sort by order field
         const sortedFaqs = response.data.sort((a, b) => (a.order || 0) - (b.order || 0));
@@ -1046,13 +1045,13 @@ function FAQsSection({ cardStyle }) {
 
     try {
       setLoading(true);
-      
+
       if (isAdding) {
         await faqApi.createFAQ(formData);
       } else if (editingId) {
         await faqApi.updateFAQ(editingId, formData);
       }
-      
+
       await fetchFAQs();
       setIsAdding(false);
       setEditingId(null);
