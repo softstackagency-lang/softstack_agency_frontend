@@ -160,7 +160,7 @@ const AppDevelopment = () => {
   ];
 
   return (
-    <section className="relative overflow-hidden py-16 sm:py-20 md:py-24 px-4 sm:px-6 lg:px-8 bg-linear-to-b from-slate-950 via-slate-900 to-slate-950">
+    <main className="relative overflow-hidden bg-linear-to-b from-slate-950 via-slate-900 to-slate-950 font-sans">
       {/* Background Animations */}
       <div className="absolute inset-0 overflow-hidden">
         {/* Gradient Orbs */}
@@ -186,9 +186,9 @@ const AppDevelopment = () => {
         ))}
       </div>
 
-      <div className="relative max-w-7xl mx-auto route-container z-10">
-        {/* SECTION 1: HERO (mb-32) */}
-        <div className="flex flex-col lg:flex-row items-center justify-between gap-8 sm:gap-10 md:gap-12 mb-12 sm:mb-20 md:mb-32">
+      {/* SECTION 1: HERO */}
+      <section className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 pb-16 sm:pt-36 sm:pb-20 lg:pt-40 lg:pb-24 z-10">
+        <div className="flex flex-col lg:flex-row items-center justify-between gap-8 sm:gap-10 lg:gap-12">
           <div className="flex-1 space-y-6 sm:space-y-8 text-left scroll-anim order-2 lg:order-1">
             <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight">
               Cross-Platform App <br />
@@ -218,9 +218,11 @@ const AppDevelopment = () => {
             </div>
           </div>
         </div>
+      </section>
 
-        {/* SECTION 2: SERVICES GRID (mb-32) */}
-        <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-7 md:gap-8 mb-12 sm:mb-20 md:mb-32">
+      {/* SECTION 2: SERVICES GRID */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 lg:py-24">
+        <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
           {services.map((service, index) => (
             <div
               key={index}
@@ -236,10 +238,12 @@ const AppDevelopment = () => {
             </div>
           ))}
         </div>
+      </section>
 
-        {/* SECTION 3: CAPABILITIES (Header + Grid + Button) (mb-32) */}
-        <div className="mb-12 sm:mb-20 md:mb-32">
-          <div className="text-center mb-8 sm:mb-12 md:mb-16 scroll-anim">
+      {/* SECTION 3: CAPABILITIES */}
+      <section className="bg-[#020617]/60 py-16 sm:py-20 lg:py-24">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-10 sm:mb-12 lg:mb-16 scroll-anim">
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-3 sm:mb-4">
               Integrated Mobile Capabilities
             </h2>
@@ -249,7 +253,7 @@ const AppDevelopment = () => {
             </p>
           </div>
 
-          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-7 md:gap-8 mb-6 sm:mb-8 md:mb-12">
+          <div className="grid grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 mb-10 sm:mb-12 lg:mb-16">
             {capabilities.map((cap, index) => (
               <div
                 key={index}
@@ -278,9 +282,11 @@ const AppDevelopment = () => {
             </Link>
           </div>
         </div>
+      </section>
 
-        {/* SECTION 4: PARTNER CALLOUT (mb-32) */}
-        <div className="p-5 sm:p-8 md:p-12 lg:p-16 rounded-2xl sm:rounded-[2.5rem] bg-slate-900/45 border border-slate-800/70 backdrop-blur-md flex flex-col md:flex-row items-center justify-between gap-6 sm:gap-10 md:gap-12 mb-12 sm:mb-20 md:mb-32 scroll-anim shadow-lg hover:border-cyan-500/25 transition-colors">
+      {/* SECTION 4: PARTNER CALLOUT */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 lg:py-24">
+        <div className="p-6 sm:p-10 lg:p-16 rounded-[2rem] sm:rounded-[2.5rem] bg-slate-900/45 border border-slate-800/70 backdrop-blur-md flex flex-col md:flex-row items-center justify-between gap-8 sm:gap-10 lg:gap-12 scroll-anim shadow-lg hover:border-cyan-500/25 transition-colors">
           <div className="max-w-xl text-left">
             <h2 className="text-xl sm:text-3xl md:text-4xl font-bold text-white mb-3 sm:mb-5 md:mb-6 leading-snug">
               Partner for Flawless Delivery
@@ -298,16 +304,18 @@ const AppDevelopment = () => {
             </button>
           </Link>
         </div>
+      </section>
 
-        {/* SECTION 5: PILLARS */}
-        <div className="scroll-anim">
-          <div className="text-center mb-8 sm:mb-12 md:mb-16">
+      {/* SECTION 5: PILLARS */}
+      <section className="py-16 sm:py-20 lg:py-24">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 scroll-anim">
+          <div className="text-center mb-10 sm:mb-12 lg:mb-16">
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white tracking-tight">
               The Core Pillars of Our Delivery
             </h2>
           </div>
 
-          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-7 md:gap-8">
+          <div className="grid grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
             {pillars.map((pillar, index) => (
               <div
                 key={index}
@@ -332,7 +340,7 @@ const AppDevelopment = () => {
             ))}
           </div>
         </div>
-      </div>
+      </section>
 
       {/* ===== Local CSS (allowed in JSX) ===== */}
       <style jsx global>{`
@@ -529,7 +537,7 @@ const AppDevelopment = () => {
           }
         }
       `}</style>
-    </section>
+    </main>
   );
 };
 

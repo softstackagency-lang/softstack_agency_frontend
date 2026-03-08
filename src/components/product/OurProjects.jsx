@@ -4,7 +4,7 @@ import { motion } from "framer-motion"
 import Image from "next/image"
 import Link from "next/link"
 import { useEffect, useMemo, useState } from "react"
-import demoController from "@/controllers/demoController" 
+import demoController from "@/controllers/demoController"
 
 export default function OurProjects() {
   const [active, setActive] = useState("All")
@@ -33,12 +33,12 @@ export default function OurProjects() {
 
         const res = await demoController.getProjects()
 
-        
+
         const raw = Array.isArray(res?.data)
           ? res.data
           : Array.isArray(res?.data?.categories)
-          ? res.data.categories
-          : []
+            ? res.data.categories
+            : []
 
         const normalized = raw.map((cat) => ({
           id: cat?.id || cat?._id,
@@ -104,10 +104,10 @@ export default function OurProjects() {
         <div className="absolute top-20 left-10 w-72 h-72 bg-cyan-500/40 rounded-full blur-3xl animate-float-slow"></div>
         <div className="absolute bottom-20 right-10 w-96 h-96 bg-blue-500/35 rounded-full blur-3xl animate-float-slower"></div>
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-purple-500/30 rounded-full blur-3xl animate-float-reverse"></div>
-        
+
         {/* Grid Pattern */}
         <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
-        
+
         {/* Floating Elements */}
         {particles.map((particle, i) => (
           <div
@@ -123,7 +123,7 @@ export default function OurProjects() {
         ))}
       </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 py-24">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 pb-16 sm:pt-36 sm:pb-20 lg:pt-40 lg:pb-24">
         {/* Title */}
         <motion.h2
           initial={{ opacity: 0, y: 30 }}
@@ -140,7 +140,7 @@ export default function OurProjects() {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.1 }}
           viewport={{ once: true }}
-          className="text-center text-gray-400 max-w-2xl mx-auto mb-12"
+          className="text-center text-gray-400 max-w-2xl mx-auto mb-12 sm:mb-16 lg:mb-20"
         >
           Explore a curated showcase of websites, AI projects, and applications.
         </motion.p>
@@ -156,16 +156,15 @@ export default function OurProjects() {
 
         {/* Tabs */}
         {!loading && !error && (
-          <div className="flex justify-center gap-3 flex-wrap mb-14">
+          <div className="flex justify-center gap-3 flex-wrap mb-12 sm:mb-16 lg:mb-20">
             {tabs.map((tab) => (
               <button
                 key={tab.key}
                 onClick={() => setActive(tab.key)}
                 className={`px-5 py-2 rounded-lg text-sm font-medium transition
-                  ${
-                    active === tab.key
-                      ? "bg-cyan-500 text-black shadow-lg"
-                      : "bg-white/5 text-gray-300 hover:bg-white/10"
+                  ${active === tab.key
+                    ? "bg-cyan-500 text-black shadow-lg"
+                    : "bg-white/5 text-gray-300 hover:bg-white/10"
                   }`}
               >
                 {tab.label}

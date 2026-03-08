@@ -25,6 +25,18 @@ const Header = () => {
     };
   }, [dropdownTimeout]);
 
+  // Prevent body scroll when mobile menu is open
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isMobileMenuOpen]);
+
   const handleDropdownEnter = (dropdownName) => {
     if (dropdownTimeout) {
       clearTimeout(dropdownTimeout);
@@ -59,21 +71,25 @@ const Header = () => {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        isScrolled
-          ? "bg-slate-900/95 backdrop-blur-lg shadow-lg shadow-cyan-500/10"
-          : "bg-transparent"
-      }`}
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${isScrolled
+        ? "bg-slate-900/95 backdrop-blur-lg shadow-lg shadow-cyan-500/10"
+        : "bg-transparent"
+        }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
+          {/* Logo */}
           <Link href="/" className="shrink-0 group cursor-pointer">
-            <div className="flex items-center space-x-3">
+            <div className="flex items-center space-x-2 sm:space-x-3">
               <div className="relative">
                 <div className="absolute inset-0 bg-linear-to-r from-cyan-500 to-blue-500 rounded-lg blur-lg opacity-50 group-hover:opacity-75 transition-opacity"></div>
-                <div className="relative bg-linear-to-br from-cyan-400 to-blue-600 p-2 rounded-lg transform group-hover:scale-110 transition-transform duration-300">
-                  <svg className="w-8 h-8 text-white" viewBox="0 0 24 24" fill="none">
+                <div className="relative bg-linear-to-br from-cyan-400 to-blue-600 p-1.5 sm:p-2 rounded-lg transform group-hover:scale-110 transition-transform duration-300">
+                  <svg
+                    className="w-6 h-6 sm:w-8 sm:h-8 text-white"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                  >
                     <path
                       d="M12 2L2 7L12 12L22 7L12 2Z"
                       stroke="currentColor"
@@ -98,9 +114,10 @@ const Header = () => {
                   </svg>
                 </div>
               </div>
-              <div className="text-2xl font-bold">
-                <span className="text-white">SoftStack </span>
-                <span className="bg-linear-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
+
+              <div className="font-bold leading-none">
+                <span className="text-white text-lg sm:text-2xl">SoftStack </span>
+                <span className="bg-linear-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent text-lg sm:text-2xl">
                   Agency
                 </span>
               </div>
@@ -426,11 +443,13 @@ const Header = () => {
 
       {/* Mobile Menu */}
       <div
-        className={`lg:hidden transition-all duration-500 ease-in-out ${
-          isMobileMenuOpen ? "max-h-screen opacity-100" : "max-h-0 opacity-0 overflow-hidden"
-        }`}
+        className={`lg:hidden absolute top-full left-0 w-full transition-all duration-500 ease-in-out ${isMobileMenuOpen ? "opacity-100 visible" : "opacity-0 invisible pointer-events-none"
+          }`}
       >
-        <div className="bg-slate-900/98 backdrop-blur-xl border-t border-slate-800">
+        <div
+          className="bg-slate-900/98 backdrop-blur-xl border-t border-slate-800 overflow-y-auto"
+          style={{ maxHeight: "calc(100dvh - 80px)" }}
+        >
           <div className="max-w-7xl mx-auto px-4 py-4 space-y-2">
             <Link
               href="/product"

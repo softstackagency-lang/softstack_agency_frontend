@@ -55,7 +55,7 @@ export default function HeroSection() {
       </div>
 
       {/* ================= CONTENT ================= */}
-      <div className="relative z-10 mx-auto grid max-w-7xl grid-cols-1 items-center gap-10 sm:gap-12 md:gap-14 px-4 sm:px-6 md:px-8 py-24 sm:py-32 md:py-40 pb-28 sm:pb-32 md:pb-40 md:grid-cols-2">
+      <div className="relative z-10 mx-auto grid max-w-7xl grid-cols-1 items-center gap-10 sm:gap-12 md:gap-14 px-4 sm:px-6 lg:px-8 pt-28 pb-16 sm:pt-36 sm:pb-20 lg:pt-40 lg:pb-24 md:grid-cols-2">
         {/* LEFT SIDE */}
         <div>
           <span className="mb-3 sm:mb-4 inline-flex items-center gap-1.5 sm:gap-2 rounded-full border border-blue-400/20 bg-blue-500/10 px-3 py-1 sm:px-4 sm:py-1.5 text-xs sm:text-sm text-blue-400">
@@ -109,124 +109,124 @@ export default function HeroSection() {
           </div>
         </div>
 
-      {/* ===== RIGHT SIDE : FLOATING IMAGE BENTO GRID ===== */}
-<div className="relative mt-6 md:mt-12 translate-y-4 grid grid-cols-3 grid-rows-3 gap-2 sm:gap-3 md:gap-4 h-72 sm:h-80 md:h-88 lg:h-104">
+        {/* ===== RIGHT SIDE : FLOATING IMAGE BENTO GRID ===== */}
+        <div className="relative mt-6 md:mt-12 translate-y-4 grid grid-cols-3 grid-rows-3 gap-2 sm:gap-3 md:gap-4 h-72 sm:h-80 md:h-88 lg:h-104">
 
-  {/* background glow */}
-  <motion.div
-    animate={{ y: [0, -15, 0] }}
-    transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-    className="absolute -z-10 w-80 h-80 rounded-full bg-sky-500/10 blur-[110px]"
-  />
+          {/* background glow */}
+          <motion.div
+            animate={{ y: [0, -15, 0] }}
+            transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+            className="absolute -z-10 w-80 h-80 rounded-full bg-sky-500/10 blur-[110px]"
+          />
 
- {/* ===== IMAGE 1 : MAIN ===== */}
-<motion.div
-  animate={{ y: [0, -10, 0] }}
-  transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-  whileHover={{ scale: 1.03 }}
-  className="
+          {/* ===== IMAGE 1 : MAIN ===== */}
+          <motion.div
+            animate={{ y: [0, -10, 0] }}
+            transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+            whileHover={{ scale: 1.03 }}
+            className="
     relative
     col-span-2 row-span-2
     rounded-2xl overflow-hidden
     bg-linear-to-br from-sky-500/20 to-blue-600/20
     border border-white/10
   "
->
-  {(bannerData?.images?.[0]?.imageUrl && bannerData.images[0].imageUrl.trim() !== "") && (
-    <Image
-      src={bannerData.images[0].imageUrl}
-      alt={bannerData.images[0].title || "UI UX"}
-      fill
-      className="object-cover"
-      sizes="(max-width: 768px) 100vw, 50vw"
-      priority
-    />
-  )}
-</motion.div>
+          >
+            {(bannerData?.images?.[0]?.imageUrl && bannerData.images[0].imageUrl.trim() !== "") && (
+              <Image
+                src={bannerData.images[0].imageUrl}
+                alt={bannerData.images[0].title || "UI UX"}
+                fill
+                className="object-cover"
+                sizes="(max-width: 768px) 100vw, 50vw"
+                priority
+              />
+            )}
+          </motion.div>
 
-{/* ===== IMAGE 2 ===== */}
-<motion.div
-  animate={{ y: [0, 8, 0] }}
-  transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-  whileHover={{ y: -6 }}
-  className="relative rounded-xl overflow-hidden border border-white/10"
->
-  {(bannerData?.images?.[1]?.imageUrl && bannerData.images[1].imageUrl.trim() !== "") && (
-    <Image
-      src={bannerData.images[1].imageUrl}
-      alt={bannerData.images[1].title || "Visual"}
-      fill
-      className="object-cover"
-      sizes="(max-width: 768px) 100vw, 33vw"
-    />
-  )}
-</motion.div>
+          {/* ===== IMAGE 2 ===== */}
+          <motion.div
+            animate={{ y: [0, 8, 0] }}
+            transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+            whileHover={{ y: -6 }}
+            className="relative rounded-xl overflow-hidden border border-white/10"
+          >
+            {(bannerData?.images?.[1]?.imageUrl && bannerData.images[1].imageUrl.trim() !== "") && (
+              <Image
+                src={bannerData.images[1].imageUrl}
+                alt={bannerData.images[1].title || "Visual"}
+                fill
+                className="object-cover"
+                sizes="(max-width: 768px) 100vw, 33vw"
+              />
+            )}
+          </motion.div>
 
-{/* ===== IMAGE 3 ===== */}
-<motion.div
-  animate={{ y: [0, -6, 0] }}
-  transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut" }}
-  whileHover={{ y: -6 }}
-  className="relative rounded-xl overflow-hidden border border-white/10"
->
-  {(bannerData?.images?.[2]?.imageUrl && bannerData.images[2].imageUrl.trim() !== "") && (
-    <Image
-      src={bannerData.images[2].imageUrl}
-      alt={bannerData.images[2].title || "WordPress"}
-      fill
-      className="object-cover"
-      sizes="(max-width: 768px) 100vw, 33vw"
-    />
-  )}
-</motion.div>
+          {/* ===== IMAGE 3 ===== */}
+          <motion.div
+            animate={{ y: [0, -6, 0] }}
+            transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut" }}
+            whileHover={{ y: -6 }}
+            className="relative rounded-xl overflow-hidden border border-white/10"
+          >
+            {(bannerData?.images?.[2]?.imageUrl && bannerData.images[2].imageUrl.trim() !== "") && (
+              <Image
+                src={bannerData.images[2].imageUrl}
+                alt={bannerData.images[2].title || "WordPress"}
+                fill
+                className="object-cover"
+                sizes="(max-width: 768px) 100vw, 33vw"
+              />
+            )}
+          </motion.div>
 
-{/* ===== IMAGE 4 ===== */}
-<motion.div
-  animate={{ y: [0, 10, 0] }}
-  transition={{ duration: 5.5, repeat: Infinity, ease: "easeInOut" }}
-  whileHover={{ y: -6 }}
-  className="relative rounded-xl overflow-hidden border border-white/10"
->
-  {(bannerData?.images?.[3]?.imageUrl && bannerData.images[3].imageUrl.trim() !== "") && (
-    <Image
-      src={bannerData.images[3].imageUrl}
-      alt={bannerData.images[3].title || "App"}
-      fill
-      className="object-cover"
-      sizes="(max-width: 768px) 100vw, 33vw"
-    />
-  )}
-</motion.div>
+          {/* ===== IMAGE 4 ===== */}
+          <motion.div
+            animate={{ y: [0, 10, 0] }}
+            transition={{ duration: 5.5, repeat: Infinity, ease: "easeInOut" }}
+            whileHover={{ y: -6 }}
+            className="relative rounded-xl overflow-hidden border border-white/10"
+          >
+            {(bannerData?.images?.[3]?.imageUrl && bannerData.images[3].imageUrl.trim() !== "") && (
+              <Image
+                src={bannerData.images[3].imageUrl}
+                alt={bannerData.images[3].title || "App"}
+                fill
+                className="object-cover"
+                sizes="(max-width: 768px) 100vw, 33vw"
+              />
+            )}
+          </motion.div>
 
-{/* ===== IMAGE 5 : WIDE ===== */}
-<motion.div
-  animate={{ y: [0, -12, 0] }}
-  transition={{ duration: 6.5, repeat: Infinity, ease: "easeInOut" }}
-  whileHover={{ scale: 1.05 }}
-  className="
+          {/* ===== IMAGE 5 : WIDE ===== */}
+          <motion.div
+            animate={{ y: [0, -12, 0] }}
+            transition={{ duration: 6.5, repeat: Infinity, ease: "easeInOut" }}
+            whileHover={{ scale: 1.05 }}
+            className="
     relative
     col-span-2 row-span-1
     rounded-xl overflow-hidden
     border border-white/10
   "
->
-  {(bannerData?.images?.[4]?.imageUrl && bannerData.images[4].imageUrl.trim() !== "") && (
-    <Image
-      src={bannerData.images[4].imageUrl}
-      alt={bannerData.images[4].title || "E-commerce"}
-      fill
-      className="object-cover"
-      sizes="(max-width: 768px) 100vw, 50vw"
-    />
-  )}
-</motion.div>
+          >
+            {(bannerData?.images?.[4]?.imageUrl && bannerData.images[4].imageUrl.trim() !== "") && (
+              <Image
+                src={bannerData.images[4].imageUrl}
+                alt={bannerData.images[4].title || "E-commerce"}
+                fill
+                className="object-cover"
+                sizes="(max-width: 768px) 100vw, 50vw"
+              />
+            )}
+          </motion.div>
 
-</div>
-
-
+        </div>
 
 
-        
+
+
+
       </div>
     </section>
   );

@@ -154,7 +154,7 @@ const ProductsSection = () => {
   }, [productsData]);
 
   return (
-    <div className="min-h-screen bg-linear-to-br from-slate-950 via-slate-900 to-slate-950 py-12 sm:py-16 md:py-20 px-4 sm:px-6 md:px-8 relative overflow-hidden">
+    <div className="min-h-screen bg-linear-to-br from-slate-950 via-slate-900 to-slate-950 pt-28 pb-16 sm:pt-36 sm:pb-20 lg:pt-40 lg:pb-24 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
       {/* Animated Background Grid */}
       <div className="absolute inset-0 opacity-20">
         <div
@@ -196,9 +196,8 @@ const ProductsSection = () => {
       <div className="max-w-7xl mx-auto relative z-10">
         {/* Header */}
         <div
-          className={`text-center mb-12 sm:mb-16 md:mb-20 transition-all duration-1000 transform ${
-            isVisible ? "translate-y-0 opacity-100" : "-translate-y-10 opacity-0"
-          }`}
+          className={`text-center mb-12 sm:mb-16 lg:mb-20 transition-all duration-1000 transform ${isVisible ? "translate-y-0 opacity-100" : "-translate-y-10 opacity-0"
+            }`}
         >
           <div className="inline-flex items-center gap-2 px-3 py-1.5 sm:px-4 sm:py-2 bg-purple-500/10 border border-purple-500/30 rounded-full mb-4 sm:mb-6">
             <Sparkles className="w-3 h-3 sm:w-4 sm:h-4 text-purple-400" />
@@ -231,7 +230,7 @@ const ProductsSection = () => {
           </div>
 
           {/* Debug Info */}
-        
+
         </div>
 
         {/* Products Grid */}
@@ -242,9 +241,8 @@ const ProductsSection = () => {
             return (
               <div
                 key={product.id}
-                className={`transition-all duration-1000 transform ${
-                  isVisible ? "translate-y-0 opacity-100" : "translate-y-20 opacity-0"
-                }`}
+                className={`transition-all duration-1000 transform ${isVisible ? "translate-y-0 opacity-100" : "translate-y-20 opacity-0"
+                  }`}
                 style={{ transitionDelay: `${index * 200}ms` }}
                 onMouseEnter={() => setHoveredProduct(product.id)}
                 onMouseLeave={() => setHoveredProduct(null)}
@@ -262,9 +260,8 @@ const ProductsSection = () => {
                   )}
 
                   <div
-                    className={`relative bg-slate-800/50 backdrop-blur-xl rounded-3xl border border-slate-700/50 overflow-hidden transition-all duration-500 h-full ${
-                      isHovered ? "scale-105 border-slate-600 shadow-2xl" : ""
-                    }`}
+                    className={`relative bg-slate-800/50 backdrop-blur-xl rounded-3xl border border-slate-700/50 overflow-hidden transition-all duration-500 h-full ${isHovered ? "scale-105 border-slate-600 shadow-2xl" : ""
+                      }`}
                   >
                     {/* Spotlight */}
                     {isHovered && (
@@ -291,9 +288,8 @@ const ProductsSection = () => {
                         alt={product.imageAlt}
                         fill
                         sizes="(max-width: 768px) 100vw, 50vw"
-                        className={`object-cover transition-transform duration-700 ${
-                          isHovered ? "scale-110" : "scale-100"
-                        }`}
+                        className={`object-cover transition-transform duration-700 ${isHovered ? "scale-110" : "scale-100"
+                          }`}
                       />
 
                       {/* Tags (highlights) */}
@@ -301,9 +297,8 @@ const ProductsSection = () => {
                         {product.tags.map((tag, idx) => (
                           <span
                             key={idx}
-                            className={`px-2 py-0.5 sm:px-3 sm:py-1 bg-slate-900/80 backdrop-blur-sm border border-slate-700 rounded-full text-[10px] sm:text-xs text-slate-300 transition-all duration-300 ${
-                              isHovered ? "translate-y-0 opacity-100" : "translate-y-2 opacity-0"
-                            }`}
+                            className={`px-2 py-0.5 sm:px-3 sm:py-1 bg-slate-900/80 backdrop-blur-sm border border-slate-700 rounded-full text-[10px] sm:text-xs text-slate-300 transition-all duration-300 ${isHovered ? "translate-y-0 opacity-100" : "translate-y-2 opacity-0"
+                              }`}
                             style={{ transitionDelay: `${idx * 100}ms` }}
                           >
                             {tag}
@@ -322,9 +317,8 @@ const ProductsSection = () => {
 
                       {/* Corner Icon */}
                       <div
-                        className={`absolute bottom-4 right-4 z-20 w-12 h-12 rounded-xl flex items-center justify-center transition-all duration-500 ${
-                          isHovered ? "rotate-12 scale-110" : ""
-                        }`}
+                        className={`absolute bottom-4 right-4 z-20 w-12 h-12 rounded-xl flex items-center justify-center transition-all duration-500 ${isHovered ? "rotate-12 scale-110" : ""
+                          }`}
                         style={{
                           background: `linear-gradient(135deg, ${product.gradientFrom}, ${product.gradientTo})`,
                         }}
@@ -336,11 +330,10 @@ const ProductsSection = () => {
                     {/* Content */}
                     <div className="p-4 sm:p-6 md:p-8">
                       <h2
-                        className={`text-xl sm:text-2xl md:text-3xl font-bold text-white mb-2 transition-all duration-300 ${
-                          isHovered
-                            ? "bg-linear-to-br from-purple-400 to-pink-400 bg-clip-text text-transparent"
-                            : ""
-                        }`}
+                        className={`text-xl sm:text-2xl md:text-3xl font-bold text-white mb-2 transition-all duration-300 ${isHovered
+                          ? "bg-linear-to-br from-purple-400 to-pink-400 bg-clip-text text-transparent"
+                          : ""
+                          }`}
                       >
                         {product.title}
                       </h2>
@@ -359,9 +352,8 @@ const ProductsSection = () => {
                           return (
                             <div
                               key={idx}
-                              className={`bg-slate-900/50 rounded-xl p-3 sm:p-4 border border-slate-700/50 transition-all duration-500 ${
-                                isHovered ? "border-purple-500/50 translate-x-1" : ""
-                              }`}
+                              className={`bg-slate-900/50 rounded-xl p-3 sm:p-4 border border-slate-700/50 transition-all duration-500 ${isHovered ? "border-purple-500/50 translate-x-1" : ""
+                                }`}
                               style={{ transitionDelay: `${idx * 100}ms` }}
                             >
                               <Icon className="w-5 h-5 mb-2 text-purple-300" />
@@ -377,9 +369,8 @@ const ProductsSection = () => {
                         {product.features.map((feature, idx) => (
                           <div
                             key={idx}
-                            className={`flex items-center gap-3 text-slate-300 text-sm transition-all duration-500 ${
-                              isHovered ? "translate-x-2" : ""
-                            }`}
+                            className={`flex items-center gap-3 text-slate-300 text-sm transition-all duration-500 ${isHovered ? "translate-x-2" : ""
+                              }`}
                             style={{ transitionDelay: `${idx * 50}ms` }}
                           >
                             <div
@@ -438,9 +429,8 @@ const ProductsSection = () => {
                             ? "noopener noreferrer"
                             : undefined
                         }
-                        className={`group/btn w-full py-4 rounded-xl font-semibold text-white shadow-lg transition-all duration-300 hover:shadow-2xl flex items-center justify-center gap-2 overflow-hidden relative ${
-                          isHovered ? "scale-105" : ""
-                        }`}
+                        className={`group/btn w-full py-4 rounded-xl font-semibold text-white shadow-lg transition-all duration-300 hover:shadow-2xl flex items-center justify-center gap-2 overflow-hidden relative ${isHovered ? "scale-105" : ""
+                          }`}
                         style={{
                           background: `linear-gradient(90deg, ${product.gradientFrom}, ${product.gradientTo})`,
                         }}
@@ -453,9 +443,8 @@ const ProductsSection = () => {
 
                     {/* Bottom Gradient Line */}
                     <div
-                      className={`h-1 transition-all duration-500 ${
-                        isHovered ? "opacity-100" : "opacity-0"
-                      }`}
+                      className={`h-1 transition-all duration-500 ${isHovered ? "opacity-100" : "opacity-0"
+                        }`}
                       style={{
                         background: `linear-gradient(90deg, ${product.gradientFrom}, ${product.gradientTo})`,
                       }}
@@ -476,9 +465,8 @@ const ProductsSection = () => {
 
         {/* Bottom CTA */}
         <div
-          className={`text-center mt-12 sm:mt-16 md:mt-20 transition-all duration-1000 delay-500 transform ${
-            isVisible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
-          }`}
+          className={`text-center mt-16 sm:mt-20 lg:mt-24 transition-all duration-1000 delay-500 transform ${isVisible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
+            }`}
         >
           <p className="text-slate-400 mb-4 sm:mb-6 text-base sm:text-lg px-4">Ready to transform your business?</p>
           <Link href="/pricing">

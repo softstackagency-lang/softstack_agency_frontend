@@ -108,7 +108,7 @@ export default function ContactPage() {
       </div>
 
       {/* ================= CONTENT ================= */}
-      <div className="relative z-10 px-4 sm:px-6 md:px-8 pt-24 sm:pt-16 md:py-20 lg:py-28 pb-12 sm:pb-16">
+      <div className="relative z-10 px-4 sm:px-6 lg:px-8 pt-28 pb-16 sm:pt-36 sm:pb-20 lg:pt-40 lg:pb-24">
         <div className="max-w-7xl mx-auto">
 
           {/* Header Section */}
@@ -116,7 +116,7 @@ export default function ContactPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="text-center mb-12 sm:mb-14 md:mb-16"
+            className="text-center mb-10 sm:mb-12 lg:mb-16"
           >
             <span className="inline-flex items-center gap-2 px-3 py-1.5 sm:px-4 sm:py-2 rounded-full bg-blue-500/10 border border-blue-400/20 text-blue-400 text-xs sm:text-sm font-semibold mb-4 sm:mb-6">
               <Sparkles size={14} className="sm:w-4 sm:h-4" />
@@ -134,7 +134,7 @@ export default function ContactPage() {
           </motion.div>
 
           {/* Main Grid */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-10 md:gap-12 mb-12 sm:mb-16 md:mb-20">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 lg:gap-8 mb-16 sm:mb-20 lg:mb-24">
 
             {/* LEFT: Contact Form */}
             <motion.div
@@ -305,7 +305,7 @@ export default function ContactPage() {
               </div>
 
               {/* Features */}
-              <div className="grid grid-cols-3 gap-4">
+              <div className="grid grid-cols-3 gap-3 sm:gap-4 lg:gap-6">
                 {features.map((feature, index) => (
                   <motion.div
                     key={index}
@@ -327,7 +327,7 @@ export default function ContactPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.5 }}
-            className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-5 md:gap-6"
+            className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8"
           >
             {contactInfo.map((info, index) => (
               <a

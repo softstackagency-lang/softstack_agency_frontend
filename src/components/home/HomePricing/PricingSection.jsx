@@ -18,7 +18,7 @@ export default function PricingSection() {
   const [plans, setPlans] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  
+
   // Order Modal State
   const [orderModalOpen, setOrderModalOpen] = useState(false);
   const [selectedPlan, setSelectedPlan] = useState(null);
@@ -30,32 +30,32 @@ export default function PricingSection() {
   const fetchPricingData = async () => {
     try {
       setLoading(true);
-      
+
       const response = await fetch(API_BASE_URL, { cache: 'no-store' });
-      
+
       if (!response.ok) {
         throw new Error('Failed to fetch pricing data');
       }
-      
+
       const data = await response.json();
-      
+
       if (data.success && data.data.categories) {
         const activeCategories = data.data.categories.filter(cat => cat.isActive);
         setCategories(activeCategories);
-        
+
         // Set first category as default
         if (activeCategories.length > 0) {
           setSelectedCategory(activeCategories[0]._id);
-          
+
           // Get ALL plans for the first category (not filtering by isActive yet since the first category might not have that field)
           const firstCategoryPlans = activeCategories[0].plans || [];
           // Filter out inactive plans if isActive field exists
           const activePlans = firstCategoryPlans.filter(plan => plan.isActive !== false);
           setPlans(activePlans);
-          
+
         }
       }
-      
+
       setError(null);
     } catch (err) {
       setError(err.message);
@@ -85,7 +85,7 @@ export default function PricingSection() {
       router.push('/signup');
       return;
     }
-    
+
     setSelectedPlan(plan);
     setOrderModalOpen(true);
   };
@@ -113,10 +113,10 @@ export default function PricingSection() {
       </div>
 
       {/* ================= CONTENT ================= */}
-      <div className="relative z-10 max-w-7xl mx-auto px-6 py-24">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 pb-16 sm:pt-36 sm:pb-20 lg:pt-40 lg:pb-24">
 
         {/* ===== HEADER ===== */}
-        <div className="text-center mb-16">
+        <div className="text-center mb-12 sm:mb-16 lg:mb-20">
           <h2 className="text-4xl md:text-5xl font-bold">
             Simple <span className="text-cyan-400">Pricing</span>
           </h2>
@@ -171,7 +171,7 @@ export default function PricingSection() {
         {error && !loading && (
           <div className="text-center py-20">
             <p className="text-red-400">Failed to load pricing: {error}</p>
-            <button 
+            <button
               onClick={fetchPricingData}
               className="mt-4 px-6 py-2 bg-cyan-500/20 hover:bg-cyan-500/30 rounded-lg text-cyan-400 transition"
             >
@@ -188,7 +188,7 @@ export default function PricingSection() {
               const cycle = plan.billingCycle || plan.duration || 'month';
               const subtitle = plan.description || `per ${cycle}`;
               const isHighlighted = plan.recommended || plan.popular;
-              
+
               return (
                 <PricingCard
                   key={plan.id || plan._id || index}
@@ -238,7 +238,7 @@ function PricingCard({ title, subtitle, price, features, color, highlight, cta, 
           {currency === "BDT" ? "জনপ্রিয়" : "Popular"}
         </div>
       )}
-      
+
       <h3 className={`text-2xl font-bold ${color}`}>{title}</h3>
       <p className="text-gray-400 mt-1 text-sm">{subtitle}</p>
 
@@ -255,7 +255,7 @@ function PricingCard({ title, subtitle, price, features, color, highlight, cta, 
         ))}
       </ul>
 
-      <button 
+      <button
         onClick={onOrderClick}
         className="mt-8 w-full rounded-xl bg-white/10 hover:bg-white/20 transition py-3 font-medium"
       >

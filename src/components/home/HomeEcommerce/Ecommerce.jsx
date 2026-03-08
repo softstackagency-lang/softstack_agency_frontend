@@ -39,7 +39,7 @@ const Ecommerce = () => {
   ];
 
   return (
-    <section className="relative overflow-hidden bg-[#05060a] text-white">
+    <main className="relative overflow-hidden bg-[#05060a] text-white">
       {/* ================= GRID BACKGROUND ================= */}
       <div
         className="absolute inset-0 z-0"
@@ -62,77 +62,80 @@ const Ecommerce = () => {
       </div>
 
       {/* ================= CONTENT ================= */}
-      <div className="relative z-10 mx-auto max-w-7xl px-6 py-40 pb-20">
+      <div className="relative z-10">
         {/* ===== Hero Section ===== */}
-        <div className="grid grid-cols-1 items-center gap-14 md:grid-cols-2 mb-32">
-          {/* ===== Left Text Content ===== */}
-          <div>
-            <motion.span
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="mb-4 inline-flex items-center gap-2 rounded-full border border-blue-400/20 bg-blue-500/10 px-4 py-1 text-sm text-blue-400"
-            >
-              <Sparkles size={16} />
-              Summer Sale: Up to 50% Off
-            </motion.span>
+        <section className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 pb-16 sm:pt-36 sm:pb-20 lg:pt-40 lg:pb-24 z-10">
+          <div className="grid grid-cols-1 items-center gap-10 lg:gap-14 md:grid-cols-2">
+            {/* ===== Left Text Content ===== */}
+            <div>
+              <motion.span
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="mb-4 inline-flex items-center gap-2 rounded-full border border-blue-400/20 bg-blue-500/10 px-4 py-1 text-sm text-blue-400"
+              >
+                <Sparkles size={16} />
+                Summer Sale: Up to 50% Off
+              </motion.span>
 
-            <motion.h1
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1 }}
-              className="mt-4 text-4xl font-bold leading-tight md:text-5xl lg:text-6xl"
-            >
-              Driving Next-Gen{" "}
-              <span className="bg-linear-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
-                E-Commerce
-              </span>
-            </motion.h1>
+              <motion.h1
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.1 }}
+                className="mt-4 text-4xl font-bold leading-tight md:text-5xl lg:text-6xl"
+              >
+                Driving Next-Gen{" "}
+                <span className="bg-linear-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
+                  E-Commerce
+                </span>
+              </motion.h1>
 
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2 }}
-              className="mt-6 max-w-xl text-base text-gray-400 md:text-lg"
-            >
-              Experience the next generation of shopping. Clean, fast, and designed for the modern era with cutting-edge technology.
-            </motion.p>
+              <motion.p
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.2 }}
+                className="mt-6 max-w-xl text-base text-gray-400 md:text-lg"
+              >
+                Experience the next generation of shopping. Clean, fast, and designed for the modern era with cutting-edge technology.
+              </motion.p>
 
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.3 }}
+                className="mt-10 flex flex-wrap items-center gap-4"
+              >
+                <button className="group inline-flex items-center gap-2 rounded-full bg-linear-to-r from-blue-500 to-cyan-400 px-8 py-4 text-sm font-semibold text-black transition-all hover:scale-105 hover:shadow-[0_0_40px_rgba(59,130,246,0.45)]">
+                  Shop Now
+                  <ArrowRight size={18} className="transition-transform group-hover:translate-x-1" />
+                </button>
+
+                <button className="rounded-full border border-white/10 bg-white/5 px-8 py-4 text-sm font-semibold backdrop-blur-sm transition hover:bg-white/10">
+                  View Catalog
+                </button>
+              </motion.div>
+            </div>
+
+            {/* ===== Right Lottie Animation ===== */}
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3 }}
-              className="mt-10 flex flex-wrap items-center gap-4"
+              className="w-full"
+              initial={{ x: 100, opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              transition={{ duration: 1, ease: "easeOut" }}
             >
-              <button className="group inline-flex items-center gap-2 rounded-full bg-linear-to-r from-blue-500 to-cyan-400 px-8 py-4 text-sm font-semibold text-black transition-all hover:scale-105 hover:shadow-[0_0_40px_rgba(59,130,246,0.45)]">
-                Shop Now
-                <ArrowRight size={18} className="transition-transform group-hover:translate-x-1" />
-              </button>
-
-              <button className="rounded-full border border-white/10 bg-white/5 px-8 py-4 text-sm font-semibold backdrop-blur-sm transition hover:bg-white/10">
-                View Catalog
-              </button>
+              <Player
+                autoplay
+                loop
+                src={heroAnimation}
+                className="w-full"
+              />
             </motion.div>
           </div>
+        </section>
 
-          {/* ===== Right Lottie Animation ===== */}
-          <motion.div
-            className="w-full"
-            initial={{ x: 100, opacity: 0 }}
-            animate={{ x: 0, opacity: 1 }}
-            transition={{ duration: 1, ease: "easeOut" }}
-          >
-            <Player
-              autoplay
-              loop
-              src={heroAnimation}
-              className="w-full"
-            />
-          </motion.div>
-        </div>
         {/* ===== Features Section ===== */}
-        <div className="py-8 sm:py-12 md:py-20">
-          <h2 className="text-center text-4xl font-bold mb-8 sm:mb-10 md:mb-12">Why Choose Us</h2>
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-8">
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 lg:py-24">
+          <h2 className="text-center text-3xl sm:text-4xl font-bold mb-10 sm:mb-12 lg:mb-16">Why Choose Us</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
             {features.map((f, i) => {
               const IconComponent = f.icon;
               return (
@@ -151,13 +154,13 @@ const Ecommerce = () => {
               );
             })}
           </div>
-        </div>
+        </section>
 
         {/* ===== Bento Grid Products ===== */}
-        <div className="py-20">
-          <div className="mb-12 flex items-end justify-between">
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 lg:py-24">
+          <div className="mb-10 sm:mb-12 lg:mb-16 flex items-end justify-between">
             <div>
-              <h2 className="mb-2 text-4xl font-bold">Editor Choice</h2>
+              <h2 className="mb-2 text-3xl sm:text-4xl font-bold">Editor Choice</h2>
               <p className="text-gray-400">Handpicked premium products for you.</p>
             </div>
             <button className="flex items-center gap-1 font-medium text-cyan-400 hover:underline">
@@ -165,7 +168,7 @@ const Ecommerce = () => {
             </button>
           </div>
 
-          <div className="grid auto-rows-[300px] grid-cols-2 gap-6 md:grid-cols-3">
+          <div className="grid auto-rows-[300px] grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
             {products.map((p) => (
               <motion.div
                 key={p.id}
@@ -195,13 +198,13 @@ const Ecommerce = () => {
               </motion.div>
             ))}
           </div>
-        </div>
+        </section>
 
         {/* ===== Testimonials ===== */}
-        <div className="py-20">
-          <h2 className="text-center text-4xl font-bold mb-12">What Our Customers Say</h2>
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 lg:py-24">
+          <h2 className="text-center text-3xl sm:text-4xl font-bold mb-10 sm:mb-12 lg:mb-16">What Our Customers Say</h2>
 
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
             {testimonials.map((t, i) => (
               <motion.div
                 key={i}
@@ -225,9 +228,9 @@ const Ecommerce = () => {
               </motion.div>
             ))}
           </div>
-        </div>
+        </section>
       </div>
-    </section>
+    </main>
   );
 };
 

@@ -99,60 +99,60 @@ const AiAgent = () => {
         ))}
       </div>
 
- <section className="relative max-w-7xl mx-auto px-4 sm:px-6 md:px-8 py-20 sm:py-24 md:py-32 z-10">
-  <div className="flex flex-col md:flex-row items-center gap-8 sm:gap-10 md:gap-12">
-    {/* Text Content */}
-    <div className="md:w-1/2">
-      <motion.h1
-        className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-5 md:mb-6 mt-8 sm:mt-0"
-        initial={{ opacity: 0, y: 40 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
-      >
-        AI Agent & Workflow Development
-        <span className="block text-blue-400 mt-2">
-          Autonomous Business Logic
-        </span>
-      </motion.h1>
+      <section className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 pb-16 sm:pt-36 sm:pb-20 lg:pt-40 lg:pb-24 z-10">
+        <div className="flex flex-col md:flex-row items-center gap-8 sm:gap-10 md:gap-12">
+          {/* Text Content */}
+          <div className="md:w-1/2">
+            <motion.h1
+              className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-5 md:mb-6 mt-8 sm:mt-0"
+              initial={{ opacity: 0, y: 40 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+            >
+              AI Agent & Workflow Development
+              <span className="block text-blue-400 mt-2">
+                Autonomous Business Logic
+              </span>
+            </motion.h1>
 
-      <p className="text-gray-300 text-base sm:text-lg mb-6 sm:mb-8">
-        We build intelligent automation agents combining Zapier-like workflows with advanced LLM orchestration.
-      </p>
+            <p className="text-gray-300 text-base sm:text-lg mb-6 sm:mb-8">
+              We build intelligent automation agents combining Zapier-like workflows with advanced LLM orchestration.
+            </p>
 
-     <div className="text-gray-400 hidden sm:grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
-  {[
-    "No-Code & Low-Code Workflows",
-    "Custom LLM Agents",
-    "200+ SaaS Integrations",
-    "Automated Data Pipelines",
-    "Real-Time Monitoring",
-    "Scalable Execution",
-  ].map((item, i) => (
-    <div key={i} className="flex items-center gap-2">
-      <FaCheck className="text-blue-400 flex-shrink-0" />
-      <span className="text-sm sm:text-base">{item}</span>
-    </div>
-  ))}
-</div>
+            <div className="text-gray-400 hidden sm:grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+              {[
+                "No-Code & Low-Code Workflows",
+                "Custom LLM Agents",
+                "200+ SaaS Integrations",
+                "Automated Data Pipelines",
+                "Real-Time Monitoring",
+                "Scalable Execution",
+              ].map((item, i) => (
+                <div key={i} className="flex items-center gap-2">
+                  <FaCheck className="text-blue-400 flex-shrink-0" />
+                  <span className="text-sm sm:text-base">{item}</span>
+                </div>
+              ))}
+            </div>
 
-    </div>
+          </div>
 
-    {/* Animation Strictly Right */}
-    <div className="md:w-1/2 flex justify-center md:justify-end">
-      <Lottie
-        animationData={animationData}
-        loop={true}
-        autoplay={true}
-        style={{ width: '100%', maxWidth: 400, height: 'auto' }}
-      />
-    </div>
-  </div>
-</section>
+          {/* Animation Strictly Right */}
+          <div className="md:w-1/2 flex justify-center md:justify-end">
+            <Lottie
+              animationData={animationData}
+              loop={true}
+              autoplay={true}
+              style={{ width: '100%', maxWidth: 400, height: 'auto' }}
+            />
+          </div>
+        </div>
+      </section>
 
 
 
       {/* ================= FEATURES ================= */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 py-12 sm:py-14 md:py-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-7 md:gap-8">
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 lg:py-24 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-7 lg:gap-8">
         {features.map((f, i) => (
           <motion.div
             key={i}
@@ -172,7 +172,7 @@ const AiAgent = () => {
       </section>
 
       {/* ================= CTA (NOW BEFORE PILLARS) ================= */}
-      <section className="relative py-10 sm:py-16 md:py-20 text-center bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 z-10 px-4 sm:px-6">
+      <section className="relative py-16 sm:py-20 lg:py-24 text-center bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 z-10 px-4 sm:px-6 lg:px-8">
         <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 sm:mb-4">
           Partner for Intelligent Automation
         </h2>
@@ -188,7 +188,7 @@ const AiAgent = () => {
       </section>
 
       {/* ================= PILLARS ================= */}
-      <section className="max-w-7xl mx-auto px-6 py-8 sm:py-12 md:py-16">
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 lg:py-24">
         <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-center mb-8 sm:mb-10 md:mb-12">
           Pillars of Excellence
         </h2>
