@@ -1,13 +1,15 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import DashboardSidebar from "@/components/Dashboard/DashboardNavbar/DashboardSidebar/Sidebar";
 import { useCustomAuth } from "@/hooks/useCustomAuth";
+import { Menu, X } from "lucide-react";
 
 export default function Layout({ children }) {
   const { user, loading } = useCustomAuth();
   const router = useRouter();
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   useEffect(() => {
     if (!loading) {
@@ -43,12 +45,29 @@ export default function Layout({ children }) {
         <div className="absolute top-[30%] right-[-10%] w-150 h-150 bg-purple-600/15 rounded-full blur-[130px] animate-[bounce_10s_infinite]"></div>
       </div>
 
-      <div className="relative z-20 shrink-0 h-full border-r border-blue-500/10">
-        <DashboardSidebar />
+      {/* Mobile Hamburger Menu Button - Top Right */}
+      <button
+        onClick={() => setSidebarOpen(!sidebarOpen)}
+        className="md:hidden fixed top-4 right-4 z-50 p-2 rounded-lg bg-[#050b1d] border border-blue-500/20 text-white hover:bg-blue-500/10 transition-colors"
+        aria-label="Toggle menu"
+      >
+        {sidebarOpen ? <X size={24} /> : <Menu size={24} />}
+      </button>
+
+      {/* Mobile Overlay */}
+      {sidebarOpen && (
+        <div
+          className="md:hidden fixed inset-0 bg-black/50 z-30"
+          onClick={() => setSidebarOpen(false)}
+        />
+      )}
+
+      <div className="relative z-40 shrink-0 h-full border-r border-blue-500/10">
+        <DashboardSidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
       </div>
 
       <div className="flex-1 flex flex-col relative z-10 overflow-hidden">
-        <main className="flex-1 p-6 overflow-y-auto custom-scrollbar">
+        <main className="flex-1 p-4 md:p-6 overflow-y-auto custom-scrollbar">
           <div className="max-w-full mx-auto">{children}</div>
         </main>
       </div>
