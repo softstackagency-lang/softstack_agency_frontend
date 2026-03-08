@@ -21,7 +21,7 @@ import {
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-export default function DashboardSidebar() {
+export default function DashboardSidebar({ isOpen = false, onClose }) {
   const [open, setOpen] = useState(true);
   const [teamDropdownOpen, setTeamDropdownOpen] = useState(false);
   const [pricingDropdownOpen, setPricingDropdownOpen] = useState(false);
@@ -33,6 +33,8 @@ export default function DashboardSidebar() {
     <aside
       className={`min-h-screen bg-[#050b1d] border-r border-white/10 flex flex-col transition-all duration-300
         ${open ? "w-64" : "w-20"}
+        ${isOpen ? "translate-x-0" : "-translate-x-full"}
+        md:translate-x-0
         fixed md:relative z-50 md:z-auto
       `}
     >
@@ -62,7 +64,7 @@ export default function DashboardSidebar() {
         {/* Toggle Button */}
         <button
           onClick={() => setOpen(!open)}
-          className="text-gray-400 hover:text-white"
+          className="hidden md:block text-gray-400 hover:text-white"
         >
           {open ? <ChevronLeft size={20} /> : <ChevronRight size={20} />}
         </button>
@@ -70,19 +72,19 @@ export default function DashboardSidebar() {
 
       {/* Menu */}
       <nav className="flex-1 px-2 sm:px-3 py-4 sm:py-6 space-y-1.5 sm:space-y-2 text-xs sm:text-sm overflow-y-auto">
-        <SidebarItem icon={<LayoutDashboard />} label="Overview" open={open} href="/dashboard" active={pathname === '/dashboard'} />
-        <SidebarItem icon={<House />} label="Home Page" open={open} href="/dashboard/home" active={pathname === '/dashboard/home'} />
-        <SidebarItem icon={<UserCheck />} label="Users" open={open} href="/dashboard/users" active={pathname === '/dashboard/users'} />
-        <SidebarItem icon={<MessageSquare />} label="Messages" open={open} href="/dashboard/messages" active={pathname === '/dashboard/messages'} />
-        <SidebarItem icon={<ShoppingCart />} label="Orders" open={open} href="/dashboard/orders" active={pathname === '/dashboard/orders'} />
-        <SidebarItem icon={<Package />} label="Projects" open={open} href="/dashboard/product" active={pathname === '/dashboard/product'} />
-        
+        <SidebarItem icon={<LayoutDashboard />} label="Overview" open={open} href="/dashboard" active={pathname === '/dashboard'} onNavClick={onClose} />
+        <SidebarItem icon={<House />} label="Home Page" open={open} href="/dashboard/home" active={pathname === '/dashboard/home'} onNavClick={onClose} />
+        <SidebarItem icon={<UserCheck />} label="Users" open={open} href="/dashboard/users" active={pathname === '/dashboard/users'} onNavClick={onClose} />
+        <SidebarItem icon={<MessageSquare />} label="Messages" open={open} href="/dashboard/messages" active={pathname === '/dashboard/messages'} onNavClick={onClose} />
+        <SidebarItem icon={<ShoppingCart />} label="Orders" open={open} href="/dashboard/orders" active={pathname === '/dashboard/orders'} onNavClick={onClose} />
+        <SidebarItem icon={<Package />} label="Projects" open={open} href="/dashboard/product" active={pathname === '/dashboard/product'} onNavClick={onClose} />
+
         {/* Team Dropdown */}
         <div>
-          <SidebarItem 
-            icon={<Users />} 
-            label="Team" 
-            open={open} 
+          <SidebarItem
+            icon={<Users />}
+            label="Team"
+            open={open}
             active={pathname.startsWith('/dashboard/team')}
             onClick={() => setTeamDropdownOpen(!teamDropdownOpen)}
             hasDropdown={true}
@@ -90,26 +92,28 @@ export default function DashboardSidebar() {
           />
           {teamDropdownOpen && open && (
             <div className="ml-4 mt-1 space-y-1">
-              <SidebarSubItem 
-                label="Team Category" 
-                href="/dashboard/team/category" 
-                active={pathname === '/dashboard/team/category'} 
+              <SidebarSubItem
+                label="Team Category"
+                href="/dashboard/team/category"
+                active={pathname === '/dashboard/team/category'}
+                onNavClick={onClose}
               />
-              <SidebarSubItem 
-                label="Team Members" 
-                href="/dashboard/team/members" 
-                active={pathname === '/dashboard/team/members'} 
+              <SidebarSubItem
+                label="Team Members"
+                href="/dashboard/team/members"
+                active={pathname === '/dashboard/team/members'}
+                onNavClick={onClose}
               />
             </div>
           )}
         </div>
-        
+
         {/* Demo Project Dropdown */}
         <div>
-          <SidebarItem 
-            icon={<FolderKanban />} 
-            label="Demo Project" 
-            open={open} 
+          <SidebarItem
+            icon={<FolderKanban />}
+            label="Demo Project"
+            open={open}
             active={pathname.startsWith('/dashboard/demo-project')}
             onClick={() => setDemoDropdownOpen(!demoDropdownOpen)}
             hasDropdown={true}
@@ -117,28 +121,30 @@ export default function DashboardSidebar() {
           />
           {demoDropdownOpen && open && (
             <div className="ml-4 mt-1 space-y-1">
-              <SidebarSubItem 
-                label="Demo Category" 
-                href="/dashboard/demo-project/category" 
-                active={pathname === '/dashboard/demo-project/category'} 
+              <SidebarSubItem
+                label="Demo Category"
+                href="/dashboard/demo-project/category"
+                active={pathname === '/dashboard/demo-project/category'}
+                onNavClick={onClose}
               />
-              <SidebarSubItem 
-                label="Demo Projects" 
-                href="/dashboard/demo-project" 
-                active={pathname === '/dashboard/demo-project'} 
+              <SidebarSubItem
+                label="Demo Projects"
+                href="/dashboard/demo-project"
+                active={pathname === '/dashboard/demo-project'}
+                onNavClick={onClose}
               />
             </div>
           )}
         </div>
-        
-     
-        
+
+
+
         {/* Pricing Dropdown */}
         <div>
-          <SidebarItem 
-            icon={<DollarSign />} 
-            label="Pricing" 
-            open={open} 
+          <SidebarItem
+            icon={<DollarSign />}
+            label="Pricing"
+            open={open}
             active={pathname.startsWith('/dashboard/pricing')}
             onClick={() => setPricingDropdownOpen(!pricingDropdownOpen)}
             hasDropdown={true}
@@ -146,15 +152,17 @@ export default function DashboardSidebar() {
           />
           {pricingDropdownOpen && open && (
             <div className="ml-4 mt-1 space-y-1">
-              <SidebarSubItem 
-                label="Pricing Category" 
-                href="/dashboard/pricing/category" 
-                active={pathname === '/dashboard/pricing/category'} 
+              <SidebarSubItem
+                label="Pricing Category"
+                href="/dashboard/pricing/category"
+                active={pathname === '/dashboard/pricing/category'}
+                onNavClick={onClose}
               />
-              <SidebarSubItem 
-                label="Pricing Plan" 
-                href="/dashboard/pricing/plan" 
-                active={pathname === '/dashboard/pricing/plan'} 
+              <SidebarSubItem
+                label="Pricing Plan"
+                href="/dashboard/pricing/plan"
+                active={pathname === '/dashboard/pricing/plan'}
+                onNavClick={onClose}
               />
             </div>
           )}
@@ -165,7 +173,7 @@ export default function DashboardSidebar() {
 }
 
 /* Sidebar Item */
-function SidebarItem({ icon, label, active, danger, open, href, onClick, hasDropdown, dropdownOpen }) {
+function SidebarItem({ icon, label, active, danger, open, href, onClick, hasDropdown, dropdownOpen, onNavClick }) {
   const content = (
     <>
       <span className="w-5 h-5 shrink-0">{icon}</span>
@@ -198,7 +206,7 @@ function SidebarItem({ icon, label, active, danger, open, href, onClick, hasDrop
 
   if (href) {
     return (
-      <Link href={href} className={className}>
+      <Link href={href} className={className} onClick={() => onNavClick?.()}>
         {content}
       </Link>
     );
@@ -212,7 +220,7 @@ function SidebarItem({ icon, label, active, danger, open, href, onClick, hasDrop
 }
 
 /* Sidebar Sub Item */
-function SidebarSubItem({ label, href, active }) {
+function SidebarSubItem({ label, href, active, onNavClick }) {
   return (
     <Link
       href={href}
@@ -223,6 +231,7 @@ function SidebarSubItem({ label, href, active }) {
             : "text-gray-400 hover:text-white hover:bg-white/5"
         }
       `}
+      onClick={() => onNavClick?.()}
     >
       {label}
     </Link>

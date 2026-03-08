@@ -59,10 +59,10 @@ export default function OverviewComponent() {
   };
 
   const cardStyle =
-    "bg-[#0a0f23]/60 backdrop-blur-xl border border-blue-500/30 rounded-2xl p-6 text-white shadow-[0_0_20px_rgba(59,130,246,0.1)] hover:shadow-[0_0_30px_rgba(59,130,246,0.2)] transition-all duration-500";
+    "bg-[#0a0f23]/60 backdrop-blur-xl border border-blue-500/30 rounded-xl sm:rounded-2xl p-3 sm:p-6 text-white shadow-[0_0_20px_rgba(59,130,246,0.1)] hover:shadow-[0_0_30px_rgba(59,130,246,0.2)] transition-all duration-500";
 
   // Prepare chart data
-  const revenueData = dashboardData?.revenueOverview ? 
+  const revenueData = dashboardData?.revenueOverview ?
     dashboardData.revenueOverview.months.map((month, index) => ({
       name: month,
       revenue: dashboardData.revenueOverview.values[index]
@@ -82,20 +82,20 @@ export default function OverviewComponent() {
     })) : [];
 
   return (
-    <div className="relative min-h-screen p-6 overflow-auto text-slate-200">
+    <div className="relative min-h-screen p-3 sm:p-6 overflow-auto text-slate-200">
       <div
         className={`relative z-10 transition-opacity duration-1000 ${isVisible ? "opacity-100" : "opacity-0"}`}
       >
         {/* Header */}
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold text-white mb-2">Dashboard Overview</h1>
-          <p className="text-gray-400">Welcome back! Heres whats happening with your business today.</p>
+        <div className="mb-4 sm:mb-8">
+          <h1 className="text-xl sm:text-3xl font-bold text-white mb-1 sm:mb-2">Dashboard Overview</h1>
+          <p className="text-xs sm:text-sm text-gray-400">Welcome back! Heres whats happening with your business today.</p>
         </div>
 
         {/* Top Stats Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6 mb-4 sm:mb-8">
           <StatCard
-            icon={<DollarSign className="text-green-400" size={24} />}
+            icon={<DollarSign className="text-green-400" size={20} />}
             title="Total Revenue"
             value={`$${dashboardData?.stats?.totalRevenue?.toLocaleString() || 0}`}
             change={dashboardData?.stats?.growth || "+0%"}
@@ -103,7 +103,7 @@ export default function OverviewComponent() {
             bgGradient="from-green-500/20 to-emerald-500/10"
           />
           <StatCard
-            icon={<ShoppingCart className="text-blue-400" size={24} />}
+            icon={<ShoppingCart className="text-blue-400" size={20} />}
             title="Total Orders"
             value={dashboardData?.stats?.totalOrders?.toString() || "0"}
             change={dashboardData?.paidOrders ? `${dashboardData.paidOrders.count} paid` : "0 paid"}
@@ -111,7 +111,7 @@ export default function OverviewComponent() {
             bgGradient="from-blue-500/20 to-cyan-500/10"
           />
           <StatCard
-            icon={<Users className="text-purple-400" size={24} />}
+            icon={<Users className="text-purple-400" size={20} />}
             title="Total Users"
             value={dashboardData?.stats?.totalUsers?.toLocaleString() || "0"}
             change="+8.3%"
@@ -119,7 +119,7 @@ export default function OverviewComponent() {
             bgGradient="from-purple-500/20 to-pink-500/10"
           />
           <StatCard
-            icon={<Package className="text-orange-400" size={24} />}
+            icon={<Package className="text-orange-400" size={20} />}
             title="Active Products"
             value={dashboardData?.stats?.activeProducts?.toString() || "0"}
             change="+4.2%"
@@ -129,20 +129,20 @@ export default function OverviewComponent() {
         </div>
 
         {/* Charts Section */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-3 sm:gap-6 mb-4 sm:mb-8">
           {/* Revenue Chart */}
           <div className={`${cardStyle} lg:col-span-2`}>
-            <div className="flex justify-between items-center mb-6">
+            <div className="flex justify-between items-center mb-3 sm:mb-6">
               <div>
-                <h3 className="text-lg font-semibold text-white mb-1">Revenue Overview</h3>
-                <p className="text-sm text-gray-400">Monthly revenue trends</p>
+                <h3 className="text-sm sm:text-lg font-semibold text-white mb-1">Revenue Overview</h3>
+                <p className="text-xs sm:text-sm text-gray-400">Monthly revenue trends</p>
               </div>
-              <div className="flex items-center gap-2 text-green-400">
-                <TrendingUp size={20} />
-                <span className="text-sm font-semibold">+12.5%</span>
+              <div className="flex items-center gap-1 sm:gap-2 text-green-400">
+                <TrendingUp size={16} className="sm:w-5 sm:h-5" />
+                <span className="text-xs sm:text-sm font-semibold">+12.5%</span>
               </div>
             </div>
-            <ResponsiveContainer width="100%" height={280}>
+            <ResponsiveContainer width="100%" height={200} className="sm:h-70">
               <AreaChart data={revenueData}>
                 <defs>
                   <linearGradient id="colorRevenue" x1="0" y1="0" x2="0" y2="1">
@@ -174,9 +174,9 @@ export default function OverviewComponent() {
 
           {/* Product Distribution */}
           <div className={cardStyle}>
-            <h3 className="text-lg font-semibold text-white mb-1">Product Distribution</h3>
-            <p className="text-sm text-gray-400 mb-6">By category</p>
-            <ResponsiveContainer width="100%" height={280}>
+            <h3 className="text-sm sm:text-lg font-semibold text-white mb-1">Product Distribution</h3>
+            <p className="text-xs sm:text-sm text-gray-400 mb-3 sm:mb-6">By category</p>
+            <ResponsiveContainer width="100%" height={200} className="sm:h-70">
               <PieChart>
                 <Pie
                   data={productDistribution}
@@ -208,10 +208,10 @@ export default function OverviewComponent() {
               {productDistribution.map((item, index) => (
                 <div key={index} className="flex items-center justify-between text-sm">
                   <div className="flex items-center gap-2 flex-1 min-w-0">
-                    <div className={`w-3 h-3 rounded-full flex-shrink-0`} style={{ backgroundColor: item.fill }}></div>
+                    <div className={`w-3 h-3 rounded-full shrink-0`} style={{ backgroundColor: item.fill }}></div>
                     <span className="text-gray-300 truncate">{item.name}</span>
                   </div>
-                  <span className="text-gray-400 ml-2 flex-shrink-0">{item.value}%</span>
+                  <span className="text-gray-400 ml-2 shrink-0">{item.value}%</span>
                 </div>
               ))}
             </div>
@@ -219,15 +219,15 @@ export default function OverviewComponent() {
         </div>
 
         {/* Orders Chart */}
-        <div className="grid grid-cols-1 gap-6">
+        <div className="grid grid-cols-1 gap-3 sm:gap-6">
           <div className={cardStyle}>
-            <div className="flex justify-between items-center mb-6">
+            <div className="flex justify-between items-center mb-3 sm:mb-6">
               <div>
-                <h3 className="text-lg font-semibold text-white mb-1">Orders Overview</h3>
-                <p className="text-sm text-gray-400">Monthly order trends</p>
+                <h3 className="text-sm sm:text-lg font-semibold text-white mb-1">Orders Overview</h3>
+                <p className="text-xs sm:text-sm text-gray-400">Monthly order trends</p>
               </div>
             </div>
-            <ResponsiveContainer width="100%" height={280}>
+            <ResponsiveContainer width="100%" height={200} className="sm:h-70">
               <BarChart data={ordersData}>
                 <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" />
                 <XAxis dataKey="name" stroke="#64748b" />
@@ -253,27 +253,27 @@ export default function OverviewComponent() {
 function StatCard({ icon, title, value, change, changeType, bgGradient }) {
   return (
     <div
-      className={`bg-[#0a0f23]/60 backdrop-blur-xl border border-blue-500/30 rounded-2xl p-6 text-white shadow-[0_0_20px_rgba(59,130,246,0.1)] hover:shadow-[0_0_30px_rgba(59,130,246,0.2)] transition-all duration-500 relative overflow-hidden`}
+      className={`bg-[#0a0f23]/60 backdrop-blur-xl border border-blue-500/30 rounded-xl sm:rounded-2xl p-3 sm:p-6 text-white shadow-[0_0_20px_rgba(59,130,246,0.1)] hover:shadow-[0_0_30px_rgba(59,130,246,0.2)] transition-all duration-500 relative overflow-hidden`}
     >
       {/* Background Gradient */}
-      <div className={`absolute inset-0 bg-gradient-to-br ${bgGradient} opacity-10`}></div>
-      
+      <div className={`absolute inset-0 bg-linear-to-br ${bgGradient} opacity-10`}></div>
+
       <div className="relative z-10">
-        <div className="flex items-center justify-between mb-4">
-          <div className="p-3 bg-white/5 rounded-xl backdrop-blur-sm">{icon}</div>
+        <div className="flex items-center justify-between mb-2 sm:mb-4">
+          <div className="p-2 sm:p-3 bg-white/5 rounded-lg sm:rounded-xl backdrop-blur-sm">{icon}</div>
           {change && (
             <span
-              className={`text-sm font-semibold flex items-center gap-1 ${
+              className={`text-[10px] sm:text-sm font-semibold flex items-center gap-0.5 sm:gap-1 ${
                 changeType === "positive" ? "text-green-400" : "text-red-400"
               }`}
             >
-              <TrendingUp size={16} />
-              {change}
+              <TrendingUp size={12} className="sm:w-4 sm:h-4" />
+              <span className="hidden sm:inline">{change}</span>
             </span>
           )}
         </div>
-        <h3 className="text-gray-400 text-sm mb-1">{title}</h3>
-        <p className="text-3xl font-bold">{value}</p>
+        <h3 className="text-gray-400 text-[10px] sm:text-sm mb-0.5 sm:mb-1 truncate">{title}</h3>
+        <p className="text-lg sm:text-3xl font-bold truncate">{value}</p>
       </div>
     </div>
   );
