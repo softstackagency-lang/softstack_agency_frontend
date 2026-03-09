@@ -259,8 +259,8 @@ export default function TeamMembersComponent() {
 
         {/* ══════════ ADD / EDIT FORM MODAL ══════════ */}
         {showFormModal && (
-          <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center p-3 sm:p-4 z-50">
-            <div className="bg-[#0a0f23]/95 backdrop-blur-xl border border-blue-500/30 rounded-2xl shadow-[0_0_40px_rgba(59,130,246,0.2)] w-full max-w-sm sm:max-w-2xl md:max-w-3xl max-h-[90vh] overflow-hidden">
+          <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center p-3 sm:p-4 pt-16 sm:pt-4 z-50 overflow-y-auto">
+            <div className="bg-[#0a0f23]/95 backdrop-blur-xl border border-blue-500/30 rounded-2xl shadow-[0_0_40px_rgba(59,130,246,0.2)] w-full max-w-sm sm:max-w-2xl md:max-w-3xl max-h-[85vh] sm:max-h-[90vh] overflow-hidden my-4">
 
               {/* Modal Header */}
               <div className="flex justify-between items-center p-4 sm:p-6 border-b border-blue-500/20 sticky top-0 bg-[#0a0f23]/95 backdrop-blur-xl z-10">
