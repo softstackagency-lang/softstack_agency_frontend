@@ -242,9 +242,9 @@ function ServiceModal({ service, isOpen, onClose }) {
     <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 animate-fade-in" onClick={onClose}>
       {/* Backdrop */}
       <div className="absolute inset-0 bg-black/80 backdrop-blur-sm" />
-      
+
       {/* Modal */}
-      <div 
+      <div
         className="relative w-full max-w-4xl max-h-[90vh] overflow-y-auto bg-slate-900/95 backdrop-blur-xl border border-white/10 rounded-3xl shadow-2xl"
         onClick={(e) => e.stopPropagation()}
       >
@@ -335,7 +335,7 @@ function ServiceModal({ service, isOpen, onClose }) {
 
           {/* CTA */}
           <div className="pt-4">
-            <Link 
+            <Link
               href="/contact"
               className="w-full inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full bg-linear-to-r from-blue-500 to-cyan-400 text-black font-semibold transition-all hover:scale-105 hover:shadow-[0_0_40px_rgba(59,130,246,0.45)]"
             >
@@ -423,12 +423,12 @@ export default function NeonAgencyLanding() {
       try {
         setProjectsLoading(true);
         const res = await demoController.getProjects();
-        
+
         const raw = Array.isArray(res?.data)
           ? res.data
           : Array.isArray(res?.data?.categories)
-          ? res.data.categories
-          : [];
+            ? res.data.categories
+            : [];
 
         // Flatten all projects from all categories
         const allProjects = raw.flatMap((cat) =>
@@ -456,10 +456,10 @@ export default function NeonAgencyLanding() {
   return (
     <div className="relative min-h-screen overflow-hidden bg-linear-to-b from-slate-950 via-slate-900 to-slate-950 text-slate-100">
       {/* Service Modal */}
-      <ServiceModal 
-        service={selectedService} 
-        isOpen={isModalOpen} 
-        onClose={closeServiceModal} 
+      <ServiceModal
+        service={selectedService}
+        isOpen={isModalOpen}
+        onClose={closeServiceModal}
       />
 
       {/* ================= Background Animations ================= */}
@@ -468,10 +468,10 @@ export default function NeonAgencyLanding() {
         <div className="absolute top-20 left-10 w-72 h-72 bg-cyan-500/40 rounded-full blur-3xl animate-float-slow"></div>
         <div className="absolute bottom-20 right-10 w-96 h-96 bg-blue-500/35 rounded-full blur-3xl animate-float-slower"></div>
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-purple-500/30 rounded-full blur-3xl animate-float-reverse"></div>
-        
+
         {/* Grid Pattern */}
         <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
-        
+
         {/* Floating Elements */}
         {particles.map((p, i) => (
           <div
@@ -501,10 +501,9 @@ export default function NeonAgencyLanding() {
       </div>
 
       {/* ================= Content ================= */}
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 md:px-8 py-12 sm:py-16 md:py-20 lg:py-24 space-y-16 sm:space-y-20 md:space-y-24 lg:space-y-28">
-        {/* HERO / BANNER (improved) */}
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 md:px-8 pt-28 pb-16 sm:pt-36 sm:pb-20 lg:pt-40 lg:pb-24 space-y-16 sm:space-y-20 lg:space-y-24">
         {/* HERO / BANNER (NEW) */}
-        <section className="grid lg:grid-cols-12 gap-8 sm:gap-10 lg:gap-14 items-center pt-12 sm:pt-14 md:pt-16 lg:pt-0">
+        <section className="grid lg:grid-cols-12 gap-8 sm:gap-10 lg:gap-14 items-center">
           {/* Left */}
           <div className="lg:col-span-6 space-y-7 reveal">
             <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-xs font-semibold text-slate-300">
@@ -524,7 +523,7 @@ export default function NeonAgencyLanding() {
               more leads—without messy code.
             </p>
 
-            <div className="flex flex-col sm:flex-row flex-wrap items-stretch sm:items-center gap-3 pt-1">
+            <div className="flex flex-row flex-wrap items-center gap-3 pt-1">
               <Link href="/blog" className="btn-shine group inline-flex items-center gap-2 rounded-xl px-7 py-4 bg-linear-to-r from-blue-500 to-cyan-400 text-black transition-all font-semibold shadow-lg hover:shadow-[0_0_40px_rgba(59,130,246,0.45)]">
                 Get a Free Quote
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition" />
@@ -561,13 +560,13 @@ export default function NeonAgencyLanding() {
               <div className="absolute -inset-10 rounded-[3rem] bg-[radial-linear(closest-side,rgba(34,211,238,.14),transparent_70%)] blur-2xl" />
               <div className="absolute -inset-14 rounded-[3rem] bg-[radial-linear(closest-side,rgba(59,130,246,.10),transparent_70%)] blur-3xl" />
 
-              {/* Lottie Animation - Smaller Size */}
-              <div className="relative w-full max-w-md h-80 md:h-96">
+              {/* Lottie Animation */}
+              <div className="relative w-full max-w-xs sm:max-w-md lg:max-w-lg mx-auto">
                 <Player
                   autoplay
                   loop
                   src={careerAnimation}
-                  style={{ height: '100%', width: '100%' }}
+                  className="w-full h-auto"
                 />
               </div>
             </div>
@@ -582,7 +581,7 @@ export default function NeonAgencyLanding() {
             desc="High-end digital solutions crafted with precision and deep technical expertise."
           />
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8">
             {services.map((s, i) => {
               const Icon = s.icon;
               return (
@@ -600,7 +599,7 @@ export default function NeonAgencyLanding() {
                       <p className="mt-3 text-sm leading-relaxed text-slate-300/90">{s.desc}</p>
                     </div>
 
-                    <button 
+                    <button
                       onClick={() => openServiceModal(s)}
                       className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-cyan-200 hover:text-cyan-100 transition"
                     >
@@ -627,17 +626,17 @@ export default function NeonAgencyLanding() {
               <p className="text-slate-300">Loading projects...</p>
             </div>
           ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
               {recentProjects.length > 0 ? (
                 recentProjects.map((project, i) => (
                   <GlowCard key={project.id || i} className="reveal">
                     <div className="p-5 space-y-5">
                       <div className="relative h-48 rounded-2xl overflow-hidden border border-white/10">
-                        <Image 
-                          src={project.image} 
-                          alt={project.title} 
-                          fill 
-                          className="object-cover" 
+                        <Image
+                          src={project.image}
+                          alt={project.title}
+                          fill
+                          className="object-cover"
                         />
                         <div className="absolute inset-0 bg-linear-to-t from-black/65 via-black/15 to-transparent" />
                         <span className="absolute top-4 left-4 text-xs font-semibold text-cyan-100 bg-cyan-500/10 px-2 py-1 rounded border border-white/10">
@@ -652,14 +651,13 @@ export default function NeonAgencyLanding() {
                         <p className="text-sm text-slate-300/90 leading-relaxed">Slug: {project.slug}</p>
 
                         <div className="mt-4">
-                          <button 
+                          <button
                             onClick={() => project.previewUrl ? window.open(project.previewUrl, "_blank") : null}
                             disabled={!project.previewUrl}
-                            className={`w-full py-2.5 rounded-xl font-semibold transition-all inline-flex items-center justify-center gap-2 ${
-                              project.previewUrl 
-                                ? "bg-linear-to-r from-cyan-400 to-blue-500 text-white hover:shadow-lg hover:shadow-cyan-500/30" 
-                                : "bg-gray-600/50 text-gray-400 cursor-not-allowed"
-                            }`}
+                            className={`w-full py-2.5 rounded-xl font-semibold transition-all inline-flex items-center justify-center gap-2 ${project.previewUrl
+                              ? "bg-linear-to-r from-cyan-400 to-blue-500 text-white hover:shadow-lg hover:shadow-cyan-500/30"
+                              : "bg-gray-600/50 text-gray-400 cursor-not-allowed"
+                              }`}
                           >
                             Go Live <ArrowRight className="w-4 h-4" />
                           </button>
@@ -709,13 +707,13 @@ export default function NeonAgencyLanding() {
 
         {/* COMPANY INFO SECTION */}
         <section className="space-y-10 md:space-y-12">
-          <SectionHeader 
-            label="About Us" 
-            title="Why Choose SoftStack Agency" 
-            desc="Leading the way in innovative digital solutions with expertise and dedication." 
+          <SectionHeader
+            label="About Us"
+            title="Why Choose SoftStack Agency"
+            desc="Leading the way in innovative digital solutions with expertise and dedication."
           />
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
             {/* Company Stats */}
             <GlowCard className="reveal">
               <div className="p-8 space-y-6">

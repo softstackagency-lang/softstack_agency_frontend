@@ -121,12 +121,12 @@ export default function TeamSection() {
         // Normalize API categories
         const apiCats = Array.isArray(catsRaw)
           ? catsRaw
-              .map((c) => ({
-                key: c?._id || c?.id || c?.departmentId || c?.value,
-                name: safeText(c?.name || c?.title || c?.departmentName || c?.label, ""),
-                source: "api",
-              }))
-              .filter((c) => c.key && c.name)
+            .map((c) => ({
+              key: c?._id || c?.id || c?.departmentId || c?.value,
+              name: safeText(c?.name || c?.title || c?.departmentName || c?.label, ""),
+              source: "api",
+            }))
+            .filter((c) => c.key && c.name)
           : [];
 
         const apiNameToKey = new Map(apiCats.map((c) => [c.name.toLowerCase(), c.key]));
@@ -135,46 +135,46 @@ export default function TeamSection() {
         // Normalize members + attach __deptKey consistently
         const normalizedMembers = Array.isArray(memsRaw)
           ? memsRaw.map((m) => {
-              const deptName = safeText(getDepartmentNameFromMember(m), "");
-              const deptLower = deptName.toLowerCase();
+            const deptName = safeText(getDepartmentNameFromMember(m), "");
+            const deptLower = deptName.toLowerCase();
 
-              // ✅ If member dept matches API category name, use API key
-              let deptKey = apiNameToKey.get(deptLower);
+            // ✅ If member dept matches API category name, use API key
+            let deptKey = apiNameToKey.get(deptLower);
 
-              // ✅ If member has dept already as an API id (rare), accept
-              if (!deptKey && typeof m?.department === "string" && apiKeySet.has(m.department)) {
-                deptKey = m.department;
-              }
+            // ✅ If member has dept already as an API id (rare), accept
+            if (!deptKey && typeof m?.department === "string" && apiKeySet.has(m.department)) {
+              deptKey = m.department;
+            }
 
-              // ✅ Otherwise fallback "local" key based on name
-              if (!deptKey) {
-                deptKey = deptName ? `local:${deptLower}` : "local:unknown";
-              }
+            // ✅ Otherwise fallback "local" key based on name
+            if (!deptKey) {
+              deptKey = deptName ? `local:${deptLower}` : "local:unknown";
+            }
 
-              return {
-                ...m,
-                _id: m?._id || m?.id,
-                name: safeText(m?.name || m?.fullName),
-                role: safeText(m?.role || m?.position || m?.designation),
-                bio: safeText(m?.bio || m?.about || m?.description, ""),
-                profileImage: getMemberImage(m),
-                skills: normalizeSkills(m),
-                locationObj: m?.location,
-                locationText:
-                  getFullLocation(m?.location) ||
-                  safeText(m?.location || m?.address || m?.city, ""),
-                joinedDate: m?.joinedDate || m?.joinDate || m?.joinedAt || m?.createdAt || "",
-                status: m?.status || "",
-                socialLinks: {
-                  linkedin: m?.socialLinks?.linkedin || m?.social?.linkedin || m?.linkedin || "",
-                  twitter: m?.socialLinks?.twitter || m?.social?.twitter || m?.twitter || "",
-                  github: m?.socialLinks?.github || m?.social?.github || m?.github || "",
-                  email: m?.socialLinks?.email || m?.social?.email || m?.email || "",
-                },
-                __deptName: deptName || "Unknown",
-                __deptKey: deptKey,
-              };
-            })
+            return {
+              ...m,
+              _id: m?._id || m?.id,
+              name: safeText(m?.name || m?.fullName),
+              role: safeText(m?.role || m?.position || m?.designation),
+              bio: safeText(m?.bio || m?.about || m?.description, ""),
+              profileImage: getMemberImage(m),
+              skills: normalizeSkills(m),
+              locationObj: m?.location,
+              locationText:
+                getFullLocation(m?.location) ||
+                safeText(m?.location || m?.address || m?.city, ""),
+              joinedDate: m?.joinedDate || m?.joinDate || m?.joinedAt || m?.createdAt || "",
+              status: m?.status || "",
+              socialLinks: {
+                linkedin: m?.socialLinks?.linkedin || m?.social?.linkedin || m?.linkedin || "",
+                twitter: m?.socialLinks?.twitter || m?.social?.twitter || m?.twitter || "",
+                github: m?.socialLinks?.github || m?.social?.github || m?.github || "",
+                email: m?.socialLinks?.email || m?.social?.email || m?.email || "",
+              },
+              __deptName: deptName || "Unknown",
+              __deptKey: deptKey,
+            };
+          })
           : [];
 
         // Build member-derived categories if missing in API
@@ -279,10 +279,10 @@ export default function TeamSection() {
         <div className="absolute top-20 left-10 w-72 h-72 bg-cyan-500/40 rounded-full blur-3xl animate-float-slow"></div>
         <div className="absolute bottom-20 right-10 w-96 h-96 bg-blue-500/35 rounded-full blur-3xl animate-float-slower"></div>
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-purple-500/30 rounded-full blur-3xl animate-float-reverse"></div>
-        
+
         {/* Grid Pattern */}
         <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
-        
+
         {/* Floating Elements */}
         {particles.map((particle, i) => (
           <div
@@ -334,7 +334,7 @@ export default function TeamSection() {
         ))}
       </div>
 
-      <div className="relative z-10 mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-16 lg:px-8 lg:py-20">
+      <div className="relative z-10 mx-auto max-w-7xl px-4 pt-28 pb-16 sm:px-6 sm:pt-36 sm:pb-20 lg:px-8 lg:pt-40 lg:pb-24">
         {/* Header */}
         <div className="mx-auto max-w-3xl text-center animate-fade-in-up">
           <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/3 px-4 py-2 text-xs font-medium text-cyan-300">
@@ -422,7 +422,7 @@ export default function TeamSection() {
         )}
 
         {/* Grid */}
-        <div className="mt-8 sm:mt-10 md:mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 md:gap-6 animate-fade-in-up-more-delayed">
+        <div className="mt-8 sm:mt-10 md:mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 animate-fade-in-up-more-delayed">
           {currentMembers.map((member) => (
             <article
               key={member._id}

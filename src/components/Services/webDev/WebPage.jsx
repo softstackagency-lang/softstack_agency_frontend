@@ -164,7 +164,7 @@ export default function WebPage() {
       </div>
 
       {/* ================= HERO ================= */}
-      <section className="relative max-w-7xl mx-auto px-4 sm:px-6 md:px-8 pt-32 pb-12 sm:pb-16 md:pb-8 grid grid-cols-1 md:grid-cols-2 gap-10 sm:gap-12 md:gap-14 items-center z-10">
+      <section className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 pb-16 sm:pt-36 sm:pb-20 lg:pt-40 lg:pb-24 grid grid-cols-1 md:grid-cols-2 gap-10 lg:gap-14 items-center z-10">
         <motion.div
           variants={fadeSlideUp}
           initial="hidden"
@@ -201,7 +201,7 @@ export default function WebPage() {
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="px-8 py-4 rounded-xl border border-cyan-500/50 text-cyan-400 hover:bg-cyan-500/10"
+                className="w-full sm:w-auto px-8 py-4 rounded-xl border border-cyan-500/50 text-cyan-400 hover:bg-cyan-500/10"
               >
                 Learn More
               </motion.button>
@@ -228,7 +228,7 @@ export default function WebPage() {
       </section>
 
       {/* ================= SERVICES ================= */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 pt-8 pb-12 sm:py-16 md:py-20 lg:py-28">
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 lg:py-24">
         <motion.div
           variants={container}
           initial="hidden"
@@ -258,8 +258,8 @@ export default function WebPage() {
       </section>
 
       {/* ================= FEATURES ================= */}
-      <section className="bg-[#020617]/60 py-12 sm:py-16 md:py-20 lg:py-28">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
+      <section className="bg-[#020617]/60 py-16 sm:py-20 lg:py-24">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl md:text-4xl font-bold text-center text-white mb-16">
             Capabilities & Features
           </h2>
@@ -288,7 +288,7 @@ export default function WebPage() {
       </section>
 
       {/* ================= CTA ================= */}
-      <section className="max-w-7xl mx-auto px-6 py-8 sm:py-12 md:py-16 lg:py-28">
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 lg:py-24">
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           whileInView={{ opacity: 1, scale: 1 }}
@@ -312,8 +312,8 @@ export default function WebPage() {
       </section>
 
       {/* ================= PILLARS ================= */}
-      <section className="py-8 sm:py-12 md:py-16 lg:py-28">
-        <div className="max-w-7xl mx-auto px-6">
+      <section className="py-16 sm:py-20 lg:py-24">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-center text-white mb-8 sm:mb-12 md:mb-16">
             Our Pillars of Excellence
           </h2>

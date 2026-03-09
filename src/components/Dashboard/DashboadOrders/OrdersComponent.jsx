@@ -39,7 +39,7 @@ export default function OrdersComponent() {
     try {
       const response = await orderApi.getOrderStats();
       setStats(response.data || null);
-    } catch (err) {}
+    } catch (err) { }
   };
 
   const handleStatusUpdate = async (orderId, newStatus) => {
@@ -89,22 +89,22 @@ export default function OrdersComponent() {
 
   const statusColor = (status) => {
     switch (status?.toLowerCase()) {
-      case "pending":      return "bg-yellow-500/20 text-yellow-400";
-      case "processing":   return "bg-blue-500/20 text-blue-400";
-      case "completed":    return "bg-green-500/20 text-green-400";
-      case "cancelled":    return "bg-red-500/20 text-red-400";
-      case "on-hold":      return "bg-orange-500/20 text-orange-400";
-      default:             return "bg-gray-500/20 text-gray-400";
+      case "pending": return "bg-yellow-500/20 text-yellow-400";
+      case "processing": return "bg-blue-500/20 text-blue-400";
+      case "completed": return "bg-green-500/20 text-green-400";
+      case "cancelled": return "bg-red-500/20 text-red-400";
+      case "on-hold": return "bg-orange-500/20 text-orange-400";
+      default: return "bg-gray-500/20 text-gray-400";
     }
   };
 
   const paymentStatusColor = (status) => {
     switch (status?.toLowerCase()) {
-      case "paid":      return "bg-green-500/20 text-green-400";
-      case "pending":   return "bg-yellow-500/20 text-yellow-400";
-      case "failed":    return "bg-red-500/20 text-red-400";
-      case "refunded":  return "bg-purple-500/20 text-purple-400";
-      default:          return "bg-gray-500/20 text-gray-400";
+      case "paid": return "bg-green-500/20 text-green-400";
+      case "pending": return "bg-yellow-500/20 text-yellow-400";
+      case "failed": return "bg-red-500/20 text-red-400";
+      case "refunded": return "bg-purple-500/20 text-purple-400";
+      default: return "bg-gray-500/20 text-gray-400";
     }
   };
 
@@ -217,11 +217,10 @@ export default function OrdersComponent() {
             <button
               key={status}
               onClick={() => setFilterStatus(status)}
-              className={`px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg text-xs sm:text-sm font-medium transition capitalize whitespace-nowrap flex-shrink-0 ${
-                filterStatus === status
+              className={`px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg text-xs sm:text-sm font-medium transition capitalize whitespace-nowrap flex-shrink-0 ${filterStatus === status
                   ? "bg-cyan-500 text-white"
                   : "bg-[#0a0f23]/60 text-gray-400 hover:text-white border border-blue-500/20"
-              }`}
+                }`}
             >
               {status}
             </button>

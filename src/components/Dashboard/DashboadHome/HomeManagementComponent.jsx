@@ -74,11 +74,10 @@ function TabButton({ active, onClick, icon, label }) {
   return (
     <button
       onClick={onClick}
-      className={`flex items-center gap-1.5 sm:gap-2 px-3 sm:px-5 md:px-6 py-2 sm:py-3 rounded-xl font-medium transition-all duration-300 whitespace-nowrap text-xs sm:text-sm md:text-base ${
-        active
+      className={`flex items-center gap-1.5 sm:gap-2 px-3 sm:px-5 md:px-6 py-2 sm:py-3 rounded-xl font-medium transition-all duration-300 whitespace-nowrap text-xs sm:text-sm md:text-base ${active
           ? "bg-gradient-to-r from-blue-500/20 to-cyan-500/10 text-white border border-blue-500/50"
           : "bg-[#0a0f23]/40 text-gray-400 hover:text-white hover:bg-[#0a0f23]/60 border border-blue-500/10"
-      }`}
+        }`}
     >
       {icon}
       {label}

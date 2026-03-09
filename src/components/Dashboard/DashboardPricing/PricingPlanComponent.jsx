@@ -259,11 +259,10 @@ export default function PricingPlanComponent() {
       {/* Toast - centered top on mobile, top-right on desktop */}
       {toast.show && (
         <div className="fixed top-4 left-1/2 -translate-x-1/2 sm:left-auto sm:right-4 sm:translate-x-0 z-[60] w-[min(90vw,360px)] sm:w-auto sm:max-w-sm">
-          <div className={`flex items-center gap-3 px-4 py-3 sm:px-6 sm:py-4 rounded-xl shadow-2xl border backdrop-blur-xl ${
-            toast.type === "success" ? "bg-green-500/20 border-green-500/50 text-green-300"
-            : toast.type === "error" ? "bg-red-500/20 border-red-500/50 text-red-300"
-            : "bg-blue-500/20 border-blue-500/50 text-blue-300"
-          }`}>
+          <div className={`flex items-center gap-3 px-4 py-3 sm:px-6 sm:py-4 rounded-xl shadow-2xl border backdrop-blur-xl ${toast.type === "success" ? "bg-green-500/20 border-green-500/50 text-green-300"
+              : toast.type === "error" ? "bg-red-500/20 border-red-500/50 text-red-300"
+                : "bg-blue-500/20 border-blue-500/50 text-blue-300"
+            }`}>
             {toast.type === "success" && <CheckCircle size={18} className="shrink-0" />}
             {toast.type === "error" && <XCircle size={18} className="shrink-0" />}
             {toast.type === "info" && <AlertCircle size={18} className="shrink-0" />}

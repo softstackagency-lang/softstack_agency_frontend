@@ -23,7 +23,7 @@ export default function MessagesComponent() {
     try {
       setLoading(true);
       const response = await contactApi.getAllContacts();
-      
+
       if (response.success) {
         const contactsArray = Array.isArray(response.data) ? response.data : [];
         setContacts(contactsArray);
@@ -48,13 +48,13 @@ export default function MessagesComponent() {
       replied: 0,
       archived: 0
     };
-    
+
     contactsList.forEach(contact => {
       if (statusCounts.hasOwnProperty(contact.status)) {
         statusCounts[contact.status]++;
       }
     });
-    
+
     setStats({ statusCounts });
   };
 
@@ -75,16 +75,16 @@ export default function MessagesComponent() {
   const handleUpdateStatus = async (id, status) => {
     try {
       await contactApi.updateContactStatus(id, status);
-      
+
       // Update contacts list locally without refetching
-      const updatedContacts = contacts.map(contact => 
+      const updatedContacts = contacts.map(contact =>
         contact._id === id ? { ...contact, status } : contact
       );
       setContacts(updatedContacts);
-      
+
       // Recalculate stats from updated contacts
       calculateStats(updatedContacts);
-      
+
       // Update selected contact if it's the one being modified
       if (selectedContact?._id === id) {
         setSelectedContact({ ...selectedContact, status });
@@ -97,16 +97,16 @@ export default function MessagesComponent() {
   const handleDelete = async (id) => {
     try {
       await contactApi.deleteContact(id);
-      
+
       // Remove contact from local state without refetching
       const updatedContacts = contacts.filter(contact => contact._id !== id);
       setContacts(updatedContacts);
-      
+
       // Recalculate stats from updated contacts
       calculateStats(updatedContacts);
-      
+
       setShowDeleteConfirm(null);
-      
+
       if (selectedContact?._id === id) {
         setSelectedContact(null);
       }
@@ -125,13 +125,13 @@ export default function MessagesComponent() {
   };
 
   const filteredContacts = Array.isArray(contacts) ? contacts.filter(contact => {
-    const matchesSearch = 
+    const matchesSearch =
       contact.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
       contact.email?.toLowerCase().includes(searchTerm.toLowerCase()) ||
       contact.subject?.toLowerCase().includes(searchTerm.toLowerCase());
-    
+
     const matchesFilter = filterStatus === 'all' || contact.status === filterStatus;
-    
+
     return matchesSearch && matchesFilter;
   }) : [];
 
@@ -162,7 +162,7 @@ export default function MessagesComponent() {
       <div className="text-center py-12">
         <AlertCircle className="w-12 h-12 text-red-400 mx-auto mb-4" />
         <div className="text-red-400 mb-4">{error}</div>
-        <button 
+        <button
           onClick={fetchContacts}
           className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
         >
@@ -185,7 +185,7 @@ export default function MessagesComponent() {
             <p className="text-gray-400">Manage customer inquiries and messages</p>
           </div>
         </div>
-        
+
         <div className="text-sm text-gray-400">
           Total: {contacts.length} messages
         </div>
@@ -244,9 +244,8 @@ export default function MessagesComponent() {
               <div
                 key={contact._id}
                 onClick={() => handleViewDetails(contact)}
-                className={`p-4 bg-white/5 border border-white/10 rounded-lg hover:bg-white/10 transition-all cursor-pointer ${
-                  selectedContact?._id === contact._id ? 'ring-2 ring-blue-500/50' : ''
-                }`}
+                className={`p-4 bg-white/5 border border-white/10 rounded-lg hover:bg-white/10 transition-all cursor-pointer ${selectedContact?._id === contact._id ? 'ring-2 ring-blue-500/50' : ''
+                  }`}
               >
                 <div className="flex items-start justify-between mb-2">
                   <div className="flex items-center gap-2">
@@ -259,17 +258,17 @@ export default function MessagesComponent() {
                   </div>
                   {getStatusBadge(contact.status)}
                 </div>
-                
+
                 <p className="text-sm text-gray-400 mb-2">{contact.email}</p>
                 <p className="text-sm font-medium text-gray-300 mb-2">{contact.subject}</p>
                 <p className="text-sm text-gray-400 line-clamp-2">{contact.message}</p>
-                
+
                 <div className="flex items-center justify-between mt-3 pt-3 border-t border-white/10">
                   <div className="flex items-center gap-2 text-xs text-gray-500">
                     <Clock className="w-3 h-3" />
                     {new Date(contact.createdAt).toLocaleDateString()}
                   </div>
-                  
+
                   <button
                     onClick={(e) => {
                       e.stopPropagation();
@@ -356,11 +355,10 @@ export default function MessagesComponent() {
                       <button
                         key={status}
                         onClick={() => handleUpdateStatus(selectedContact._id, status)}
-                        className={`px-3 py-1 rounded-lg text-sm font-semibold transition ${
-                          selectedContact.status === status
+                        className={`px-3 py-1 rounded-lg text-sm font-semibold transition ${selectedContact.status === status
                             ? 'bg-blue-500 text-white'
                             : 'bg-white/5 text-gray-400 hover:bg-white/10'
-                        }`}
+                          }`}
                       >
                         {status}
                       </button>

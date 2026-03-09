@@ -21,7 +21,7 @@ const FAQ = () => {
   }, []);
 
   return (
-    <section className="relative w-full py-16 md:py-24 px-4 sm:px-6 md:px-16 bg-gray-900 overflow-hidden">
+    <section className="relative w-full py-16 sm:py-20 lg:py-24 px-4 sm:px-6 lg:px-8 bg-gray-900 overflow-hidden">
       {/* Background */}
       <div className="absolute inset-0 bg-gray-900">
         <div className="absolute top-10 left-10 w-60 h-60 bg-cyan-500/20 blur-3xl rounded-full" />
@@ -60,11 +60,10 @@ const FAQ = () => {
                 setActiveIndex(activeIndex === index ? null : index)
               }
               className={`cursor-pointer rounded-xl border border-gray-700 bg-gray-800/50 backdrop-blur-lg px-5 py-4 transition-all
-              ${
-                activeIndex === index
+              ${activeIndex === index
                   ? "bg-cyan-500/10 border-cyan-400/40"
                   : "hover:bg-gray-800/80"
-              }`}
+                }`}
             >
               {/* Question */}
               <div className="flex items-center justify-between gap-4">
