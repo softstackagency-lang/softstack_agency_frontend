@@ -28,11 +28,18 @@ export default function UsersPage() {
   const fetchUsers = async () => {
     try {
       setLoading(true);
-      
+
       const data = await userApi.getAllUsers();
-      
+
       // userApi.getAllUsers already returns normalized array
       const usersArray = Array.isArray(data) ? data : [];
+
+      // Debug: Log the first user to see the data structure
+      if (usersArray.length > 0) {
+        console.log('First user data:', usersArray[0]);
+        console.log('User fields:', Object.keys(usersArray[0]));
+      }
+
       setUsers(usersArray);
     } catch (error) {
       setError(error.message || 'Failed to load users. Please try again.');
@@ -84,13 +91,13 @@ export default function UsersPage() {
     if (!selectedUser) return;
     try {
       await userApi.deleteUser(selectedUser._id || selectedUser.id);
-      
+
       setUsers(users.filter(u => u._id !== selectedUser._id && u.id !== selectedUser.id));
       setShowDeleteModal(false);
       setSelectedUser(null);
       setSuccessMessage('User deleted successfully!');
       setShowSuccessModal(true);
-      
+
       // Auto refresh after 1.5 seconds
       setTimeout(() => {
         setShowSuccessModal(false);
@@ -105,16 +112,15 @@ export default function UsersPage() {
     if (!selectedUser) return;
     try {
       await userApi.updateUser(selectedUser._id || selectedUser.id, editForm);
-      
-      setUsers(users.map(u => 
-        (u._id === selectedUser._id || u.id === selectedUser.id) 
-          ? { ...u, ...editForm } 
-          : u
-      ));
+
       setShowEditModal(false);
       setSelectedUser(null);
       setSuccessMessage('User updated successfully!');
       setShowSuccessModal(true);
+
+      // Refresh users from database to get actual data
+      await fetchUsers();
+
       setTimeout(() => setShowSuccessModal(false), 3000);
     } catch (error) {
       setError('Error updating user: ' + error.message);
@@ -125,16 +131,15 @@ export default function UsersPage() {
     if (!selectedUser) return;
     try {
       await userApi.updateUserRole(selectedUser._id || selectedUser.id, newRole);
-      
-      setUsers(users.map(u => 
-        (u._id === selectedUser._id || u.id === selectedUser.id) 
-          ? { ...u, role: newRole } 
-          : u
-      ));
+
       setShowRoleModal(false);
       setSelectedUser(null);
       setSuccessMessage('User role updated successfully!');
       setShowSuccessModal(true);
+
+      // Refresh users from database to get actual data
+      await fetchUsers();
+
       setTimeout(() => setShowSuccessModal(false), 3000);
     } catch (error) {
       setError('Error updating role: ' + error.message);
@@ -145,16 +150,15 @@ export default function UsersPage() {
     if (!selectedUser) return;
     try {
       await userApi.updateUserStatus(selectedUser._id || selectedUser.id, newStatus);
-      
-      setUsers(users.map(u => 
-        (u._id === selectedUser._id || u.id === selectedUser.id) 
-          ? { ...u, status: newStatus } 
-          : u
-      ));
+
       setShowStatusModal(false);
       setSelectedUser(null);
       setSuccessMessage('User status updated successfully!');
       setShowSuccessModal(true);
+
+      // Refresh users from database to get actual data
+      await fetchUsers();
+
       setTimeout(() => setShowSuccessModal(false), 3000);
     } catch (error) {
       setError('Error updating status: ' + error.message);
@@ -173,7 +177,7 @@ export default function UsersPage() {
     return (
       <div className="text-center py-12">
         <div className="text-red-400 mb-4">{error}</div>
-        <button 
+        <button
           onClick={fetchUsers}
           className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
         >
@@ -196,7 +200,7 @@ export default function UsersPage() {
             <p className="text-gray-400">Manage your platform users</p>
           </div>
         </div>
-        
+
         <div className="text-sm text-gray-400">
           Total: {users.length} users
         </div>
@@ -214,7 +218,7 @@ export default function UsersPage() {
             className="w-full pl-10 pr-4 py-2 bg-white/5 border border-white/10 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500/50"
           />
         </div>
-        
+
         <button className="flex items-center gap-2 px-4 py-2 bg-white/5 border border-white/10 rounded-lg text-gray-300 hover:bg-white/10 transition-colors">
           <Filter className="w-4 h-4" />
           Filter
@@ -252,15 +256,34 @@ export default function UsersPage() {
                   </td>
                 </tr>
               ) : (
-                filteredUsers.map((user) => (
+                filteredUsers.map((user) => {
+                  // Get the display name from various possible fields
+                  const displayName = user.name || user.displayName || user.username || user.fullName || 'N/A';
+                  const userPhoto = user.photoURL || user.image || user.picture || user.avatar;
+
+                  return (
                   <tr key={user.id || user._id} className="hover:bg-white/5 transition-colors">
                     <td className="px-6 py-4">
                       <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white font-medium">
-                          {user.name?.charAt(0)?.toUpperCase() || 'U'}
+                        {userPhoto ? (
+                          <img
+                            src={userPhoto}
+                            alt={displayName}
+                            className="w-10 h-10 rounded-full object-cover border-2 border-blue-500/30"
+                            onError={(e) => {
+                              e.target.style.display = 'none';
+                              e.target.nextSibling.style.display = 'flex';
+                            }}
+                          />
+                        ) : null}
+                        <div
+                          className="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white font-medium"
+                          style={{ display: userPhoto ? 'none' : 'flex' }}
+                        >
+                          {displayName?.charAt(0)?.toUpperCase() || 'U'}
                         </div>
                         <div>
-                          <div className="text-white font-medium">{user.name || 'N/A'}</div>
+                          <div className="text-white font-medium">{displayName}</div>
                           <div className="text-gray-400 text-sm">{user.email || 'N/A'}</div>
                         </div>
                       </div>
@@ -285,35 +308,35 @@ export default function UsersPage() {
                     </td>
                     <td className="px-6 py-4">
                       <div className="flex items-center justify-center gap-2">
-                        <button 
+                        <button
                           onClick={() => handleViewUser(user)}
                           className="p-1.5 text-gray-400 hover:text-blue-400 hover:bg-blue-500/10 rounded-lg transition-colors"
                           title="View Details"
                         >
                           <Eye className="w-4 h-4" />
                         </button>
-                        <button 
+                        <button
                           onClick={() => handleEditUser(user)}
                           className="p-1.5 text-gray-400 hover:text-yellow-400 hover:bg-yellow-500/10 rounded-lg transition-colors"
                           title="Edit User"
                         >
                           <Edit className="w-4 h-4" />
                         </button>
-                        <button 
+                        <button
                           onClick={() => handleChangeRole(user)}
                           className="p-1.5 text-gray-400 hover:text-purple-400 hover:bg-purple-500/10 rounded-lg transition-colors"
                           title="Change Role"
                         >
                           <Shield className="w-4 h-4" />
                         </button>
-                        <button 
+                        <button
                           onClick={() => handleChangeStatus(user)}
                           className="p-1.5 text-gray-400 hover:text-green-400 hover:bg-green-500/10 rounded-lg transition-colors"
                           title="Change Status"
                         >
                           <UserCheck className="w-4 h-4" />
                         </button>
-                        <button 
+                        <button
                           onClick={() => handleDeleteUser(user)}
                           className="p-1.5 text-gray-400 hover:text-red-400 hover:bg-red-500/10 rounded-lg transition-colors"
                           title="Delete User"
@@ -323,7 +346,8 @@ export default function UsersPage() {
                       </div>
                     </td>
                   </tr>
-                ))
+                  );
+                })
               )}
             </tbody>
           </table>
@@ -353,7 +377,7 @@ export default function UsersPage() {
           <p className="text-green-400">{successMessage}</p>
         </div>
       )}
-      
+
       <ViewUserModal
         user={selectedUser}
         isOpen={showViewModal}
@@ -523,7 +547,7 @@ function DeleteUserModal({ user, isOpen, onClose, onConfirm }) {
           <h3 className="text-xl font-semibold text-white">Delete User</h3>
         </div>
         <p className="text-gray-300 mb-6">
-          Are you sure you want to delete <span className="text-white font-medium">{user.name}</span>? 
+          Are you sure you want to delete <span className="text-white font-medium">{user.name}</span>?
           This action cannot be undone.
         </p>
         <div className="flex gap-3">

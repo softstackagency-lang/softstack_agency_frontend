@@ -1,13 +1,17 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
-import { Users, Search, Filter, MoreVertical, Eye, Edit, Trash2 } from 'lucide-react';
+import { Users, Search, Filter, MoreVertical, Eye, Edit, Trash2, X, Save, Loader2 } from 'lucide-react';
 
 export default function UsersPage() {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
   const [error, setError] = useState(null);
+  const [editModal, setEditModal] = useState({ show: false, user: null });
+  const [editFormData, setEditFormData] = useState({ name: '', email: '', role: '' });
+  const [updating, setUpdating] = useState(false);
+  const [successMessage, setSuccessMessage] = useState('');
 
   useEffect(() => {
     fetchUsers();
@@ -39,6 +43,63 @@ export default function UsersPage() {
       setUsers([]);
     } finally {
       setLoading(false);
+    }
+  };
+
+  const openEditModal = (user) => {
+    // Create a fresh copy of user data to avoid state mutation
+    setEditFormData({
+      name: user.name || '',
+      email: user.email || '',
+      role: user.role || 'user'
+    });
+    setEditModal({ show: true, user: { ...user } });
+  };
+
+  const closeEditModal = () => {
+    setEditModal({ show: false, user: null });
+    setEditFormData({ name: '', email: '', role: '' });
+  };
+
+  const handleUpdateUser = async () => {
+    if (!editModal.user) return;
+
+    try {
+      setUpdating(true);
+      setError(null);
+
+      const response = await fetch(`/api/users/${editModal.user._id || editModal.user.id}`, {
+        method: 'PUT',
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(editFormData),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok || !data.success) {
+        throw new Error(data.message || 'Failed to update user');
+      }
+
+      // Update the users array with the new data, ensuring proper immutability
+      setUsers(prevUsers =>
+        prevUsers.map(user =>
+          (user._id || user.id) === (editModal.user._id || editModal.user.id)
+            ? { ...user, ...editFormData }
+            : user
+        )
+      );
+
+      setSuccessMessage('User updated successfully!');
+      setTimeout(() => setSuccessMessage(''), 3000);
+      closeEditModal();
+    } catch (error) {
+      setError(error.message || 'Failed to update user');
+      setTimeout(() => setError(null), 3000);
+    } finally {
+      setUpdating(false);
     }
   };
 
@@ -160,7 +221,10 @@ export default function UsersPage() {
                         <button className="p-1.5 text-gray-400 hover:text-blue-400 hover:bg-blue-500/10 rounded-lg transition-colors">
                           <Eye className="w-4 h-4" />
                         </button>
-                        <button className="p-1.5 text-gray-400 hover:text-yellow-400 hover:bg-yellow-500/10 rounded-lg transition-colors">
+                        <button
+                          onClick={() => openEditModal(user)}
+                          className="p-1.5 text-gray-400 hover:text-yellow-400 hover:bg-yellow-500/10 rounded-lg transition-colors"
+                        >
                           <Edit className="w-4 h-4" />
                         </button>
                         <button className="p-1.5 text-gray-400 hover:text-red-400 hover:bg-red-500/10 rounded-lg transition-colors">
@@ -209,7 +273,10 @@ export default function UsersPage() {
                   <button className="p-1.5 text-gray-400 hover:text-blue-400 hover:bg-blue-500/10 rounded-lg transition-colors">
                     <Eye className="w-4 h-4" />
                   </button>
-                  <button className="p-1.5 text-gray-400 hover:text-yellow-400 hover:bg-yellow-500/10 rounded-lg transition-colors">
+                  <button
+                    onClick={() => openEditModal(user)}
+                    className="p-1.5 text-gray-400 hover:text-yellow-400 hover:bg-yellow-500/10 rounded-lg transition-colors"
+                  >
                     <Edit className="w-4 h-4" />
                   </button>
                   <button className="p-1.5 text-gray-400 hover:text-red-400 hover:bg-red-500/10 rounded-lg transition-colors">
@@ -247,6 +314,134 @@ export default function UsersPage() {
             </button>
             <button className="px-3 py-1.5 text-xs sm:text-sm border border-white/10 rounded-lg text-gray-400 hover:text-white hover:bg-white/5 transition-colors">
               Next
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* ══════════ EDIT USER MODAL ══════════ */}
+      {editModal.show && (
+        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center p-3 sm:p-4 z-50">
+          <div className="bg-[#0a0f23]/95 backdrop-blur-xl border border-blue-500/30 rounded-2xl shadow-[0_0_40px_rgba(59,130,246,0.2)] w-full max-w-md">
+
+            {/* Modal Header */}
+            <div className="flex justify-between items-center p-4 sm:p-6 border-b border-blue-500/20">
+              <h3 className="text-base sm:text-lg md:text-xl font-semibold text-white">
+                Edit User
+              </h3>
+              <button
+                onClick={closeEditModal}
+                disabled={updating}
+                className="p-1.5 sm:p-2 text-gray-400 hover:text-white hover:bg-white/10 rounded-lg transition-all disabled:opacity-50"
+              >
+                <X size={20} />
+              </button>
+            </div>
+
+            {/* Modal Body */}
+            <div className="p-4 sm:p-6 space-y-4">
+              <div>
+                <label className="block text-xs sm:text-sm text-gray-400 mb-2">Name</label>
+                <input
+                  type="text"
+                  value={editFormData.name}
+                  onChange={(e) => setEditFormData({ ...editFormData, name: e.target.value })}
+                  className="w-full bg-white/5 border border-blue-500/30 rounded-lg px-3 py-2 text-slate-200 placeholder-slate-500 focus:outline-none focus:border-blue-500/60 focus:ring-1 focus:ring-blue-500/30 text-sm"
+                  placeholder="Enter user name"
+                  disabled={updating}
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs sm:text-sm text-gray-400 mb-2">Email</label>
+                <input
+                  type="email"
+                  value={editFormData.email}
+                  onChange={(e) => setEditFormData({ ...editFormData, email: e.target.value })}
+                  className="w-full bg-white/5 border border-blue-500/30 rounded-lg px-3 py-2 text-slate-200 placeholder-slate-500 focus:outline-none focus:border-blue-500/60 focus:ring-1 focus:ring-blue-500/30 text-sm"
+                  placeholder="Enter email"
+                  disabled={updating}
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs sm:text-sm text-gray-400 mb-2">Role</label>
+                <select
+                  value={editFormData.role}
+                  onChange={(e) => setEditFormData({ ...editFormData, role: e.target.value })}
+                  className="w-full bg-[#0a0f23] border border-blue-500/30 rounded-lg px-3 py-2 text-slate-200 focus:outline-none focus:border-blue-500/60 focus:ring-1 focus:ring-blue-500/30 text-sm"
+                  disabled={updating}
+                >
+                  <option value="user">User</option>
+                  <option value="admin">Admin</option>
+                  <option value="moderator">Moderator</option>
+                </select>
+              </div>
+
+              {/* Action Buttons */}
+              <div className="flex gap-2 sm:gap-3 pt-2">
+                <button
+                  onClick={handleUpdateUser}
+                  disabled={updating}
+                  className="flex items-center gap-2 px-4 py-2 bg-blue-500 hover:bg-blue-600 rounded-lg transition-colors disabled:opacity-50 text-sm sm:text-base text-white flex-1 justify-center"
+                >
+                  {updating ? (
+                    <>
+                      <Loader2 className="w-4 h-4 animate-spin" />
+                      Updating...
+                    </>
+                  ) : (
+                    <>
+                      <Save size={16} />
+                      Save Changes
+                    </>
+                  )}
+                </button>
+                <button
+                  onClick={closeEditModal}
+                  disabled={updating}
+                  className="flex items-center gap-2 px-4 py-2 bg-gray-600 hover:bg-gray-700 rounded-lg transition-colors disabled:opacity-50 text-sm sm:text-base text-white"
+                >
+                  <X size={16} />
+                  Cancel
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ══════════ SUCCESS TOAST ══════════ */}
+      {successMessage && (
+        <div className="fixed top-4 left-1/2 -translate-x-1/2 z-[60] w-[min(90vw,360px)]">
+          <div className="bg-[#0a0f23]/95 backdrop-blur-xl border border-green-500/30 rounded-2xl px-4 py-3.5 shadow-[0_0_20px_rgba(34,197,94,0.15)] flex items-center gap-3">
+            <div className="w-5 h-5 bg-green-500 rounded-full flex items-center justify-center flex-shrink-0">
+              <svg className="w-3 h-3 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+              </svg>
+            </div>
+            <div>
+              <p className="text-sm font-semibold text-white">Success!</p>
+              <p className="text-green-400 text-xs">{successMessage}</p>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ══════════ ERROR TOAST ══════════ */}
+      {error && (
+        <div className="fixed top-4 left-1/2 -translate-x-1/2 z-[60] w-[min(90vw,360px)]">
+          <div className="bg-[#0a0f23]/95 backdrop-blur-xl border border-red-500/30 rounded-2xl px-4 py-3.5 shadow-[0_0_20px_rgba(239,68,68,0.15)] flex items-center gap-3">
+            <X className="w-5 h-5 text-red-400 flex-shrink-0" />
+            <div className="flex-1">
+              <p className="text-sm font-semibold text-white">Error!</p>
+              <p className="text-red-400 text-xs">{error}</p>
+            </div>
+            <button
+              onClick={() => setError(null)}
+              className="p-1 hover:bg-red-500/20 rounded transition-colors"
+            >
+              <X className="w-4 h-4 text-red-400" />
             </button>
           </div>
         </div>
