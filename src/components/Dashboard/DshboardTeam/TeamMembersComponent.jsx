@@ -273,7 +273,7 @@ export default function TeamMembersComponent() {
               </div>
 
               {/* Scrollable Form Body */}
-              <div className="overflow-y-auto max-h-[calc(90vh-80px)] p-4 sm:p-6">
+        <div className="overflow-y-auto max-h-[calc(90vh-80px)] p-4 sm:p-6 pb-24 sm:pb-8">
                 <div className="space-y-3 sm:space-y-4">
 
                   {/* Name + Role */}

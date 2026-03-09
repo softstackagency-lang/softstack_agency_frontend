@@ -128,7 +128,6 @@ export default function PricingPlanComponent() {
   const removeFeature = (i) => setFormData({ ...formData, features: formData.features.filter((_, idx) => idx !== i) });
 
   const cardStyle = "bg-[#0a0f23]/60 backdrop-blur-xl border border-blue-500/30 rounded-2xl text-white shadow-[0_0_20px_rgba(59,130,246,0.1)] hover:shadow-[0_0_30px_rgba(59,130,246,0.2)] transition-all duration-500";
-  const inputClass = "w-full px-3 py-2.5 text-sm bg-[#05060a] border border-blue-500/30 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500/30 transition-colors";
   const labelClass = "block text-sm text-gray-400 mb-1.5 font-medium";
 
   const Toggle = ({ checked, onChange, disabled, label }) => (
@@ -189,33 +188,26 @@ export default function PricingPlanComponent() {
           </div>
         )}
 
-        {/* Plans Grid: 1 col mobile, 2 col tablet, 3 col desktop */}
+        {/* Plans Grid */}
         {!loading && plans.length > 0 && (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 lg:gap-6">
             {plans.map((plan) => (
               <div key={plan.id} className={`${cardStyle} p-4 sm:p-5 lg:p-6 relative flex flex-col ${plan.recommended ? "border-2 border-blue-500" : ""}`}>
-
                 {plan.recommended && (
                   <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-0.5 bg-blue-500 text-white text-xs font-semibold rounded-full whitespace-nowrap">
                     RECOMMENDED
                   </div>
                 )}
-
-                {/* Plan Name & Status */}
                 <div className="flex items-start justify-between mb-2 gap-2">
                   <h3 className="text-lg sm:text-xl lg:text-2xl font-bold text-white leading-tight">{plan.name}</h3>
                   {!plan.isActive && (
                     <span className="px-2 py-0.5 bg-red-500/20 text-red-400 text-xs rounded shrink-0">Inactive</span>
                   )}
                 </div>
-
-                {/* Category */}
                 <div className="flex items-center gap-1.5 text-xs text-gray-400 mb-3">
                   <Tag size={12} />
                   <span>{plan.categoryName || 'Unknown'}</span>
                 </div>
-
-                {/* Price */}
                 <div className="flex items-baseline gap-1 mb-2">
                   <span className="text-3xl sm:text-4xl font-bold text-white">
                     ${typeof plan.price === 'object' ? (plan.price.USD || plan.price.BDT || 0) : plan.price}
@@ -228,8 +220,6 @@ export default function PricingPlanComponent() {
                     {plan.price.BDT ? <span>BDT: ৳{plan.price.BDT}</span> : null}
                   </div>
                 )}
-
-                {/* Features */}
                 <ul className="space-y-2 mb-5 flex-1">
                   {plan.features?.map((feature, i) => (
                     <li key={i} className="flex items-start gap-2 text-xs sm:text-sm text-gray-300">
@@ -238,8 +228,6 @@ export default function PricingPlanComponent() {
                     </li>
                   ))}
                 </ul>
-
-                {/* Actions */}
                 <div className="flex gap-2 pt-3 border-t border-blue-500/10">
                   <button onClick={() => handleEdit(plan)} disabled={loading}
                     className="flex-1 flex items-center justify-center gap-1.5 px-3 py-2 bg-blue-500/20 hover:bg-blue-500/30 active:bg-blue-500/40 rounded-lg transition-colors text-xs sm:text-sm disabled:opacity-50">
@@ -256,13 +244,14 @@ export default function PricingPlanComponent() {
         )}
       </div>
 
-      {/* Toast - centered top on mobile, top-right on desktop */}
+      {/* Toast */}
       {toast.show && (
-        <div className="fixed top-4 left-1/2 -translate-x-1/2 sm:left-auto sm:right-4 sm:translate-x-0 z-[60] w-[min(90vw,360px)] sm:w-auto sm:max-w-sm">
-          <div className={`flex items-center gap-3 px-4 py-3 sm:px-6 sm:py-4 rounded-xl shadow-2xl border backdrop-blur-xl ${toast.type === "success" ? "bg-green-500/20 border-green-500/50 text-green-300"
-              : toast.type === "error" ? "bg-red-500/20 border-red-500/50 text-red-300"
-                : "bg-blue-500/20 border-blue-500/50 text-blue-300"
-            }`}>
+        <div className="fixed top-4 left-1/2 -translate-x-1/2 z-[60] w-[min(90vw,360px)]">
+          <div className={`flex items-center gap-3 px-4 py-3 rounded-xl shadow-2xl border backdrop-blur-xl ${
+            toast.type === "success" ? "bg-green-500/20 border-green-500/50 text-green-300"
+            : toast.type === "error" ? "bg-red-500/20 border-red-500/50 text-red-300"
+            : "bg-blue-500/20 border-blue-500/50 text-blue-300"
+          }`}>
             {toast.type === "success" && <CheckCircle size={18} className="shrink-0" />}
             {toast.type === "error" && <XCircle size={18} className="shrink-0" />}
             {toast.type === "info" && <AlertCircle size={18} className="shrink-0" />}
@@ -272,13 +261,14 @@ export default function PricingPlanComponent() {
         </div>
       )}
 
-      {/* Add/Edit Form Modal — bottom sheet on mobile, centered on desktop */}
+      {/* ─── Add/Edit Form Modal ─────────────────────────────────────────────────
+           KEY CHANGE: `p-4` on the backdrop gives a 16px gap on every side,
+           so the modal is never flush with screen edges on any device.
+           `items-center` centres it vertically on all screen sizes.
+      ──────────────────────────────────────────────────────────────────────── */}
       {showFormModal && (
-        <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-black/70 backdrop-blur-sm">
-          <div className="w-full sm:w-[min(100vw-2rem,600px)] max-h-[92dvh] sm:max-h-[88vh] bg-[#0a0f23] border-t sm:border border-slate-700 sm:border-blue-500/25 rounded-t-2xl sm:rounded-2xl shadow-2xl flex flex-col">
-
-            {/* Drag handle (mobile only) */}
-            <div className="w-10 h-1 bg-slate-600 rounded-full mx-auto mt-3 mb-1 sm:hidden shrink-0" />
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm p-4">
+          <div className="w-full max-w-lg max-h-[90dvh] bg-[#0a0f23] border border-blue-500/25 rounded-2xl shadow-2xl flex flex-col">
 
             {/* Modal Header */}
             <div className="flex items-center justify-between px-4 sm:px-6 py-3 sm:py-4 border-b border-slate-700/80 shrink-0">
@@ -299,13 +289,15 @@ export default function PricingPlanComponent() {
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <div>
                     <label className={labelClass}>Plan Name *</label>
-                    <input type="text" value={formData.name} onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                      className="dashboard-input" placeholder="e.g., Basic, Professional" disabled={loading} />
+                    <input type="text" value={formData.name}
+                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                      className="dashboard-input w-full" placeholder="e.g., Basic, Professional" disabled={loading} />
                   </div>
                   <div>
                     <label className={labelClass}>Category *</label>
-                    <select value={formData.categoryId} onChange={(e) => setFormData({ ...formData, categoryId: e.target.value })}
-                      className="dashboard-select" disabled={loading || !!editingId}>
+                    <select value={formData.categoryId}
+                      onChange={(e) => setFormData({ ...formData, categoryId: e.target.value })}
+                      className="dashboard-select w-full" disabled={loading || !!editingId}>
                       <option value="">Select a category</option>
                       {categories.map((cat) => <option key={cat._id} value={cat._id}>{cat.name}</option>)}
                     </select>
@@ -319,27 +311,26 @@ export default function PricingPlanComponent() {
                     <label className={labelClass}>Price (USD) *</label>
                     <input type="text" inputMode="numeric" value={formData.price.USD}
                       onChange={(e) => { const v = e.target.value.replace(/[^0-9.]/g, ''); setFormData({ ...formData, price: { ...formData.price, USD: parseFloat(v) || 0 } }); }}
-                      className="dashboard-input" placeholder="999" disabled={loading} />
+                      className="dashboard-input w-full" placeholder="999" disabled={loading} />
                   </div>
                   <div>
                     <label className={labelClass}>Price (BDT)</label>
                     <input type="text" inputMode="numeric" value={formData.price.BDT}
                       onChange={(e) => { const v = e.target.value.replace(/[^0-9.]/g, ''); setFormData({ ...formData, price: { ...formData.price, BDT: parseFloat(v) || 0 } }); }}
-                      className="dashboard-input" placeholder="99999" disabled={loading} />
+                      className="dashboard-input w-full" placeholder="99999" disabled={loading} />
                   </div>
                 </div>
 
                 {/* Duration */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                  <div>
-                    <label className={labelClass}>Duration</label>
-                    <select value={formData.duration} onChange={(e) => setFormData({ ...formData, duration: e.target.value })}
-                      className="dashboard-select" disabled={loading}>
-                      <option value="month">Per Month</option>
-                      <option value="year">Per Year</option>
-                      <option value="once">One Time</option>
-                    </select>
-                  </div>
+                <div>
+                  <label className={labelClass}>Duration</label>
+                  <select value={formData.duration}
+                    onChange={(e) => setFormData({ ...formData, duration: e.target.value })}
+                    className="dashboard-select w-full" disabled={loading}>
+                    <option value="month">Per Month</option>
+                    <option value="year">Per Year</option>
+                    <option value="once">One Time</option>
+                  </select>
                 </div>
 
                 {/* Features */}
@@ -348,7 +339,8 @@ export default function PricingPlanComponent() {
                   <div className="space-y-2">
                     {formData.features.map((feature, index) => (
                       <div key={index} className="flex gap-2">
-                        <input type="text" value={feature} onChange={(e) => updateFeature(index, e.target.value)}
+                        <input type="text" value={feature}
+                          onChange={(e) => updateFeature(index, e.target.value)}
                           className="dashboard-input flex-1" placeholder="Enter feature" disabled={loading} />
                         <button onClick={() => removeFeature(index)}
                           className="w-10 h-10 flex items-center justify-center bg-red-500/15 hover:bg-red-500/25 active:bg-red-500/35 rounded-lg transition-colors shrink-0">
@@ -391,11 +383,12 @@ export default function PricingPlanComponent() {
         </div>
       )}
 
-      {/* Delete Modal — bottom sheet on mobile, centered on desktop */}
+      {/* ─── Delete Modal ────────────────────────────────────────────────────────
+           Same pattern: `p-4` backdrop padding + `items-center` = always centred.
+      ──────────────────────────────────────────────────────────────────────── */}
       {deleteModal.show && (
-        <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-black/60 backdrop-blur-sm">
-          <div className="w-full sm:w-auto sm:max-w-md bg-[#0a0f23] border-t sm:border border-slate-700 sm:border-red-500/30 rounded-t-2xl sm:rounded-2xl p-5 sm:p-8 shadow-2xl">
-            <div className="w-10 h-1 bg-slate-600 rounded-full mx-auto mb-4 sm:hidden" />
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
+          <div className="w-full max-w-sm bg-[#0a0f23] border border-red-500/30 rounded-2xl p-5 sm:p-8 shadow-2xl">
             <div className="flex items-center gap-3 mb-3 sm:mb-4">
               <div className="p-2.5 bg-red-500/20 rounded-full shrink-0">
                 <AlertCircle size={22} className="text-red-400" />
@@ -408,11 +401,14 @@ export default function PricingPlanComponent() {
               <span className="text-xs sm:text-sm text-red-400 mt-1.5 block">This action cannot be undone.</span>
             </p>
             <div className="flex gap-3">
-              <button onClick={() => setDeleteModal({ show: false, planId: null, planName: "", categoryId: null })}
+              <button
+                onClick={() => setDeleteModal({ show: false, planId: null, planName: "", categoryId: null })}
                 className="flex-1 py-2.5 sm:py-3 bg-gray-600 hover:bg-gray-700 active:bg-gray-800 text-white rounded-lg text-sm font-medium transition-colors">
                 Cancel
               </button>
-              <button onClick={() => handleDelete(deleteModal.categoryId, deleteModal.planId)} disabled={loading}
+              <button
+                onClick={() => handleDelete(deleteModal.categoryId, deleteModal.planId)}
+                disabled={loading}
                 className="flex-1 py-2.5 sm:py-3 bg-red-500 hover:bg-red-600 active:bg-red-700 text-white rounded-lg text-sm font-medium transition-colors disabled:opacity-50 flex items-center justify-center gap-2">
                 {loading ? <><Loader2 size={16} className="animate-spin" /> Deleting...</> : <><Trash2 size={16} /> Delete</>}
               </button>
