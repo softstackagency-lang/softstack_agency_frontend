@@ -592,7 +592,7 @@ export default function ProductComponent() {
               {/* Scrollable Form */}
               <form
                 onSubmit={showCreateModal ? handleCreate : handleUpdate}
-                className="overflow-y-auto max-h-[calc(90vh-80px)] p-4 sm:p-6 space-y-4 sm:space-y-5"
+              className="overflow-y-auto max-h-[calc(90vh-80px)] p-4 sm:p-6 space-y-4 sm:space-y-5 pb-24 sm:pb-8"
               >
 
                 {/* ── Basic Info ── */}
