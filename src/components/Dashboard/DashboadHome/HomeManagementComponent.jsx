@@ -254,7 +254,7 @@ function TestimonialsSection({ cardStyle }) {
                   type="text"
                   value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                  className="w-full px-3 sm:px-4 py-2 bg-[#05060a] border border-blue-500/30 rounded-lg focus:outline-none focus:border-blue-500 text-sm sm:text-base"
+                  className="dashboard-input"
                   placeholder="Enter name"
                   required
                 />
@@ -265,7 +265,7 @@ function TestimonialsSection({ cardStyle }) {
                   type="text"
                   value={formData.designation}
                   onChange={(e) => setFormData({ ...formData, designation: e.target.value })}
-                  className="w-full px-3 sm:px-4 py-2 bg-[#05060a] border border-blue-500/30 rounded-lg focus:outline-none focus:border-blue-500 text-sm sm:text-base"
+                  className="dashboard-input"
                   placeholder="Enter designation"
                 />
               </div>
@@ -279,7 +279,7 @@ function TestimonialsSection({ cardStyle }) {
                   type="text"
                   value={formData.company}
                   onChange={(e) => setFormData({ ...formData, company: e.target.value })}
-                  className="w-full px-3 sm:px-4 py-2 bg-[#05060a] border border-blue-500/30 rounded-lg focus:outline-none focus:border-blue-500 text-sm sm:text-base"
+                  className="dashboard-input"
                   placeholder="Enter company name"
                 />
               </div>
@@ -288,7 +288,7 @@ function TestimonialsSection({ cardStyle }) {
                 <select
                   value={formData.rating}
                   onChange={(e) => setFormData({ ...formData, rating: parseInt(e.target.value) })}
-                  className="w-full px-3 sm:px-4 py-2 bg-[#05060a] border border-blue-500/30 rounded-lg focus:outline-none focus:border-blue-500 text-sm sm:text-base"
+                  className="dashboard-select"
                 >
                   {[1, 2, 3, 4, 5].map((num) => (
                     <option key={num} value={num}>{num} Star{num > 1 ? "s" : ""}</option>
@@ -313,7 +313,7 @@ function TestimonialsSection({ cardStyle }) {
                   type="text"
                   value={formData.avatar}
                   onChange={(e) => setFormData({ ...formData, avatar: e.target.value })}
-                  className="w-full px-3 sm:px-4 py-2 bg-[#05060a] border border-blue-500/30 rounded-lg focus:outline-none focus:border-blue-500 text-sm sm:text-base"
+                  className="dashboard-input"
                   placeholder="Or enter avatar image URL"
                 />
                 {formData.avatar && (
@@ -331,7 +331,7 @@ function TestimonialsSection({ cardStyle }) {
               <textarea
                 value={formData.message}
                 onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                className="w-full px-3 sm:px-4 py-2 bg-[#05060a] border border-blue-500/30 rounded-lg focus:outline-none focus:border-blue-500 min-h-[80px] sm:min-h-[100px] text-sm sm:text-base"
+                className="dashboard-textarea min-h-[80px] sm:min-h-[100px]"
                 placeholder="Enter testimonial message"
                 required
               />
@@ -622,7 +622,7 @@ function BannerSection({ cardStyle }) {
                 type="text"
                 value={formData.badge}
                 onChange={(e) => setFormData({ ...formData, badge: e.target.value })}
-                className="w-full px-3 sm:px-4 py-2 bg-[#05060a] border border-blue-500/30 rounded-lg focus:outline-none focus:border-blue-500 text-sm sm:text-base"
+                className="dashboard-input"
                 placeholder="SoftStack Agency"
               />
             </div>
@@ -635,7 +635,7 @@ function BannerSection({ cardStyle }) {
                   type="text"
                   value={formData.title.highlight}
                   onChange={(e) => setFormData({ ...formData, title: { ...formData.title, highlight: e.target.value } })}
-                  className="w-full px-3 sm:px-4 py-2 bg-[#05060a] border border-blue-500/30 rounded-lg focus:outline-none focus:border-blue-500 text-sm sm:text-base"
+                  className="dashboard-input"
                   placeholder="Modern"
                 />
               </div>
@@ -645,7 +645,7 @@ function BannerSection({ cardStyle }) {
                   type="text"
                   value={formData.title.text}
                   onChange={(e) => setFormData({ ...formData, title: { ...formData.title, text: e.target.value } })}
-                  className="w-full px-3 sm:px-4 py-2 bg-[#05060a] border border-blue-500/30 rounded-lg focus:outline-none focus:border-blue-500 text-sm sm:text-base"
+                  className="dashboard-input"
                   placeholder="Build Modern & Scalable Web Experiences"
                 />
               </div>
@@ -656,7 +656,7 @@ function BannerSection({ cardStyle }) {
               <textarea
                 value={formData.description}
                 onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                className="w-full px-3 sm:px-4 py-2 bg-[#05060a] border border-blue-500/30 rounded-lg focus:outline-none focus:border-blue-500 min-h-[80px] sm:min-h-[100px] text-sm sm:text-base"
+                className="dashboard-textarea min-h-[80px] sm:min-h-[100px]"
                 placeholder="We design and develop high-performance websites..."
               />
             </div>
@@ -675,21 +675,21 @@ function BannerSection({ cardStyle }) {
                     type="text"
                     value={btn.text}
                     onChange={(e) => updateCtaButton(index, "text", e.target.value)}
-                    className="flex-1 px-3 py-2 bg-[#05060a] border border-blue-500/30 rounded-lg text-xs sm:text-sm"
+                    className="dashboard-input flex-1"
                     placeholder="Button Text"
                   />
                   <input
                     type="text"
                     value={btn.link}
                     onChange={(e) => updateCtaButton(index, "link", e.target.value)}
-                    className="flex-1 px-3 py-2 bg-[#05060a] border border-blue-500/30 rounded-lg text-xs sm:text-sm"
+                    className="dashboard-input flex-1"
                     placeholder="/link"
                   />
                   <div className="flex gap-2">
                     <select
                       value={btn.type}
                       onChange={(e) => updateCtaButton(index, "type", e.target.value)}
-                      className="flex-1 sm:flex-none px-3 py-2 bg-[#05060a] border border-blue-500/30 rounded-lg text-xs sm:text-sm"
+                      className="dashboard-select flex-1 sm:flex-none"
                     >
                       <option value="primary">Primary</option>
                       <option value="secondary">Secondary</option>
@@ -716,7 +716,7 @@ function BannerSection({ cardStyle }) {
                     type="text"
                     value={img.title}
                     onChange={(e) => updateImage(index, "title", e.target.value)}
-                    className="flex-1 px-3 py-2 bg-[#05060a] border border-blue-500/30 rounded-lg text-xs sm:text-sm"
+                    className="dashboard-input flex-1"
                     placeholder="Image Title"
                   />
                   <div className="flex gap-2 flex-1">
@@ -724,7 +724,7 @@ function BannerSection({ cardStyle }) {
                       type="text"
                       value={img.imageUrl}
                       onChange={(e) => updateImage(index, "imageUrl", e.target.value)}
-                      className="flex-1 px-3 py-2 bg-[#05060a] border border-blue-500/30 rounded-lg text-xs sm:text-sm"
+                      className="dashboard-input flex-1"
                       placeholder="Image URL"
                     />
                     <button onClick={() => removeImage(index)} className="px-3 py-2 bg-red-500/20 hover:bg-red-500/30 rounded-lg text-red-400 flex-shrink-0">
@@ -988,7 +988,7 @@ function FAQsSection({ cardStyle }) {
                 type="text"
                 value={formData.question}
                 onChange={(e) => setFormData({ ...formData, question: e.target.value })}
-                className="w-full px-3 sm:px-4 py-2 bg-[#05060a] border border-blue-500/30 rounded-lg focus:outline-none focus:border-blue-500 text-sm sm:text-base"
+                className="dashboard-input"
                 placeholder="Enter question"
               />
             </div>
@@ -997,7 +997,7 @@ function FAQsSection({ cardStyle }) {
               <textarea
                 value={formData.answer}
                 onChange={(e) => setFormData({ ...formData, answer: e.target.value })}
-                className="w-full px-3 sm:px-4 py-2 bg-[#05060a] border border-blue-500/30 rounded-lg focus:outline-none focus:border-blue-500 min-h-[80px] sm:min-h-[100px] text-sm sm:text-base"
+                className="dashboard-textarea min-h-[80px] sm:min-h-[100px]"
                 placeholder="Enter answer"
               />
             </div>

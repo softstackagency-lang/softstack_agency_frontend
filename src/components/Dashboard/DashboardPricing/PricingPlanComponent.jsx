@@ -301,12 +301,12 @@ export default function PricingPlanComponent() {
                   <div>
                     <label className={labelClass}>Plan Name *</label>
                     <input type="text" value={formData.name} onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                      className={inputClass} placeholder="e.g., Basic, Professional" disabled={loading} />
+                      className="dashboard-input" placeholder="e.g., Basic, Professional" disabled={loading} />
                   </div>
                   <div>
                     <label className={labelClass}>Category *</label>
                     <select value={formData.categoryId} onChange={(e) => setFormData({ ...formData, categoryId: e.target.value })}
-                      className={inputClass} disabled={loading || !!editingId}>
+                      className="dashboard-select" disabled={loading || !!editingId}>
                       <option value="">Select a category</option>
                       {categories.map((cat) => <option key={cat._id} value={cat._id}>{cat.name}</option>)}
                     </select>
@@ -320,13 +320,13 @@ export default function PricingPlanComponent() {
                     <label className={labelClass}>Price (USD) *</label>
                     <input type="text" inputMode="numeric" value={formData.price.USD}
                       onChange={(e) => { const v = e.target.value.replace(/[^0-9.]/g, ''); setFormData({ ...formData, price: { ...formData.price, USD: parseFloat(v) || 0 } }); }}
-                      className={inputClass} placeholder="999" disabled={loading} />
+                      className="dashboard-input" placeholder="999" disabled={loading} />
                   </div>
                   <div>
                     <label className={labelClass}>Price (BDT)</label>
                     <input type="text" inputMode="numeric" value={formData.price.BDT}
                       onChange={(e) => { const v = e.target.value.replace(/[^0-9.]/g, ''); setFormData({ ...formData, price: { ...formData.price, BDT: parseFloat(v) || 0 } }); }}
-                      className={inputClass} placeholder="99999" disabled={loading} />
+                      className="dashboard-input" placeholder="99999" disabled={loading} />
                   </div>
                 </div>
 
@@ -335,7 +335,7 @@ export default function PricingPlanComponent() {
                   <div>
                     <label className={labelClass}>Duration</label>
                     <select value={formData.duration} onChange={(e) => setFormData({ ...formData, duration: e.target.value })}
-                      className={inputClass} disabled={loading}>
+                      className="dashboard-select" disabled={loading}>
                       <option value="month">Per Month</option>
                       <option value="year">Per Year</option>
                       <option value="once">One Time</option>
@@ -350,7 +350,7 @@ export default function PricingPlanComponent() {
                     {formData.features.map((feature, index) => (
                       <div key={index} className="flex gap-2">
                         <input type="text" value={feature} onChange={(e) => updateFeature(index, e.target.value)}
-                          className={`${inputClass} flex-1`} placeholder="Enter feature" disabled={loading} />
+                          className="dashboard-input flex-1" placeholder="Enter feature" disabled={loading} />
                         <button onClick={() => removeFeature(index)}
                           className="w-10 h-10 flex items-center justify-center bg-red-500/15 hover:bg-red-500/25 active:bg-red-500/35 rounded-lg transition-colors shrink-0">
                           <X size={15} className="text-red-400" />
