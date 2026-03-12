@@ -54,11 +54,16 @@ const Header = () => {
     setDropdownTimeout(timeout);
   };
 
+  const handleMobileNavigation = () => {
+    setIsMobileMenuOpen(false);
+    setActiveDropdown(null);
+  };
+
   const services = [
     { name: "Web Development", desc: "Custom websites & web apps", href: "/web-development" },
     { name: "AI Agents", desc: "Intelligent virtual assistants", href: "/ai-agents" },
     { name: "App Development", desc: "iOS & Android development", href: "/app-development" },
-    { name: "E-commerce", desc: "Online store solutions" },
+    { name: "E-commerce", desc: "Online store solutions", href: "/e-commerce" },
   ];
 
   const aboutUsItems = [
@@ -128,13 +133,13 @@ const Header = () => {
 
           {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center space-x-1">
-            <a
+            <Link
               href="/product"
               className="px-4 py-2 text-gray-300 hover:text-white transition-colors duration-300 relative group"
             >
               <span>Project</span>
               <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-linear-to-r from-cyan-400 to-blue-500 group-hover:w-full transition-all duration-300"></span>
-            </a>
+            </Link>
 
             {/* Services Dropdown */}
             <div
@@ -159,23 +164,9 @@ const Header = () => {
                   <div className="bg-slate-800/95 backdrop-blur-xl rounded-xl shadow-2xl border border-slate-700/50 overflow-hidden">
                     <div className="p-2">
                       {services.map((service, index) => (
-                        <a
+                        <Link
                           key={index}
-                          href={
-                            service.name === "Web Development"
-                              ? "/web-development"
-                              : service.name === "AI Agents"
-                                ? "/ai-agents"
-                                : service.name === "App Development"
-                                  ? "/app-development"
-                                  : service.name === "Digital Marketing"
-                                    ? "/digital-marketing"
-                                    : service.name === "Branding"
-                                      ? "/branding"
-                                      : service.name === "E-commerce"
-                                        ? "/e-commerce"
-                                        : `#${service.name.toLowerCase().replace(/\s+/g, "-")}`
-                          }
+                          href={service.href}
                           className="block px-4 py-3 rounded-lg hover:bg-linear-to-r hover:from-cyan-500/10 hover:to-blue-500/10 transition-all duration-300 group"
                         >
                           <div className="flex items-center justify-between">
@@ -187,7 +178,7 @@ const Header = () => {
                             </div>
                             <ArrowRight className="w-4 h-4 text-cyan-400 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300" />
                           </div>
-                        </a>
+                        </Link>
                       ))}
                     </div>
                   </div>
@@ -195,21 +186,21 @@ const Header = () => {
               )}
             </div>
 
-            <a
+            <Link
               href="/demo"
               className="px-4 py-2 text-gray-300 hover:text-white transition-colors duration-300 relative group"
             >
               <span>Demo</span>
               <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-linear-to-r from-cyan-400 to-blue-500 group-hover:w-full transition-all duration-300"></span>
-            </a>
+            </Link>
 
-            <a
+            <Link
               href="/pricing"
               className="px-4 py-2 text-gray-300 hover:text-white transition-colors duration-300 relative group"
             >
               <span>Pricing</span>
               <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-linear-to-r from-cyan-400 to-blue-500 group-hover:w-full transition-all duration-300"></span>
-            </a>
+            </Link>
 
             {/* About Us Dropdown */}
             <div
@@ -234,7 +225,7 @@ const Header = () => {
                   <div className="bg-slate-800/95 backdrop-blur-xl rounded-xl shadow-2xl border border-slate-700/50 overflow-hidden">
                     <div className="p-2">
                       {aboutUsItems.map((item, index) => (
-                        <a
+                        <Link
                           key={index}
                           href={item.href}
                           className="block px-4 py-3 rounded-lg hover:bg-linear-to-r hover:from-cyan-500/10 hover:to-blue-500/10 transition-all duration-300 group"
@@ -248,7 +239,7 @@ const Header = () => {
                             </div>
                             <ArrowRight className="w-4 h-4 text-cyan-400 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300" />
                           </div>
-                        </a>
+                        </Link>
                       ))}
                     </div>
                   </div>
@@ -455,7 +446,7 @@ const Header = () => {
           <div className="max-w-7xl mx-auto px-4 py-4 space-y-2">
             <Link
               href="/product"
-              onClick={() => setIsMobileMenuOpen(false)}
+              onClick={handleMobileNavigation}
               className={`block px-4 py-3 rounded-lg transition-all duration-300 ${pathname === "/product"
                 ? "text-cyan-400 bg-cyan-500/10 font-medium"
                 : "text-gray-300 hover:text-white hover:bg-slate-800"
@@ -482,9 +473,9 @@ const Header = () => {
                   {services.map((service, index) => (
                     <Link
                       key={index}
-                      href={service.href || `/${service.name.toLowerCase().replace(/\s+/g, "-")}`}
-                      onClick={() => setIsMobileMenuOpen(false)}
-                      className={`block px-4 py-2 text-sm rounded-lg transition-all duration-300 ${pathname === (service.href || `/${service.name.toLowerCase().replace(/\s+/g, "-")}`)
+                      href={service.href}
+                      onClick={handleMobileNavigation}
+                      className={`block px-4 py-2 text-sm rounded-lg transition-all duration-300 ${pathname === service.href
                         ? "text-cyan-400 bg-cyan-500/5 font-medium"
                         : "text-gray-400 hover:text-cyan-400 hover:bg-slate-800/50"
                         }`}
@@ -498,7 +489,7 @@ const Header = () => {
 
             <Link
               href="/demo"
-              onClick={() => setIsMobileMenuOpen(false)}
+              onClick={handleMobileNavigation}
               className={`block px-4 py-3 rounded-lg transition-all duration-300 ${pathname === "/demo"
                 ? "text-cyan-400 bg-cyan-500/10 font-medium"
                 : "text-gray-300 hover:text-white hover:bg-slate-800"
@@ -508,7 +499,7 @@ const Header = () => {
             </Link>
             <Link
               href="/pricing"
-              onClick={() => setIsMobileMenuOpen(false)}
+              onClick={handleMobileNavigation}
               className={`block px-4 py-3 rounded-lg transition-all duration-300 ${pathname === "/pricing"
                 ? "text-cyan-400 bg-cyan-500/10 font-medium"
                 : "text-gray-300 hover:text-white hover:bg-slate-800"
@@ -536,7 +527,7 @@ const Header = () => {
                     <Link
                       key={index}
                       href={item.href}
-                      onClick={() => setIsMobileMenuOpen(false)}
+                      onClick={handleMobileNavigation}
                       className={`block px-4 py-2 text-sm rounded-lg transition-all duration-300 ${pathname === item.href
                         ? "text-cyan-400 bg-cyan-500/5 font-medium"
                         : "text-gray-400 hover:text-cyan-400 hover:bg-slate-800/50"
@@ -600,7 +591,7 @@ const Header = () => {
                       {/* Profile */}
                       <Link
                         href="/profile"
-                        onClick={() => setIsMobileMenuOpen(false)}
+                        onClick={handleMobileNavigation}
                         className={`flex items-center space-x-3 px-4 py-3 rounded-lg transition-all duration-300 ${pathname === "/profile"
                           ? "text-cyan-400 bg-cyan-500/10 font-medium"
                           : "text-gray-400 hover:text-white hover:bg-slate-800"
@@ -616,7 +607,7 @@ const Header = () => {
                       {user.role === "admin" && (
                         <Link
                           href="/dashboard"
-                          onClick={() => setIsMobileMenuOpen(false)}
+                          onClick={handleMobileNavigation}
                           className={`flex items-center space-x-3 px-4 py-3 rounded-lg transition-all duration-300 ${pathname === "/dashboard"
                             ? "text-cyan-400 bg-cyan-500/10 font-medium"
                             : "text-gray-300 hover:text-white hover:bg-slate-800"
@@ -644,7 +635,7 @@ const Header = () => {
                       {/* Track Order */}
                       <Link
                         href="/track-order"
-                        onClick={() => setIsMobileMenuOpen(false)}
+                        onClick={handleMobileNavigation}
                         className={`flex items-center space-x-3 px-4 py-3 rounded-lg transition-all duration-300 ${pathname === "/track-order"
                           ? "text-cyan-400 bg-cyan-500/10 font-medium"
                           : "text-gray-300 hover:text-white hover:bg-slate-800"
@@ -682,14 +673,14 @@ const Header = () => {
                 <>
                   <Link
                     href="/signin"
-                    onClick={() => setIsMobileMenuOpen(false)}
+                    onClick={handleMobileNavigation}
                     className="block px-4 py-3 text-gray-300 hover:text-cyan-400 hover:bg-slate-800 rounded-lg transition-all duration-300 font-medium"
                   >
                     Sign In
                   </Link>
                   <Link
                     href="/signup"
-                    onClick={() => setIsMobileMenuOpen(false)}
+                    onClick={handleMobileNavigation}
                     className="block px-4 py-3 text-cyan-400 hover:text-white hover:bg-slate-800 rounded-lg transition-all duration-300 font-medium"
                   >
                     Sign Up
