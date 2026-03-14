@@ -478,8 +478,28 @@ body {
 }
 
 /* =========================
+   Dashboard Form Inputs (Global)
+========================= */
+.dashboard-input {
+  @apply w-full px-3 py-2.5 text-sm bg-slate-900/50 border border-blue-500/30 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500/30 transition-colors;
+}
+
+.dashboard-textarea {
+  @apply w-full px-3 py-2.5 text-sm bg-slate-900/50 border border-blue-500/30 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500/30 transition-colors resize-none;
+}
+
+.dashboard-select {
+  @apply w-full px-3 py-2.5 text-sm bg-slate-900/50 border border-blue-500/30 rounded-lg text-white focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500/30 transition-colors cursor-pointer;
+}
+
+/* Dropdown options styling */
+.dashboard-select option {
+  @apply bg-slate-900 text-white py-2;
+}
+
+/* =========================
    Accessibility: Reduce motion
-   NOTE: If your balls aren't moving, check if 
+   NOTE: If your balls aren't moving, check if
    you have "Reduce motion" enabled in your OS
 ========================= */
 @media (prefers-reduced-motion: reduce) {
