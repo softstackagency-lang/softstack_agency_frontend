@@ -1,4 +1,5 @@
 import AiAgent from '@/components/Services/Aiagent/AiAgent'
+import { StructuredData, generateServiceSchema, generateBreadcrumbSchema } from "@/components/SEO/StructuredData";
 
 export const metadata = {
   title: "AI Agents & Machine Learning Solutions",
@@ -25,14 +26,29 @@ export const metadata = {
   }
 };
 
-function page() {
+const aiService = {
+  type: "AI Agents & Machine Learning",
+  description: "Intelligent AI agents and machine learning solutions for business automation.",
+  offerings: [
+    { name: 'AI Agent Development' },
+    { name: 'Chatbot Development' },
+    { name: 'Machine Learning Models' }
+  ]
+};
+
+export default function page() {
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://softstackagency.com';
+  const breadcrumbs = [
+    { name: 'Home', url: baseUrl },
+    { name: 'Services', url: `${baseUrl}/#services` },
+    { name: 'AI Agents', url: `${baseUrl}/ai-agents` }
+  ];
+
   return (
     <div>
-       <AiAgent />
-        
-
+      <StructuredData data={generateBreadcrumbSchema(breadcrumbs)} />
+      <StructuredData data={generateServiceSchema(aiService)} />
+      <AiAgent />
     </div>
   )
 }
-
-export default page

@@ -7,10 +7,22 @@ import Image from "next/image";
 import Link from "next/link";
 import { bannerApi } from "@/lib/api";
 
-export default function HeroSection() {
-  const [bannerData, setBannerData] = useState(null);
+export default function HeroSection({ initialData }) {
+  const [bannerData, setBannerData] = useState(() => {
+    if (initialData) {
+      if (initialData.images) {
+        initialData.images = initialData.images.map(img => ({
+          ...img,
+          imageUrl: img.imageUrl?.replace('i.ibb.co.com', 'i.ibb.co') || img.imageUrl
+        }));
+      }
+      return initialData;
+    }
+    return null;
+  });
 
   useEffect(() => {
+    if (initialData) return;
     const fetchBanner = async () => {
       try {
         const response = await bannerApi.getAllBanners();
@@ -29,7 +41,7 @@ export default function HeroSection() {
       }
     };
     fetchBanner();
-  }, []);
+  }, [initialData]);
 
   return (
     <section className="relative overflow-hidden bg-[#05060a] text-white">
@@ -135,7 +147,7 @@ export default function HeroSection() {
             {(bannerData?.images?.[0]?.imageUrl && bannerData.images[0].imageUrl.trim() !== "") && (
               <Image
                 src={bannerData.images[0].imageUrl}
-                alt={bannerData.images[0].title || "UI UX"}
+                alt={bannerData.images[0].title || "SoftStack Agency Modern UI UX Design Showcase"}
                 fill
                 className="object-cover"
                 sizes="(max-width: 768px) 100vw, 50vw"
@@ -154,7 +166,7 @@ export default function HeroSection() {
             {(bannerData?.images?.[1]?.imageUrl && bannerData.images[1].imageUrl.trim() !== "") && (
               <Image
                 src={bannerData.images[1].imageUrl}
-                alt={bannerData.images[1].title || "Visual"}
+                alt={bannerData.images[1].title || "SoftStack Agency Visual Identity Design"}
                 fill
                 className="object-cover"
                 sizes="(max-width: 768px) 100vw, 33vw"
@@ -172,7 +184,7 @@ export default function HeroSection() {
             {(bannerData?.images?.[2]?.imageUrl && bannerData.images[2].imageUrl.trim() !== "") && (
               <Image
                 src={bannerData.images[2].imageUrl}
-                alt={bannerData.images[2].title || "WordPress"}
+                alt={bannerData.images[2].title || "Custom WordPress and Web Development Examples"}
                 fill
                 className="object-cover"
                 sizes="(max-width: 768px) 100vw, 33vw"
@@ -190,7 +202,7 @@ export default function HeroSection() {
             {(bannerData?.images?.[3]?.imageUrl && bannerData.images[3].imageUrl.trim() !== "") && (
               <Image
                 src={bannerData.images[3].imageUrl}
-                alt={bannerData.images[3].title || "App"}
+                alt={bannerData.images[3].title || "Mobile App Development Interface Design"}
                 fill
                 className="object-cover"
                 sizes="(max-width: 768px) 100vw, 33vw"
@@ -213,7 +225,7 @@ export default function HeroSection() {
             {(bannerData?.images?.[4]?.imageUrl && bannerData.images[4].imageUrl.trim() !== "") && (
               <Image
                 src={bannerData.images[4].imageUrl}
-                alt={bannerData.images[4].title || "E-commerce"}
+                alt={bannerData.images[4].title || "E-commerce Solution and Online Store Design"}
                 fill
                 className="object-cover"
                 sizes="(max-width: 768px) 100vw, 50vw"

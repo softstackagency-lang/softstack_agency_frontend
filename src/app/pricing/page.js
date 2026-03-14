@@ -1,4 +1,5 @@
 import PricingSection from "@/components/home/HomePricing/PricingSection"
+import { StructuredData, generateBreadcrumbSchema } from "@/components/SEO/StructuredData";
 
 export const metadata = {
   title: "Affordable Pricing Plans for Software Development",
@@ -25,14 +26,17 @@ export const metadata = {
   }
 };
 
-import React from 'react'
+export default function page() {
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://softstackagency.com';
+  const breadcrumbs = [
+    { name: 'Home', url: baseUrl },
+    { name: 'Pricing', url: `${baseUrl}/pricing` }
+  ];
 
-function page() {
   return (
     <div>
+      <StructuredData data={generateBreadcrumbSchema(breadcrumbs)} />
       <PricingSection />
     </div>
   )
 }
-
-export default page

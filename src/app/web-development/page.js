@@ -1,4 +1,5 @@
 import WebPage from '@/components/Services/webDev/WebPage'
+import { StructuredData, generateServiceSchema, generateBreadcrumbSchema } from "@/components/SEO/StructuredData";
 
 export const metadata = {
   title: "Professional Web Development Services",
@@ -25,16 +26,29 @@ export const metadata = {
   }
 };
 
-import React from 'react'
+const webDevService = {
+  type: "Web Development",
+  description: "Expert web development services using React, Next.js, and Node.js.",
+  offerings: [
+    { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Web App Development' } },
+    { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'E-commerce Solutions' } },
+    { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'API Development' } }
+  ]
+};
 
-function page() {
+export default function page() {
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://softstackagency.com';
+  const breadcrumbs = [
+    { name: 'Home', url: baseUrl },
+    { name: 'Services', url: `${baseUrl}/#services` },
+    { name: 'Web Development', url: `${baseUrl}/web-development` }
+  ];
+
   return (
     <div>
-        
-        <WebPage />
-
+      <StructuredData data={generateBreadcrumbSchema(breadcrumbs)} />
+      <StructuredData data={generateServiceSchema(webDevService)} />
+      <WebPage />
     </div>
   )
 }
-
-export default page

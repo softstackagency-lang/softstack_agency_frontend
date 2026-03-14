@@ -1,4 +1,3 @@
-"use client";
 
 import Link from "next/link";
 import { FaXTwitter, FaLinkedinIn, FaGithub, FaEnvelope } from "react-icons/fa6";
@@ -13,7 +12,7 @@ export default function Footer() {
 
           {/* Logo & Brand — full width on mobile, 1 col on md+ */}
           <div className="col-span-2 sm:col-span-2 md:col-span-1 flex flex-col gap-4 items-start">
-            <Link href="/" className="flex items-center gap-3 group cursor-pointer">
+            <Link href="/" className="flex items-center gap-3 group cursor-pointer" aria-label="SoftStack Agency Home">
               <div className="relative flex-shrink-0">
                 <div className="absolute inset-0 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-lg blur-lg opacity-50 group-hover:opacity-75 transition-opacity" />
                 <div className="relative bg-gradient-to-br from-cyan-400 to-blue-600 p-2 rounded-lg transform group-hover:scale-110 transition-transform duration-300">
@@ -35,10 +34,10 @@ export default function Footer() {
             </p>
 
             <div className="flex items-center gap-3 mt-1">
-              <SocialIcon href="#" icon={<FaXTwitter />} />
-              <SocialIcon href="#" icon={<FaLinkedinIn />} />
-              <SocialIcon href="#" icon={<FaGithub />} />
-              <SocialIcon href="#" icon={<FaEnvelope />} />
+              <SocialIcon href="#" icon={<FaXTwitter />} aria-label="Follow us on X (Twitter)" />
+              <SocialIcon href="#" icon={<FaLinkedinIn />} aria-label="Connect on LinkedIn" />
+              <SocialIcon href="#" icon={<FaGithub />} aria-label="View our GitHub" />
+              <SocialIcon href="#" icon={<FaEnvelope />} aria-label="Contact us via Email" />
             </div>
           </div>
 
@@ -104,11 +103,12 @@ function FooterLink({ href, children }) {
   );
 }
 
-function SocialIcon({ href, icon }) {
+function SocialIcon({ href, icon, "aria-label": ariaLabel }) {
   return (
     <Link
       href={href}
       className="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center text-gray-300 hover:bg-cyan-500 hover:text-white transition"
+      aria-label={ariaLabel}
     >
       {icon}
     </Link>

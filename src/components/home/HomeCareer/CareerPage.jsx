@@ -30,7 +30,6 @@ const Player = dynamic(
   { ssr: false }
 );
 
-import careerAnimation from "../../../../public/businessman path.json";
 
 
 /* ================= Data ================= */
@@ -565,7 +564,7 @@ export default function NeonAgencyLanding() {
                 <Player
                   autoplay
                   loop
-                  src={careerAnimation}
+                  src="/businessman path.json"
                   className="w-full h-auto"
                 />
               </div>

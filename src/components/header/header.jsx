@@ -82,7 +82,7 @@ const Header = () => {
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
           {/* Logo */}
-          <Link href="/" className="shrink-0 group cursor-pointer">
+          <Link href="/" className="shrink-0 group cursor-pointer" aria-label="SoftStack Agency Home">
             <div className="flex items-center space-x-2 sm:space-x-3">
               <div className="relative">
                 <div className="absolute inset-0 bg-linear-to-r from-cyan-500 to-blue-500 rounded-lg blur-lg opacity-50 group-hover:opacity-75 transition-opacity"></div>
@@ -437,6 +437,7 @@ const Header = () => {
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             className="lg:hidden p-2 rounded-lg text-gray-300 hover:text-white hover:bg-slate-800 transition-all duration-300"
+            aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
           >
             {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>

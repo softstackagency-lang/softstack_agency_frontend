@@ -3,7 +3,8 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { ChevronLeft, Mail } from "lucide-react";
-import Lottie from "lottie-react";
+import dynamic from "next/dynamic";
+const Lottie = dynamic(() => import("lottie-react"), { ssr: false });
 import { useLayout } from "@/context/LayoutContext";
 
 import forgotPasswordAnim from "../../../public/Anima Bot.json";

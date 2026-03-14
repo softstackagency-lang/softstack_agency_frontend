@@ -166,6 +166,7 @@ export default function ProductComponent() {
         <h1 className="text-xl sm:text-2xl font-bold text-white">Projects</h1>
         <button
           onClick={openCreateModal}
+          aria-label="Add a new project"
           className="flex items-center gap-2 bg-cyan-500 hover:bg-cyan-600 text-white px-3 sm:px-4 py-2 rounded-lg text-sm sm:text-base transition-colors"
         >
           <Plus size={16} />
@@ -230,9 +231,9 @@ export default function ProductComponent() {
                   </td>
                   <td className="py-4">
                     <div className="flex gap-1.5">
-                      <button onClick={() => { setSelectedProduct(product); setShowViewModal(true); }} className="p-1.5 text-gray-400 hover:text-cyan-400 hover:bg-cyan-400/10 rounded transition-colors"><Eye size={16} /></button>
-                      <button onClick={() => openEditModal(product)} className="p-1.5 text-gray-400 hover:text-blue-400 hover:bg-blue-400/10 rounded transition-colors"><Edit size={16} /></button>
-                      <button onClick={() => { setSelectedProduct(product); setShowDeleteModal(true); }} className="p-1.5 text-gray-400 hover:text-red-400 hover:bg-red-400/10 rounded transition-colors"><Trash2 size={16} /></button>
+                      <button onClick={() => { setSelectedProduct(product); setShowViewModal(true); }} aria-label="View project details" className="p-1.5 text-gray-400 hover:text-cyan-400 hover:bg-cyan-400/10 rounded transition-colors"><Eye size={16} /></button>
+                      <button onClick={() => openEditModal(product)} aria-label="Edit project" className="p-1.5 text-gray-400 hover:text-blue-400 hover:bg-blue-400/10 rounded transition-colors"><Edit size={16} /></button>
+                      <button onClick={() => { setSelectedProduct(product); setShowDeleteModal(true); }} aria-label="Delete project" className="p-1.5 text-gray-400 hover:text-red-400 hover:bg-red-400/10 rounded transition-colors"><Trash2 size={16} /></button>
                     </div>
                   </td>
                 </tr>

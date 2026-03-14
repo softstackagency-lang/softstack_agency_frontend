@@ -1,6 +1,7 @@
 "use client"
 
 import { useEffect, useState } from "react"
+import Image from "next/image"
 import { Star, Quote } from "lucide-react"
 import { FaChevronUp, FaChevronDown } from "react-icons/fa"
 import { testimonialApi } from "@/lib/api"
@@ -96,9 +97,11 @@ export default function Testimonial() {
                     : "border-gray-600 opacity-60 hover:opacity-100"
                   }`}
               >
-                <img
+                <Image
                   src={item.image}
                   alt={item.name}
+                  width={80}
+                  height={80}
                   className="w-full h-full object-cover"
                   draggable={false}
                 />
@@ -130,9 +133,11 @@ export default function Testimonial() {
               </p>
 
               <div className="flex items-center gap-3 sm:gap-4 pt-3 sm:pt-4 border-t border-white/10">
-                <img
+                <Image
                   src={activeItem.image}
                   alt={activeItem.name}
+                  width={64}
+                  height={64}
                   className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 rounded-xl object-cover"
                 />
 

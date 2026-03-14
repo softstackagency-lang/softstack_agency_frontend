@@ -3,7 +3,8 @@
 import React from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
-import Lottie from "lottie-react";
+import dynamic from "next/dynamic";
+const Lottie = dynamic(() => import("lottie-react"), { ssr: false });
 import { useRestartAnimations } from "@/hooks/useRestartAnimations";
 import {
   FaRobot,
@@ -19,9 +20,8 @@ import {
   FaArrowRight,
 } from "react-icons/fa";
 
-import animationData from "../../../../public/Assistant-Bot.json";
-
 const AiAgent = () => {
+  const animationDataPath = "/Assistant-Bot.json";
   // Generate stable random values for particles
   const particles = React.useMemo(() => {
     return [...Array(15)].map(() => ({
@@ -139,12 +139,14 @@ const AiAgent = () => {
 
           {/* Animation Strictly Right */}
           <div className="md:w-1/2 flex justify-center md:justify-end">
-            <Lottie
-              animationData={animationData}
-              loop={true}
-              autoplay={true}
-              style={{ width: '100%', maxWidth: 400, height: 'auto' }}
-            />
+            <div className="w-full max-w-[400px] aspect-square relative">
+              <Lottie
+                animationData={animationData}
+                loop={true}
+                autoplay={true}
+                style={{ width: '100%', height: '100%' }}
+              />
+            </div>
           </div>
         </div>
       </section>
@@ -181,8 +183,11 @@ const AiAgent = () => {
         </p>
 
         <Link href="/contact" className="inline-block relative z-20">
-          <button className="group inline-flex items-center gap-2 rounded-full bg-linear-to-r from-blue-500 to-cyan-400 px-6 sm:px-8 py-3 sm:py-4 text-xs sm:text-sm font-semibold text-black transition-all hover:scale-105 hover:shadow-[0_0_40px_rgba(59,130,246,0.45)]">
-            Schedule a Call <FaArrowRight />
+          <button 
+            className="group inline-flex items-center gap-2 rounded-full bg-linear-to-r from-blue-500 to-cyan-400 px-6 sm:px-8 py-3 sm:py-4 text-xs sm:text-sm font-semibold text-black transition-all hover:scale-105 hover:shadow-[0_0_40px_rgba(59,130,246,0.45)]"
+            aria-label="Schedule a call with our AI experts"
+          >
+            Schedule a Call <FaArrowRight aria-hidden="true" />
           </button>
         </Link>
       </section>

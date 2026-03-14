@@ -89,21 +89,20 @@ const AboutSection = () => {
             <div className="inline-flex animate-fade-in items-center space-x-2 rounded-full border border-cyan-500/30 bg-cyan-500/10 px-4 py-2 backdrop-blur-sm">
               <div className="h-2 w-2 rounded-full bg-cyan-400 animate-pulse"></div>
               <span className="text-sm font-semibold uppercase tracking-wider text-cyan-400">
-                About Adventiq Labs
+                About SoftStack Agency
               </span>
             </div>
 
             <div>
               <h2 className="mb-4 text-4xl leading-tight font-bold sm:text-5xl lg:text-6xl">
                 <span className="text-white">Driving </span>
-                <span className="relative inline-block">
+                <span className="relative inline-block mr-2">
                   <span className="relative z-10 bg-linear-to-r from-cyan-400 via-blue-500 to-purple-500 bg-clip-text text-transparent animate-gradient">
                     Next-Gen
                   </span>
                   <div className="absolute -inset-2 -z-10 animate-pulse bg-linear-to-r from-cyan-500/20 to-blue-500/20 blur-xl"></div>
                 </span>
-              </h2>
-              <h2 className="text-4xl leading-tight font-bold sm:text-5xl lg:text-6xl">
+                <br className="hidden sm:block" />
                 <span className="bg-linear-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
                   Innovation
                 </span>
@@ -116,7 +115,7 @@ const AboutSection = () => {
             </p>
 
             <p className="max-w-xl leading-relaxed text-gray-400">
-              At Adventiq Labs, we combine strategy, creativity, and
+              At SoftStack Agency, we combine strategy, creativity, and
               cutting-edge technology to build scalable, impactful solutions.
               Our global team of engineers brings innovation to life, shaping
               the future of digital experiences.
@@ -192,7 +191,9 @@ const AboutSection = () => {
                     muted
                     loop
                     playsInline
-                    preload="auto"
+                    preload="metadata"
+                    title="SoftStack Agency Solutions Showcase"
+                    aria-label="A video showcasing SoftStack Agency software solutions and engineering excellence"
                   />
 
                   {/* Overlay */}
@@ -201,9 +202,10 @@ const AboutSection = () => {
                   {/* Bottom Label */}
                   <div className="absolute bottom-4 left-4 rounded-lg bg-black/50 px-3 py-1 backdrop-blur-sm">
                     <span className="text-sm font-medium text-white">
-                      Adventiq Labs Showcase
+                      SoftStack Agency Showcase
                     </span>
                   </div>
+
 
                   {/* Decorative Corners */}
                   <div className="absolute top-4 left-4 h-12 w-12 rounded-tl-lg border-t-2 border-l-2 border-cyan-500/50"></div>

@@ -1,4 +1,5 @@
 import BlogPage from '@/components/home/HomeBlog/BlogPage'
+import { StructuredData, generateBreadcrumbSchema } from "@/components/SEO/StructuredData";
 
 export const metadata = {
   title: "Tech Blog - Software Development Insights & Tutorials",
@@ -25,16 +26,33 @@ export const metadata = {
   }
 };
 
-import React from 'react'
+const blogSchema = {
+  "@context": "https://schema.org",
+  "@type": "Blog",
+  "name": "SoftStack Agency Tech Blog",
+  "description": "Expert insights, tutorials, and trends in software development and technology.",
+  "publisher": {
+    "@type": "Organization",
+    "name": "SoftStack Agency",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://softstackagency.com/logo.png"
+    }
+  }
+};
 
-function page() {
+export default function page() {
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://softstackagency.com';
+  const breadcrumbs = [
+    { name: 'Home', url: baseUrl },
+    { name: 'Blog', url: `${baseUrl}/blog` }
+  ];
+
   return (
     <div>
-        <BlogPage />
-        
-
+      <StructuredData data={generateBreadcrumbSchema(breadcrumbs)} />
+      <StructuredData data={blogSchema} />
+      <BlogPage />
     </div>
   )
 }
-
-export default page

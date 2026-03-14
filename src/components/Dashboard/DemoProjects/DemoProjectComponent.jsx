@@ -42,27 +42,6 @@ export default function DemoProjectComponent() {
 
   const fetchCategories = async () => {
     try {
-<<<<<<< HEAD
-      const response = await fetch(`${API_BASE_URL}`, {
-        credentials: 'include',
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to fetch categories');
-      }
-
-      const result = await response.json();
-
-      if (result.success && result.data && Array.isArray(result.data.categories)) {
-        setCategories(result.data.categories);
-
-        // Set first category as default if no category is selected
-        if (!selectedCategoryId && result.data.categories.length > 0) {
-          setSelectedCategoryId(result.data.categories[0].id);
-        }
-
-        // Load projects for the selected category from the fetched data
-=======
       const response = await fetch(`${API_BASE_URL}`, { credentials: 'include' });
       if (!response.ok) throw new Error('Failed to fetch categories');
       const result = await response.json();
@@ -71,7 +50,6 @@ export default function DemoProjectComponent() {
         if (!selectedCategoryId && result.data.categories.length > 0) {
           setSelectedCategoryId(result.data.categories[0].id);
         }
->>>>>>> 9d67e8c81381f53f228839f068e2f4c2b57c34d9
         const currentCategory = result.data.categories.find(cat => cat.id === selectedCategoryId);
         if (currentCategory && Array.isArray(currentCategory.projects)) {
           setProjects(currentCategory.projects);
@@ -84,24 +62,9 @@ export default function DemoProjectComponent() {
   const fetchProjects = async () => {
     try {
       setLoading(true);
-<<<<<<< HEAD
-
-      // Fetch all categories with projects
-      const response = await fetch(`${API_BASE_URL}`, {
-        credentials: 'include',
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to fetch projects');
-      }
-
-      const result = await response.json();
-
-=======
       const response = await fetch(`${API_BASE_URL}`, { credentials: 'include' });
       if (!response.ok) throw new Error('Failed to fetch projects');
       const result = await response.json();
->>>>>>> 9d67e8c81381f53f228839f068e2f4c2b57c34d9
       if (result.success && result.data && Array.isArray(result.data.categories)) {
         const currentCategory = result.data.categories.find(cat => cat.id === selectedCategoryId);
         setProjects(currentCategory && Array.isArray(currentCategory.projects) ? currentCategory.projects : []);
@@ -124,10 +87,6 @@ export default function DemoProjectComponent() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-<<<<<<< HEAD
-
-=======
->>>>>>> 9d67e8c81381f53f228839f068e2f4c2b57c34d9
     try {
       const tagsArray = formData.tags.map(tag => tag.trim()).filter(tag => tag !== '');
       const submitData = { ...formData, tags: tagsArray };
@@ -139,10 +98,6 @@ export default function DemoProjectComponent() {
           credentials: 'include',
           body: JSON.stringify(submitData),
         });
-<<<<<<< HEAD
-
-=======
->>>>>>> 9d67e8c81381f53f228839f068e2f4c2b57c34d9
         if (!response.ok) throw new Error('Failed to update project');
         await fetchProjects();
         setSuccessMessage("Project updated successfully!");
@@ -155,29 +110,13 @@ export default function DemoProjectComponent() {
           credentials: 'include',
           body: JSON.stringify(submitData),
         });
-<<<<<<< HEAD
-
-=======
->>>>>>> 9d67e8c81381f53f228839f068e2f4c2b57c34d9
         if (!response.ok) throw new Error('Failed to create project');
         await fetchProjects();
         setSuccessMessage("Project added successfully!");
       }
 
-<<<<<<< HEAD
-      setFormData({
-        title: "",
-        description: "",
-        tags: [""],
-        thumbnail: "",
-        previewUrl: "",
-        isFeatured: false,
-        order: 0
-      });
-=======
       setTimeout(() => setSuccessMessage(""), 3000);
       setFormData({ title: "", description: "", tags: [""], thumbnail: "", previewUrl: "", isFeatured: false, order: 0 });
->>>>>>> 9d67e8c81381f53f228839f068e2f4c2b57c34d9
       setError(null);
     } catch (err) {
       setError(err.message);
@@ -205,10 +144,6 @@ export default function DemoProjectComponent() {
         method: 'DELETE',
         credentials: 'include',
       });
-<<<<<<< HEAD
-
-=======
->>>>>>> 9d67e8c81381f53f228839f068e2f4c2b57c34d9
       if (!response.ok) throw new Error('Failed to delete project');
       await fetchProjects();
       setSuccessMessage("Project deleted successfully!");
@@ -223,19 +158,7 @@ export default function DemoProjectComponent() {
   const closeDeleteModal = () => setDeleteModal({ show: false, projectName: "", projectId: "" });
 
   const handleCancel = () => {
-<<<<<<< HEAD
-    setFormData({
-      title: "",
-      description: "",
-      tags: [""],
-      thumbnail: "",
-      previewUrl: "",
-      isFeatured: false,
-      order: 0
-    });
-=======
     setFormData({ title: "", description: "", tags: [""], thumbnail: "", previewUrl: "", isFeatured: false, order: 0 });
->>>>>>> 9d67e8c81381f53f228839f068e2f4c2b57c34d9
     setIsEditing(false);
     setEditId(null);
   };
@@ -395,26 +318,12 @@ export default function DemoProjectComponent() {
                 </div>
 
                 <div>
-<<<<<<< HEAD
-                  <label className="block text-gray-300 mb-2">Thumbnail</label>
-
-                  {/* Image Preview */}
-                  {formData.thumbnail && (
-                    <div className="mb-3 relative w-full h-48 rounded-lg overflow-hidden border-2 border-blue-500/30">
-                      <Image
-                        src={formData.thumbnail}
-                        alt="Thumbnail preview"
-                        fill
-                        className="object-cover"
-                      />
-=======
                   <label className="block text-gray-300 text-xs sm:text-sm mb-1.5 sm:mb-2">Thumbnail</label>
 
                   {/* Image Preview */}
                   {formData.thumbnail && (
                     <div className="mb-2 sm:mb-3 relative w-full h-36 sm:h-48 rounded-lg overflow-hidden border-2 border-blue-500/30">
                       <Image src={formData.thumbnail} alt="Thumbnail preview" fill className="object-cover" />
->>>>>>> 9d67e8c81381f53f228839f068e2f4c2b57c34d9
                     </div>
                   )}
 
@@ -429,35 +338,6 @@ export default function DemoProjectComponent() {
                   />
 
                   {/* File Upload */}
-<<<<<<< HEAD
-                  <div className="flex gap-2">
-                    <label className="flex-1 cursor-pointer">
-                      <div className={`flex items-center justify-center gap-2 px-4 py-2 rounded-lg border-2 border-dashed transition-colors ${imageUploading
-                          ? 'border-blue-500/50 bg-blue-500/10 cursor-not-allowed'
-                          : 'border-blue-500/30 bg-blue-500/5 hover:bg-blue-500/10 hover:border-blue-500/50'
-                        }`}>
-                        {imageUploading ? (
-                          <>
-                            <Loader2 className="w-4 h-4 animate-spin" />
-                            <span className="text-sm text-gray-300">Uploading...</span>
-                          </>
-                        ) : (
-                          <>
-                            <Upload className="w-4 h-4 text-blue-400" />
-                            <span className="text-sm text-gray-300">Upload Image</span>
-                          </>
-                        )}
-                      </div>
-                      <input
-                        type="file"
-                        accept="image/*"
-                        onChange={handleImageUpload}
-                        disabled={imageUploading}
-                        className="hidden"
-                      />
-                    </label>
-                  </div>
-=======
                   <label className="block cursor-pointer">
                     <div className={`flex items-center justify-center gap-2 px-3 sm:px-4 py-2 rounded-lg border-2 border-dashed transition-colors ${
                       imageUploading
@@ -478,15 +358,11 @@ export default function DemoProjectComponent() {
                     </div>
                     <input type="file" accept="image/*" onChange={handleImageUpload} disabled={imageUploading} className="hidden" />
                   </label>
->>>>>>> 9d67e8c81381f53f228839f068e2f4c2b57c34d9
                   <p className="text-xs text-gray-500 mt-1">Upload image or paste URL (Max 5MB)</p>
                 </div>
               </div>
 
-<<<<<<< HEAD
-=======
               {/* Description */}
->>>>>>> 9d67e8c81381f53f228839f068e2f4c2b57c34d9
               <div>
                 <label className="block text-gray-300 text-xs sm:text-sm mb-1.5 sm:mb-2">Description *</label>
                 <textarea
@@ -613,21 +489,21 @@ export default function DemoProjectComponent() {
 
                   {/* Thumbnail */}
                   {project.thumbnail && (
-                    <img
-                      src={project.thumbnail}
-                      alt={project.title}
-                      className="w-full h-36 sm:h-40 object-cover rounded-lg mb-3"
-                    />
+                    <div className="relative w-full h-36 sm:h-40 mb-3 rounded-lg overflow-hidden">
+                      <Image
+                        src={project.thumbnail}
+                        alt={project.title}
+                        fill
+                        className="object-cover"
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                      />
+                    </div>
                   )}
 
                   {/* Title */}
                   <h3 className="text-base sm:text-xl font-semibold text-white mb-1.5 sm:mb-2 pr-16">
                     {project.title}
                   </h3>
-<<<<<<< HEAD
-                  <p className="text-gray-400 mb-3 text-sm line-clamp-3">{project.description}</p>
-
-=======
 
                   {/* Description */}
                   <p className="text-gray-400 mb-2 sm:mb-3 text-xs sm:text-sm line-clamp-3">
@@ -635,7 +511,6 @@ export default function DemoProjectComponent() {
                   </p>
 
                   {/* Tags */}
->>>>>>> 9d67e8c81381f53f228839f068e2f4c2b57c34d9
                   {project.tags && project.tags.length > 0 && (
                     <div className="flex flex-wrap gap-1.5 sm:gap-2 mb-2 sm:mb-3">
                       {project.tags.map((tag, index) => (

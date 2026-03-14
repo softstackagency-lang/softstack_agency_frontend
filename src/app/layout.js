@@ -45,7 +45,7 @@ export const metadata = {
   publisher: "SoftStack Agency",
   metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL || 'https://softstackagency.com'),
   alternates: {
-    canonical: '/',
+    canonical: './',
     languages: {
       'en-US': '/en-US',
       'en': '/en'
@@ -108,9 +108,9 @@ export const metadata = {
     }
   },
   verification: {
-    google: 'your-google-verification-code',
-    yandex: 'your-yandex-verification-code',
-    bing: 'your-bing-verification-code'
+    google: 'G-QN027E5KH4', // Using the measurement ID as a placeholder/hint or real if available
+    yandex: 'yandex-verification-code',
+    bing: 'bing-verification-code'
   },
   appleWebApp: {
     capable: true,

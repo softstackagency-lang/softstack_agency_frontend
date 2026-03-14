@@ -1,4 +1,5 @@
 import Ecommerce from '@/components/home/HomeEcommerce/Ecommerce'
+import { StructuredData, generateServiceSchema, generateBreadcrumbSchema } from "@/components/SEO/StructuredData";
 
 export const metadata = {
   title: "E-commerce Development Solutions",
@@ -25,14 +26,29 @@ export const metadata = {
   }
 };
 
-import React from 'react'
+const ecommerceService = {
+  type: "E-commerce Development",
+  description: "Build powerful online stores and e-commerce platforms with custom shopping cart and payment integration.",
+  offerings: [
+    { name: 'Shopify & WooCommerce' },
+    { name: 'Multi-vendor Marketplaces' },
+    { name: 'Custom E-commerce Platforms' }
+  ]
+};
 
-function page() {
+export default function page() {
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://softstackagency.com';
+  const breadcrumbs = [
+    { name: 'Home', url: baseUrl },
+    { name: 'Services', url: `${baseUrl}/#services` },
+    { name: 'E-commerce', url: `${baseUrl}/e-commerce` }
+  ];
+
   return (
     <div>
+      <StructuredData data={generateBreadcrumbSchema(breadcrumbs)} />
+      <StructuredData data={generateServiceSchema(ecommerceService)} />
       <Ecommerce />
     </div>
   )
 }
-
-export default page

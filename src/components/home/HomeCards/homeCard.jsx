@@ -201,10 +201,10 @@ const HomecardSection = () => {
 
                   <Link
                     href={service.link}
-                    className={`relative z-20 mt-6 sm:mt-7 md:mt-8 w-full py-2.5 sm:py-3 rounded-xl text-sm sm:text-base font-semibold bg-linear-to-r ${service.gradient} text-white transition-all duration-300 hover:shadow-lg hover:scale-[1.02] flex items-center justify-center ${active ? "opacity-100" : "opacity-0"
-                      }`}
+                    aria-label={`Learn more about our ${service.title} services`}
+                    className={`relative z-20 mt-6 sm:mt-7 md:mt-8 w-full py-2.5 sm:py-3 rounded-xl text-sm sm:text-base font-semibold bg-linear-to-r ${service.gradient} text-white transition-all duration-300 hover:shadow-lg hover:scale-[1.02] flex items-center justify-center ${active ? "opacity-100" : "opacity-90"} md:${active ? "opacity-100" : "opacity-0"}`}
                   >
-                    Learn More
+                    Explore {service.title}
                   </Link>
                 </div>
               </div>

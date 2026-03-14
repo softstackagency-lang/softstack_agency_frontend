@@ -1,7 +1,8 @@
 "use client";
 
 import { useLayout } from "@/context/LayoutContext";
-import Lottie from "lottie-react";
+import dynamic from "next/dynamic";
+const Lottie = dynamic(() => import("lottie-react"), { ssr: false });
 import { Eye, EyeOff, ChevronRight, Camera, Upload } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -11,6 +12,7 @@ import { auth, googleProvider } from "@/lib/firebase";
 import { authApi } from "@/lib/api";
 import { formatErrorMessage } from "@/lib/error-handler";
 import { uploadImageToImgBB } from "@/lib/imgbb-upload";
+import Image from "next/image";
 
 import signup from "../../../public/Sign up.json";
 
@@ -308,7 +310,7 @@ export default function SignUpPage() {
 
           {/* MIDDLE CONTENT */}
           <div className="relative z-10 flex flex-col items-center justify-center flex-1 gap-6 px-4">
-            <div className="w-full max-w-sm h-52 flex items-center justify-center">
+            <div className="w-full max-w-sm aspect-square flex items-center justify-center">
               <div className="w-full h-full">
                 <Lottie
                   key="signup-lottie"
@@ -364,9 +366,10 @@ export default function SignUpPage() {
                     {imagePreview ? (
                       <div className="relative">
                         <div className="w-24 h-24 rounded-full overflow-hidden border-2 border-cyan-500/30 shadow-lg shadow-cyan-500/20">
-                          <img
+                          <Image
                             src={imagePreview} 
                             alt="Profile preview"
+                            fill
                             className="w-full h-full object-cover"
                           />
                         </div>
@@ -479,6 +482,7 @@ export default function SignUpPage() {
                 <button
                   type="submit"
                   disabled={loading || uploadingImage}
+                  aria-label={uploadingImage ? "Uploading profile image" : loading ? "Creating your account" : "Create your SoftStack account"}
                   className="w-full py-2.5 rounded-lg bg-linear-to-r from-cyan-500 to-blue-600 text-white font-medium hover:shadow-[0_0_30px_rgba(56,189,248,0.6)] transition cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed text-sm mt-4 relative overflow-hidden"
                 >
                   {uploadingImage ? (

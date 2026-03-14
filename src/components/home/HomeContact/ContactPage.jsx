@@ -2,7 +2,8 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import Lottie from "lottie-react";
+import dynamic from "next/dynamic";
+const Lottie = dynamic(() => import("lottie-react"), { ssr: false });
 import { Mail, Phone, MapPin, Send, User, MessageSquare, Clock, CheckCircle2, Sparkles, AlertCircle, MessageCircle } from "lucide-react";
 import contactAnimation from "../../../../public/Contact Us (1).json";
 import { contactApi } from "@/lib/api";

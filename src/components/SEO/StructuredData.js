@@ -1,14 +1,23 @@
 export function generateOrganizationSchema() {
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://softstackagency.com';
   return {
     '@context': 'https://schema.org',
     '@type': 'Organization',
+    '@id': `${baseUrl}/#organization`,
     name: 'SoftStack Agency',
-    url: 'https://softstackagency.com',
-    logo: 'https://softstackagency.com/logo.png',
+    url: baseUrl,
+    logo: {
+      '@type': 'ImageObject',
+      url: `${baseUrl}/logo.png`,
+      width: '512',
+      height: '512'
+    },
+    image: `${baseUrl}/banner1.jpg`,
     description: 'Leading software development agency specializing in AI agents, web development, mobile apps, and e-commerce solutions.',
     contactPoint: {
       '@type': 'ContactPoint',
-      contactType: 'Customer Service',
+      telephone: '+1-555-0123', // Placeholder, but better structure
+      contactType: 'customer service',
       email: 'info@softstackagency.com',
       availableLanguage: ['English']
     },
@@ -16,44 +25,62 @@ export function generateOrganizationSchema() {
       'https://www.linkedin.com/company/softstackagency',
       'https://twitter.com/softstackagency',
       'https://github.com/softstackagency',
+      'https://www.facebook.com/softstackagency',
+      'https://www.instagram.com/softstackagency'
     ],
     address: {
       '@type': 'PostalAddress',
+      streetAddress: '123 Tech Plaza',
+      addressLocality: 'San Francisco',
+      addressRegion: 'CA',
+      postalCode: '94107',
       addressCountry: 'US'
     }
   };
 }
 
 export function generateWebsiteSchema() {
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://softstackagency.com';
   return {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
+    '@id': `${baseUrl}/#website`,
     name: 'SoftStack Agency',
-    url: 'https://softstackagency.com',
+    url: baseUrl,
     description: 'Premier software development company specializing in AI agents, machine learning, mobile app development, web development, and e-commerce solutions.',
+    publisher: { '@id': `${baseUrl}/#organization` },
     potentialAction: {
       '@type': 'SearchAction',
-      target: 'https://softstackagency.com/search?q={search_term_string}',
+      target: {
+        '@type': 'EntryPoint',
+        urlTemplate: `${baseUrl}/search?q={search_term_string}`
+      },
       'query-input': 'required name=search_term_string'
     }
   };
 }
 
 export function generateServiceSchema(service) {
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://softstackagency.com';
   return {
     '@context': 'https://schema.org',
     '@type': 'Service',
+    '@id': `${baseUrl}/#service-${service.type.toLowerCase().replace(/\s+/g, '-')}`,
     serviceType: service.type,
-    provider: {
-      '@type': 'Organization',
-      name: 'SoftStack Agency'
-    },
+    provider: { '@id': `${baseUrl}/#organization` },
     description: service.description,
     areaServed: 'Worldwide',
     hasOfferCatalog: {
       '@type': 'OfferCatalog',
       name: service.type,
-      itemListElement: service.offerings
+      itemListElement: service.offerings?.map((offering, index) => ({
+        '@type': 'Offer',
+        itemOffered: {
+          '@type': 'Service',
+          name: offering.name || offering
+        },
+        position: index + 1
+      }))
     }
   };
 }

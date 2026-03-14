@@ -1,4 +1,5 @@
 import TeamSection from '@/components/team/TeamSection';
+import { StructuredData, generateBreadcrumbSchema } from "@/components/SEO/StructuredData";
 
 export const metadata = {
   title: 'Our Expert Development Team | Meet Our Professionals',
@@ -26,8 +27,15 @@ export const metadata = {
 };
 
 export default function TeamPage() {
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://softstackagency.com';
+  const breadcrumbs = [
+    { name: 'Home', url: baseUrl },
+    { name: 'Team', url: `${baseUrl}/team` }
+  ];
+
   return (
     <div className="min-h-screen bg-slate-900">
+      <StructuredData data={generateBreadcrumbSchema(breadcrumbs)} />
       <TeamSection />
     </div>
   );

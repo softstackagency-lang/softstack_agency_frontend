@@ -215,15 +215,17 @@ export default function WebPage() {
           transition={{ delay: 0.4 }}
           className="flex justify-center"
         >
-          {mounted && (
-            <Player
-              autoplay
-              loop
-              src="/animation.json"
-              style={{ maxWidth: 500, width: "100%" }}
-              className="w-full md:scale-125 lg:scale-110"
-            />
-          )}
+          <div className="w-full max-w-[500px] aspect-square relative">
+            {mounted && (
+              <Player
+                autoplay
+                loop
+                src="/animation.json"
+                style={{ width: "100%", height: "100%" }}
+                className="w-full md:scale-125 lg:scale-110"
+              />
+            )}
+          </div>
         </motion.div>
       </section>
 
@@ -275,9 +277,9 @@ export default function WebPage() {
                 className="p-4 sm:p-5 md:p-6 rounded-2xl bg-slate-900/40 border border-slate-800 hover:bg-slate-900/60"
               >
                 <f.icon className="text-blue-400 text-xl sm:text-2xl mb-3 sm:mb-4" />
-                <h4 className="text-white text-sm sm:text-base font-semibold mb-1.5 sm:mb-2">
+                <h3 className="text-white text-sm sm:text-base font-semibold mb-1.5 sm:mb-2">
                   {f.title}
-                </h4>
+                </h3>
                 <p className="text-gray-400 text-sm">
                   {f.desc}
                 </p>
@@ -295,9 +297,9 @@ export default function WebPage() {
           className="p-6 sm:p-8 md:p-16 rounded-2xl sm:rounded-3xl bg-linear-to-r from-cyan-600/20 to-blue-600/20 backdrop-blur-2xl border border-white/10 flex flex-col md:flex-row gap-6 sm:gap-8 md:gap-10 justify-between items-center"
         >
           <div>
-            <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-white mb-2 sm:mb-3 md:mb-4">
+            <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-white mb-2 sm:mb-3 md:mb-4">
               Ready to build the future?
-            </h3>
+            </h2>
             <p className="text-sm sm:text-base text-gray-400 max-w-xl">
               Strategy-driven engineering and modern development
               tailored for your brand.
@@ -326,9 +328,9 @@ export default function WebPage() {
                 className="p-5 sm:p-6 md:p-8 rounded-2xl sm:rounded-3xl bg-slate-900/20 border border-slate-800/50 space-y-3 sm:space-y-4"
               >
                 <p.icon className="text-cyan-400 text-2xl sm:text-3xl" />
-                <h4 className="text-white font-bold text-sm sm:text-base">
+                <h3 className="text-white font-bold text-sm sm:text-base">
                   {p.title}
-                </h4>
+                </h3>
                 <p className="text-gray-500 text-xs sm:text-sm leading-relaxed">
                   {p.desc}
                 </p>

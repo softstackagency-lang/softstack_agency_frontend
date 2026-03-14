@@ -5,11 +5,12 @@ import { FaChevronDown, FaChevronUp } from "react-icons/fa";
 import { motion, AnimatePresence } from "framer-motion";
 import { faqApi } from "@/lib/api";
 
-const FAQ = () => {
-  const [faqs, setFaqs] = useState([]);
+const FAQ = ({ initialFaqs = [] }) => {
+  const [faqs, setFaqs] = useState(initialFaqs);
   const [activeIndex, setActiveIndex] = useState(null);
 
   useEffect(() => {
+    if (initialFaqs.length > 0) return;
     const fetchFAQs = async () => {
       try {
         const response = await faqApi.getAllFAQs();
@@ -18,7 +19,7 @@ const FAQ = () => {
       }
     };
     fetchFAQs();
-  }, []);
+  }, [initialFaqs]);
 
   return (
     <section className="relative w-full py-16 sm:py-20 lg:py-24 px-4 sm:px-6 lg:px-8 bg-gray-900 overflow-hidden">
@@ -59,6 +60,9 @@ const FAQ = () => {
               onClick={() =>
                 setActiveIndex(activeIndex === index ? null : index)
               }
+              role="button"
+              aria-expanded={activeIndex === index}
+              aria-label={faq.question}
               className={`cursor-pointer rounded-xl border border-gray-700 bg-gray-800/50 backdrop-blur-lg px-5 py-4 transition-all
               ${activeIndex === index
                   ? "bg-cyan-500/10 border-cyan-400/40"

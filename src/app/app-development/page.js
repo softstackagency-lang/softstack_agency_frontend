@@ -1,4 +1,5 @@
 import AppDevelopment from '@/components/Services/AppDevelopment/AppDevelopment';
+import { StructuredData, generateServiceSchema, generateBreadcrumbSchema } from "@/components/SEO/StructuredData";
 
 export const metadata = {
   title: 'Mobile App Development Services - iOS & Android Apps',
@@ -25,6 +26,29 @@ export const metadata = {
   }
 };
 
+const appDevService = {
+  type: "Mobile App Development",
+  description: "Professional mobile app development services for iOS, Android, and cross-platform solutions.",
+  offerings: [
+    { name: 'iOS & Android Development' },
+    { name: 'Cross-platform Apps' },
+    { name: 'Flutter & React Native' }
+  ]
+};
+
 export default function AppDevelopmentPage() {
-  return <AppDevelopment />;
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://softstackagency.com';
+  const breadcrumbs = [
+    { name: 'Home', url: baseUrl },
+    { name: 'Services', url: `${baseUrl}/#services` },
+    { name: 'App Development', url: `${baseUrl}/app-development` }
+  ];
+
+  return (
+    <>
+      <StructuredData data={generateBreadcrumbSchema(breadcrumbs)} />
+      <StructuredData data={generateServiceSchema(appDevService)} />
+      <AppDevelopment />
+    </>
+  );
 }
