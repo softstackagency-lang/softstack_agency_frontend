@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import dynamic from "next/dynamic";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { ShoppingCart, ArrowRight, Star, ShieldCheck, Zap, Sparkles } from "lucide-react";
 
@@ -103,15 +104,15 @@ const Ecommerce = () => {
                 transition={{ delay: 0.3 }}
                 className="mt-10 flex flex-wrap items-center gap-4"
               >
-                <button 
+                <button
                   className="group inline-flex items-center gap-2 rounded-full bg-linear-to-r from-blue-500 to-cyan-400 px-8 py-4 text-sm font-semibold text-black transition-all hover:scale-105 hover:shadow-[0_0_40px_rgba(59,130,246,0.45)]"
                   aria-label="Shop our premium product catalog"
                 >
                   Shop Now
                   <ArrowRight size={18} className="transition-transform group-hover:translate-x-1" />
                 </button>
- 
-                <button 
+
+                <button
                   className="rounded-full border border-white/10 bg-white/5 px-8 py-4 text-sm font-semibold backdrop-blur-sm transition hover:bg-white/10"
                   aria-label="View our full product catalog"
                 >
@@ -119,7 +120,7 @@ const Ecommerce = () => {
                 </button>
               </motion.div>
             </div>
- 
+
             {/* ===== Right Lottie Animation ===== */}
             <motion.div
               className="w-full flex justify-center lg:justify-end"
