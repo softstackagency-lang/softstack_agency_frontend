@@ -22,6 +22,30 @@ import {
 
 const AiAgent = () => {
   const animationDataPath = "/Assistant-Bot.json";
+  const [animationData, setAnimationData] = React.useState(null);
+
+  React.useEffect(() => {
+    let isMounted = true;
+
+    const loadAnimationData = async () => {
+      try {
+        const response = await fetch(animationDataPath);
+        if (!response.ok) return;
+        const data = await response.json();
+        if (isMounted) {
+          setAnimationData(data);
+        }
+      } catch (_) {
+      }
+    };
+
+    loadAnimationData();
+
+    return () => {
+      isMounted = false;
+    };
+  }, [animationDataPath]);
+
   // Generate stable random values for particles
   const particles = React.useMemo(() => {
     return [...Array(15)].map(() => ({
@@ -140,12 +164,16 @@ const AiAgent = () => {
           {/* Animation Strictly Right */}
           <div className="md:w-1/2 flex justify-center md:justify-end">
             <div className="w-full max-w-[400px] aspect-square relative">
-              <Lottie
-                animationData={animationData}
-                loop={true}
-                autoplay={true}
-                style={{ width: '100%', height: '100%' }}
-              />
+              {animationData ? (
+                <Lottie
+                  animationData={animationData}
+                  loop={true}
+                  autoplay={true}
+                  style={{ width: "100%", height: "100%" }}
+                />
+              ) : (
+                <div className="w-full h-full rounded-2xl bg-slate-800/40 border border-white/10" />
+              )}
             </div>
           </div>
         </div>
@@ -183,7 +211,7 @@ const AiAgent = () => {
         </p>
 
         <Link href="/contact" className="inline-block relative z-20">
-          <button 
+          <button
             className="group inline-flex items-center gap-2 rounded-full bg-linear-to-r from-blue-500 to-cyan-400 px-6 sm:px-8 py-3 sm:py-4 text-xs sm:text-sm font-semibold text-black transition-all hover:scale-105 hover:shadow-[0_0_40px_rgba(59,130,246,0.45)]"
             aria-label="Schedule a call with our AI experts"
           >

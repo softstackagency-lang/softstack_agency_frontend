@@ -5,11 +5,15 @@ export const metadata = {
   description: "Manage platform users, roles, and account statuses from the Dashboard.",
   robots: {
     index: false,
-    follow: false
-  }
+    follow: false,
+  },
 };
 
 export default function UsersPage() {
+  return <DashboardUsers />;
+}
+
+/*
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
@@ -194,7 +198,7 @@ export default function UsersPage() {
 
   return (
     <div className="space-y-6">
-      {/* Header */}
+      {/* Header * /}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
           <div className="p-2 bg-blue-600/20 rounded-lg">
@@ -211,7 +215,7 @@ export default function UsersPage() {
         </div>
       </div>
 
-      {/* Search and Filters */}
+      {/* Search and Filters * /}
       <div className="flex items-center gap-4">
         <div className="relative flex-1 max-w-md">
           <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
@@ -230,7 +234,7 @@ export default function UsersPage() {
         </button>
       </div>
 
-      {/* Users Table */}
+      {/* Users Table * /}
       <div className="bg-white/5 border border-white/10 rounded-xl overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full">
@@ -358,7 +362,7 @@ export default function UsersPage() {
         </div>
       </div>
 
-      {/* Pagination (placeholder) */}
+      {/* Pagination (placeholder) * /}
       {filteredUsers.length > 0 && (
         <div className="flex items-center justify-between">
           <div className="text-sm text-gray-400">
@@ -375,7 +379,7 @@ export default function UsersPage() {
         </div>
       )}
 
-      {/* Modals */}
+      {/* Modals * /}
       {showSuccessModal && (
         <div className="fixed top-4 right-4 bg-green-500/20 border border-green-500/30 rounded-lg p-4 z-50 animate-fadeIn">
           <p className="text-green-400">{successMessage}</p>
@@ -669,3 +673,4 @@ function StatusModal({ user, status, setStatus, isOpen, onClose, onSave }) {
     </div>
   );
 }
+*/
