@@ -1,8 +1,10 @@
 "use client";
 
-import Image from "next/image";
-import { useState } from "react";
+import Link from "next/link";
+import { useEffect, useState } from "react";
 import { useRestartAnimations } from "@/hooks/useRestartAnimations";
+
+const BLOG_API_BASE = `${process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:4000/api"}/blogs`;
 
 export default function BlogPage() {
   // Restart animations when component mounts
@@ -17,38 +19,42 @@ export default function BlogPage() {
     }));
   });
 
-  const blogs = [
-    {
-      title: "How to Build Modern Web Apps",
-      desc: "Learn the latest techniques in web development to build fast, responsive, and beautiful web apps.",
-      img: "https://i.ibb.co.com/4R5tWBBs/download-10.jpg",
-    },
-    {
-      title: "Top 10 JavaScript Tips",
-      desc: "Boost your JS skills with these practical tips that every developer should know.",
-      img: "https://i.ibb.co.com/rKS1rgbD/download-11.jpg",
-    },
-    {
-      title: "React Performance Optimization",
-      desc: "Optimize your React applications for maximum performance and smoother user experience.",
-      img: "https://i.ibb.co.com/KpVdVB5y/download-2.png",
-    },
-    {
-      title: "Node.js Best Practices",
-      desc: "Write clean, maintainable, and efficient Node.js code with these best practices.",
-      img: "https://i.ibb.co.com/RGxpxs2b/download-12.jpg",
-    },
-    {
-      title: "CSS Tricks You Should Know",
-      desc: "Enhance your frontend designs with these essential CSS tricks and hacks.",
-      img: "https://i.ibb.co.com/BVQsTHT7/images-7.jpg",
-    },
-    {
-      title: "Deploying Your App to Production",
-      desc: "Step-by-step guide to safely deploy your applications to production servers.",
-      img: "https://i.ibb.co.com/1tCCQM4H/download-13.jpg",
-    },
-  ];
+  const [blogs, setBlogs] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchBlogs = async () => {
+      try {
+        setLoading(true);
+        setError(null);
+
+        const response = await fetch(BLOG_API_BASE, {
+          method: "GET",
+          cache: "no-store",
+        });
+
+        const data = await response.json();
+        if (!response.ok) {
+          throw new Error(data?.message || "Failed to fetch blogs");
+        }
+
+        const blogList = Array.isArray(data?.data)
+          ? data.data
+          : Array.isArray(data)
+            ? data
+            : [];
+
+        setBlogs(blogList);
+      } catch (err) {
+        setError(err.message || "Failed to load blogs");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchBlogs();
+  }, []);
 
   return (
     <main className="relative min-h-screen overflow-hidden text-white bg-linear-to-b from-slate-950 via-slate-900 to-slate-950">
@@ -129,28 +135,54 @@ export default function BlogPage() {
           </p>
         </div>
 
-        {/* ================= Blog Grid ================= */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
-          {blogs.map((blog, index) => (
-            <div
-              key={index}
-              className="flex flex-col bg-white/5 rounded-3xl overflow-hidden shadow-lg hover:scale-105 transition-transform duration-300"
-            >
-              <div className="relative w-full h-44 sm:h-48 md:h-56">
-                <Image
-                  src={blog.img}
-                  alt={blog.title}
-                  fill
-                  className="object-cover"
-                />
-              </div>
-              <div className="p-4 sm:p-5 md:p-6">
-                <h3 className="text-lg sm:text-xl font-bold mb-2">{blog.title}</h3>
-                <p className="text-gray-300 text-sm sm:text-base">{blog.desc}</p>
-              </div>
-            </div>
-          ))}
-        </div>
+        {loading ? (
+          <div className="text-center py-14 text-gray-300">Loading blogs...</div>
+        ) : error ? (
+          <div className="text-center py-14 text-red-300">{error}</div>
+        ) : blogs.length === 0 ? (
+          <div className="text-center py-14 text-gray-300">No blogs available yet.</div>
+        ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
+            {blogs.map((blog, index) => (
+              <Link
+                key={blog.id || index}
+                href={`/blog/${blog.id}`}
+                className="flex flex-col bg-white/5 rounded-xl overflow-hidden shadow-lg hover:scale-105 transition-transform duration-300"
+              >
+                <div className="relative w-full h-44 sm:h-48 md:h-56 bg-black/20">
+                  {blog.image ? (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img
+                      src={blog.image}
+                      alt={blog.title || "Blog"}
+                      className="w-full h-full object-cover"
+                    />
+                  ) : (
+                    <div className="w-full h-full flex items-center justify-center text-gray-400 text-sm">
+                      No image
+                    </div>
+                  )}
+                </div>
+                <div className="p-4 sm:p-5 md:p-6">
+                  <h3 className="text-lg sm:text-xl font-bold mb-2">{blog.title}</h3>
+                  <p className="text-gray-300 text-sm sm:text-base line-clamp-4">{blog.description}</p>
+                  {Array.isArray(blog.tags) && blog.tags.length > 0 && (
+                    <div className="mt-3 flex flex-wrap gap-1.5">
+                      {blog.tags.map((tag) => (
+                        <span
+                          key={`${blog.id || index}-${tag}`}
+                          className="text-xs px-2 py-1 rounded-full bg-cyan-500/20 text-cyan-300"
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              </Link>
+            ))}
+          </div>
+        )}
       </div>
     </main>
   );

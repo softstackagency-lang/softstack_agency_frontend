@@ -17,6 +17,7 @@ import {
   LayoutDashboard,
   House,
   MessageSquare,
+  FileText,
 } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -77,6 +78,7 @@ export default function DashboardSidebar({ isOpen = false, onClose }) {
         <SidebarItem icon={<UserCheck />} label="Users" open={open} href="/dashboard/users" active={pathname === '/dashboard/users'} onNavClick={onClose} />
         <SidebarItem icon={<MessageSquare />} label="Messages" open={open} href="/dashboard/messages" active={pathname === '/dashboard/messages'} onNavClick={onClose} />
         <SidebarItem icon={<ShoppingCart />} label="Orders" open={open} href="/dashboard/orders" active={pathname === '/dashboard/orders'} onNavClick={onClose} />
+        <SidebarItem icon={<FileText />} label="Blogs" open={open} href="/dashboard/blog" active={pathname === '/dashboard/blog'} onNavClick={onClose} />
         <SidebarItem icon={<Package />} label="Projects" open={open} href="/dashboard/product" active={pathname === '/dashboard/product'} onNavClick={onClose} />
 
         {/* Team Dropdown */}

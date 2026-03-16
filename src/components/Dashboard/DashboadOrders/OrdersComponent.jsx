@@ -111,6 +111,78 @@ export default function OrdersComponent() {
   const currencySymbol = (order) =>
     order.pricing?.currency === "USD" ? "$" : "৳";
 
+  const getItemField = (item, keys = []) => {
+    for (const key of keys) {
+      if (item?.[key] !== undefined && item?.[key] !== null && item?.[key] !== "") {
+        return item[key];
+      }
+      if (item?.product?.[key] !== undefined && item?.product?.[key] !== null && item?.product?.[key] !== "") {
+        return item.product[key];
+      }
+      if (item?.metadata?.[key] !== undefined && item?.metadata?.[key] !== null && item?.metadata?.[key] !== "") {
+        return item.metadata[key];
+      }
+    }
+    return null;
+  };
+
+  const toDisplayValue = (value, fallback = "Not provided") => {
+    if (value === null || value === undefined) return fallback;
+    if (typeof value === "string" && value.trim() === "") return fallback;
+    return value;
+  };
+
+  const sanitizeForPreview = (value) => {
+    if (value === null || value === undefined || value === "") {
+      return undefined;
+    }
+
+    if (Array.isArray(value)) {
+      const nextArray = value
+        .map((item) => sanitizeForPreview(item))
+        .filter((item) => item !== undefined);
+      return nextArray.length > 0 ? nextArray : undefined;
+    }
+
+    if (typeof value === "object") {
+      const nextObject = Object.entries(value).reduce((acc, [key, nestedValue]) => {
+        const sanitizedValue = sanitizeForPreview(nestedValue);
+        if (sanitizedValue !== undefined) {
+          acc[key] = sanitizedValue;
+        }
+        return acc;
+      }, {});
+      return Object.keys(nextObject).length > 0 ? nextObject : undefined;
+    }
+
+    return value;
+  };
+
+  const openOrderDetails = (order) => {
+    console.group("[Dashboard Orders] Order Details");
+    console.log("Selected order object:", order);
+    console.log("Customer:", order?.customer || {});
+    console.log("Pricing:", order?.pricing || {});
+    console.log("Payment:", order?.payment || {});
+    console.log("Items:", order?.items || []);
+    if (Array.isArray(order?.items) && order.items.length > 0) {
+      console.table(
+        order.items.map((item, index) => ({
+          index,
+          name: item?.name,
+          description: item?.description,
+          quantity: item?.quantity,
+          unitPrice: item?.unitPrice,
+          totalPrice: item?.totalPrice,
+          productId: item?.productId,
+          serviceId: item?.serviceId,
+        }))
+      );
+    }
+    console.groupEnd();
+    setSelectedOrder(order);
+  };
+
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-screen">
@@ -259,10 +331,14 @@ export default function OrdersComponent() {
                     </td>
                     <td className="px-4 py-3 text-gray-300">
                       {order.items?.map((item, idx) => (
-                        <div key={idx} className="text-xs">
-                          <span className="font-medium">{item.name}</span>
-                          <span className="text-gray-500"> x{item.quantity}</span>
-                          <div className="text-gray-600">${item.unitPrice}</div>
+                        <div key={idx} className="text-xs space-y-0.5">
+                          <p className="text-gray-400">
+                     Item name: <span className="text-cyan-300 font-medium">{toDisplayValue(item.name, "Not provided")}</span>
+                          </p>
+                          <p className="text-gray-400">
+                     <span className="text-white font-medium">{toDisplayValue(item.description, toDisplayValue(item.name, "Not provided"))}</span>
+                          </p>
+
                         </div>
                       ))}
                     </td>
@@ -299,7 +375,7 @@ export default function OrdersComponent() {
                     </td>
                     <td className="px-4 py-3">
                       <div className="flex gap-2">
-                        <button onClick={() => setSelectedOrder(order)} className="p-2 text-cyan-400 hover:bg-cyan-400/10 rounded transition" title="View Details">
+                        <button onClick={() => openOrderDetails(order)} className="p-2 text-cyan-400 hover:bg-cyan-400/10 rounded transition" title="View Details">
                           <Eye size={16} />
                         </button>
                         <button onClick={() => setDeleteModal({ isOpen: true, orderId: order._id })} className="p-2 text-red-400 hover:bg-red-400/10 rounded transition" title="Delete Order">
@@ -331,7 +407,7 @@ export default function OrdersComponent() {
                   </div>
                   <div className="flex gap-1.5 flex-shrink-0">
                     <button
-                      onClick={() => setSelectedOrder(order)}
+                      onClick={() => openOrderDetails(order)}
                       className="p-1.5 text-cyan-400 hover:bg-cyan-400/10 rounded transition"
                     >
                       <Eye size={15} />
@@ -358,9 +434,17 @@ export default function OrdersComponent() {
                 {order.items?.length > 0 && (
                   <div className="space-y-1">
                     {order.items.map((item, idx) => (
-                      <div key={idx} className="flex justify-between items-center text-xs">
-                        <span className="text-gray-300 font-medium truncate mr-2">{item.name} <span className="text-gray-500">×{item.quantity}</span></span>
-                        <span className="text-gray-400 flex-shrink-0">${item.unitPrice}</span>
+                      <div key={idx} className="text-xs bg-white/5 rounded-lg p-2 space-y-1">
+                        <p className="text-gray-300 truncate">
+                          Item Name: <span className="text-white font-medium">{toDisplayValue(item.description, toDisplayValue(item.name, "Not provided"))}</span>
+                        </p>
+                        <p className="text-gray-300 truncate">
+                          Plan Category: <span className="text-cyan-300 font-medium">{toDisplayValue(item.name, "Not provided")}</span>
+                        </p>
+                        <div className="flex justify-between items-center">
+                          <span className="text-gray-500">Qty: {item.quantity || 0}</span>
+                          <span className="text-gray-400 flex-shrink-0">${item.unitPrice || 0}</span>
+                        </div>
                       </div>
                     ))}
                   </div>
@@ -457,12 +541,12 @@ export default function OrdersComponent() {
               <div className="grid grid-cols-2 gap-3 sm:gap-4 p-3 sm:p-4 bg-white/5 rounded-lg">
                 <div>
                   <p className="text-gray-400 text-xs sm:text-sm">Order Number</p>
-                  <p className="text-white font-semibold text-sm sm:text-lg">{selectedOrder.orderNumber}</p>
+                  <p className="text-white font-semibold text-sm sm:text-lg">{toDisplayValue(selectedOrder.orderNumber)}</p>
                 </div>
                 <div>
                   <p className="text-gray-400 text-xs sm:text-sm">Order Status</p>
                   <span className={`inline-block px-2 sm:px-3 py-0.5 sm:py-1 rounded text-xs sm:text-sm font-medium ${statusColor(selectedOrder.orderStatus)}`}>
-                    {selectedOrder.orderStatus}
+                    {toDisplayValue(selectedOrder.orderStatus, "pending")}
                   </span>
                 </div>
               </div>
@@ -473,15 +557,15 @@ export default function OrdersComponent() {
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                   <div>
                     <p className="text-gray-400 text-xs sm:text-sm">Name</p>
-                    <p className="text-white font-medium text-sm sm:text-base">{selectedOrder.customer?.name}</p>
+                    <p className="text-white font-medium text-sm sm:text-base">{toDisplayValue(selectedOrder.customer?.name)}</p>
                   </div>
                   <div>
                     <p className="text-gray-400 text-xs sm:text-sm">Email</p>
-                    <p className="text-white text-sm sm:text-base break-all">{selectedOrder.customer?.email}</p>
+                    <p className="text-white text-sm sm:text-base break-all">{toDisplayValue(selectedOrder.customer?.email)}</p>
                   </div>
                   <div>
                     <p className="text-gray-400 text-xs sm:text-sm">Phone</p>
-                    <p className="text-white text-sm sm:text-base">{selectedOrder.customer?.phone}</p>
+                    <p className="text-white text-sm sm:text-base">{toDisplayValue(selectedOrder.customer?.phone)}</p>
                   </div>
                   <div className="sm:col-span-1">
                     <p className="text-gray-400 text-xs sm:text-sm">Address</p>
@@ -497,16 +581,55 @@ export default function OrdersComponent() {
                   {selectedOrder.items?.map((item, idx) => (
                     <div key={idx} className="flex justify-between items-start gap-3 p-2.5 sm:p-3 bg-white/5 rounded-lg">
                       <div className="flex-1 min-w-0">
-                        <p className="text-white font-medium text-sm sm:text-base">{item.name}</p>
-                        {item.description && (
-                          <p className="text-gray-400 text-xs sm:text-sm mt-0.5">{item.description}</p>
-                        )}
+                        <p className="text-white font-medium text-sm sm:text-base">{toDisplayValue(item.name || item.title, "Unnamed item")}</p>
+                        <p className="text-gray-400 text-xs sm:text-sm mt-0.5">{toDisplayValue(item.description, "No description provided")}</p>
                         <p className="text-gray-500 text-xs mt-1">
-                          Unit Price: ${item.unitPrice} × Qty: {item.quantity}
+                          Unit Price: ${Number(item.unitPrice || 0)} × Qty: {Number(item.quantity || 0)}
                         </p>
+
+                        <div className="mt-2 grid grid-cols-1 sm:grid-cols-2 gap-1.5 text-xs">
+                          {getItemField(item, ["productId", "serviceId", "itemId", "id", "_id"]) && (
+                            <p className="text-gray-400 break-all">
+                              Item ID: <span className="text-gray-300">{getItemField(item, ["productId", "serviceId", "itemId", "id", "_id"])}</span>
+                            </p>
+                          )}
+                          {getItemField(item, ["category", "categoryName", "serviceCategory", "type"]) && (
+                            <p className="text-gray-400">
+                              Category: <span className="text-gray-300 capitalize">{String(getItemField(item, ["category", "categoryName", "serviceCategory", "type"]))}</span>
+                            </p>
+                          )}
+                          {getItemField(item, ["plan", "planName", "packageName", "tier"]) && (
+                            <p className="text-gray-400">
+                              Plan: <span className="text-gray-300">{String(getItemField(item, ["plan", "planName", "packageName", "tier"]))}</span>
+                            </p>
+                          )}
+                          {getItemField(item, ["sku", "code"]) && (
+                            <p className="text-gray-400">
+                              SKU: <span className="text-gray-300">{String(getItemField(item, ["sku", "code"]))}</span>
+                            </p>
+                          )}
+                        </div>
+
+                        {(() => {
+                          const previewPayload = sanitizeForPreview({
+                            product: item.product,
+                            metadata: item.metadata,
+                          });
+
+                          if (!previewPayload) return null;
+
+                          return (
+                          <div className="mt-2">
+                            <p className="text-gray-500 text-[11px] mb-1">Item Payload</p>
+                            <pre className="text-[10px] sm:text-xs text-gray-300 bg-black/25 rounded p-2 overflow-x-auto whitespace-pre-wrap break-all">
+                              {JSON.stringify(previewPayload, null, 2)}
+                            </pre>
+                          </div>
+                          );
+                        })()}
                       </div>
                       <div className="text-right flex-shrink-0">
-                        <p className="text-cyan-400 font-bold text-base sm:text-lg">${item.totalPrice}</p>
+                        <p className="text-cyan-400 font-bold text-base sm:text-lg">${Number(item.totalPrice ?? ((item.unitPrice || 0) * (item.quantity || 0)))}</p>
                       </div>
                     </div>
                   ))}
@@ -519,16 +642,16 @@ export default function OrdersComponent() {
                 <div className="space-y-2 p-3 sm:p-4 bg-white/5 rounded-lg">
                   <div className="flex justify-between text-gray-300 text-sm sm:text-base">
                     <span>Subtotal:</span>
-                    <span>{currencySymbol(selectedOrder)}{selectedOrder.pricing?.subtotal}</span>
+                    <span>{currencySymbol(selectedOrder)}{toDisplayValue(selectedOrder.pricing?.subtotal, 0)}</span>
                   </div>
                   <div className="border-t border-white/10 pt-2 flex justify-between text-white font-bold text-base sm:text-lg">
                     <span>Grand Total:</span>
                     <span className="text-cyan-400">
-                      {currencySymbol(selectedOrder)}{selectedOrder.pricing?.grandTotal}
+                      {currencySymbol(selectedOrder)}{toDisplayValue(selectedOrder.pricing?.grandTotal, 0)}
                     </span>
                   </div>
                   <div className="text-xs text-gray-500 text-right">
-                    Currency: {selectedOrder.pricing?.currency}
+                    Currency: {toDisplayValue(selectedOrder.pricing?.currency, "USD")}
                   </div>
                 </div>
               </div>
@@ -540,13 +663,13 @@ export default function OrdersComponent() {
                   <div>
                     <p className="text-gray-400 text-xs sm:text-sm">Payment Method</p>
                     <p className="text-white capitalize font-medium text-sm sm:text-base">
-                      {selectedOrder.payment?.method || "Not specified"}
+                      {toDisplayValue(selectedOrder.payment?.method, "Not specified")}
                     </p>
                   </div>
                   <div>
                     <p className="text-gray-400 text-xs sm:text-sm">Payment Status</p>
                     <span className={`inline-block px-2 sm:px-3 py-0.5 sm:py-1 rounded text-xs sm:text-sm font-medium ${paymentStatusColor(selectedOrder.payment?.status)}`}>
-                      {selectedOrder.payment?.status}
+                      {toDisplayValue(selectedOrder.payment?.status, "pending")}
                     </span>
                   </div>
                   {selectedOrder.payment?.transactionId && (

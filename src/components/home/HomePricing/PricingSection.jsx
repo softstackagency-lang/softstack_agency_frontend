@@ -86,7 +86,11 @@ export default function PricingSection() {
       return;
     }
 
-    setSelectedPlan(plan);
+    const selectedCategoryData = categories.find((category) => category._id === selectedCategory);
+    setSelectedPlan({
+      ...plan,
+      categoryName: selectedCategoryData?.name || plan?.categoryName || "",
+    });
     setOrderModalOpen(true);
   };
 

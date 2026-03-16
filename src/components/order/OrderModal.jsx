@@ -19,13 +19,15 @@ export default function OrderModal({ isOpen, onClose, plan, currency }) {
     email: user?.email || "",
     phone: user?.phone || user?.phoneNumber || "",
     address: user?.address || "",
-    
+
     // Order Details
     planId: plan?._id || "",
     planName: plan?.name || "",
+    categoryName: plan?.categoryName || "",
+    planDescription: plan?.description || "",
     price: plan?.price?.[currency] || 0,
     currency: currency,
-    
+
     // Payment Information
     paymentMethod: "bkash", // bkash, nagad, rocket, card
     receiverNumber: user?.phone || user?.phoneNumber || "", // Number sending money from
@@ -36,9 +38,9 @@ export default function OrderModal({ isOpen, onClose, plan, currency }) {
   // Pre-fill and log user data when modal opens or user changes
   useEffect(() => {
     if (user && isOpen) {
-      
+
       const phoneNumber = user.phone || user.phoneNumber || "";
-      
+
       setFormData(prev => {
         const updated = {
           ...prev,
@@ -60,6 +62,8 @@ export default function OrderModal({ isOpen, onClose, plan, currency }) {
         ...prev,
         planId: plan._id || "",
         planName: plan.name || "",
+        categoryName: plan.categoryName || "",
+        planDescription: plan.description || "",
         price: plan.price?.[currency] || 0,
         currency: currency,
       }));
@@ -81,7 +85,7 @@ export default function OrderModal({ isOpen, onClose, plan, currency }) {
 
     try {
       const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:4000/api';
-      
+
       // Validate required fields
       if (!formData.price || formData.price <= 0) {
         throw new Error('Invalid price information. Please try again.');
@@ -96,6 +100,10 @@ export default function OrderModal({ isOpen, onClose, plan, currency }) {
       }
 
       // Use the simplified format that the backend expects
+      const itemDescription =
+        (formData.planDescription && formData.planDescription.trim()) ||
+        `Pricing plan: ${formData.planName}`;
+
       const orderData = {
         customer: {
           name: formData.name,
@@ -103,6 +111,17 @@ export default function OrderModal({ isOpen, onClose, plan, currency }) {
           phone: formData.phone,
           address: formData.address || ""
         },
+        items: [
+          {
+            name: formData.categoryName || "Pricing",
+            description: itemDescription,
+            quantity: 1,
+            unitPrice: Number(formData.price) || 0,
+            totalPrice: Number(formData.price) || 0,
+            productId: null,
+            serviceId: null,
+          },
+        ],
         planName: formData.planName,
         planPrice: `${formData.currency === "USD" ? "$" : "৳"}${formData.price}`,
         paymentMethod: formData.paymentMethod,
@@ -169,6 +188,8 @@ export default function OrderModal({ isOpen, onClose, plan, currency }) {
       address: "",
       planId: "",
       planName: "",
+      categoryName: "",
+      planDescription: "",
       price: 0,
       currency: "USD",
       paymentMethod: "bkash",
@@ -229,7 +250,7 @@ export default function OrderModal({ isOpen, onClose, plan, currency }) {
                   <p className="text-gray-400 text-xs sm:text-sm">
                     {plan?.name} - {currency === "USD" ? "$" : "৳"}{plan?.price?.[currency]?.toLocaleString()}
                   </p>
-                  
+
                   {/* Progress Steps */}
                   <div className="flex items-center gap-2 mt-4">
                     {[1, 2, 3].map((s) => (
