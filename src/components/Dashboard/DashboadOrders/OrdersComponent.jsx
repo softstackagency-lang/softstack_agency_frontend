@@ -313,7 +313,7 @@ export default function OrdersComponent() {
             <table className="w-full text-sm">
               <thead className="bg-[#0a0f23]/80 border-b border-blue-500/20">
                 <tr>
-                  {["Order #", "Customer", "Items", "Amount", "Receiver Number", "Payment Status", "Date", "Actions"].map((h) => (
+                  {["Order #", "Customer", "Items", "Amount", "Payment Status", "Date", "Actions"].map((h) => (
                     <th key={h} className="px-4 py-3 text-left text-gray-400 font-medium whitespace-nowrap">
                       {h}
                     </th>
@@ -349,13 +349,6 @@ export default function OrdersComponent() {
                       <div className="text-xs text-gray-500 whitespace-nowrap">
                         Subtotal: {currencySymbol(order)}{order.pricing?.subtotal}
                       </div>
-                    </td>
-                    <td className="px-4 py-3">
-                      <div className="text-white font-medium">{order.payment?.receiverNumber || "N/A"}</div>
-                      <div className="text-xs text-gray-500 capitalize mt-1">{order.payment?.method || "N/A"}</div>
-                      {order.payment?.transactionId && (
-                        <div className="text-xs text-cyan-400 mt-1">TXN: {order.payment.transactionId}</div>
-                      )}
                     </td>
                     <td className="px-4 py-3">
                       <select
@@ -450,7 +443,7 @@ export default function OrdersComponent() {
                   </div>
                 )}
 
-                {/* Row 4: amount + payment status + receiver */}
+                {/* Row 4: amount + payment status */}
                 <div className="flex flex-wrap items-center gap-2 pt-1 border-t border-white/5">
                   {/* Grand total */}
                   <span className="text-white font-bold text-sm">
@@ -472,11 +465,6 @@ export default function OrdersComponent() {
                   {/* Payment method */}
                   {order.payment?.method && (
                     <span className="text-gray-500 text-xs capitalize">{order.payment.method}</span>
-                  )}
-
-                  {/* Receiver */}
-                  {order.payment?.receiverNumber && (
-                    <span className="text-gray-400 text-xs ml-auto">{order.payment.receiverNumber}</span>
                   )}
                 </div>
 
