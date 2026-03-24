@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { Users, Search, Filter, MoreVertical, Eye, Edit, Trash2, X, Save, Loader2 } from 'lucide-react';
+import { userApi } from '@/lib/api';
 
 export default function DashboardUsers() {
   const [users, setUsers] = useState([]);
@@ -9,6 +10,7 @@ export default function DashboardUsers() {
   const [searchTerm, setSearchTerm] = useState('');
   const [error, setError] = useState(null);
   const [editModal, setEditModal] = useState({ show: false, user: null });
+  const [viewModal, setViewModal] = useState({ show: false, user: null });
   const [editFormData, setEditFormData] = useState({ name: '', email: '', role: '' });
   const [updating, setUpdating] = useState(false);
   const [successMessage, setSuccessMessage] = useState('');
@@ -36,7 +38,7 @@ export default function DashboardUsers() {
   const openEditModal = (user) => {
     // Create a fresh copy of user data to avoid state mutation
     setEditFormData({
-      name: user.name || '',
+      name: user.displayName || '',
       email: user.email || '',
       role: user.role || 'user'
     });
@@ -46,6 +48,14 @@ export default function DashboardUsers() {
   const closeEditModal = () => {
     setEditModal({ show: false, user: null });
     setEditFormData({ name: '', email: '', role: '' });
+  };
+
+  const openViewModal = (user) => {
+    setViewModal({ show: true, user: { ...user } });
+  };
+
+  const closeViewModal = () => {
+    setViewModal({ show: false, user: null });
   };
 
   const handleUpdateUser = async () => {
@@ -93,7 +103,7 @@ export default function DashboardUsers() {
   const filteredUsers = Array.isArray(users)
     ? users.filter(
       (user) =>
-        user.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        user.displayName?.toLowerCase().includes(searchTerm.toLowerCase()) ||
         user.email?.toLowerCase().includes(searchTerm.toLowerCase())
     )
     : [];
@@ -156,7 +166,7 @@ export default function DashboardUsers() {
         </button>
       </div>
 
-      <div className="bg-white/5 border border-white/10 rounded-xl overflow-hidden">
+      <div className="hidden md:block bg-white/5 border border-white/10 rounded-xl overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead className="bg-white/5 border-b border-white/10">
@@ -180,11 +190,15 @@ export default function DashboardUsers() {
                   <tr key={user.id || user._id} className="hover:bg-white/5 transition-colors">
                     <td className="px-6 py-4">
                       <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white font-medium">
-                          {user.name?.charAt(0)?.toUpperCase() || 'U'}
+                        <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white font-medium overflow-hidden">
+                          {user.photoURL ? (
+                            <img src={user.photoURL} alt={user.displayName} className="w-full h-full object-cover" />
+                          ) : (
+                            user.displayName?.charAt(0)?.toUpperCase() || 'U'
+                          )}
                         </div>
                         <div>
-                          <div className="text-white font-medium">{user.name || 'N/A'}</div>
+                          <div className="text-white font-medium">{user.displayName || 'N/A'}</div>
                           <div className="text-gray-400 text-sm">{user.email || 'N/A'}</div>
                         </div>
                       </div>
@@ -208,7 +222,10 @@ export default function DashboardUsers() {
                     </td>
                     <td className="px-6 py-4">
                       <div className="flex items-center justify-center gap-2">
-                        <button className="p-1.5 text-gray-400 hover:text-blue-400 hover:bg-blue-500/10 rounded-lg transition-colors">
+                        <button
+                          onClick={() => openViewModal(user)}
+                          className="p-1.5 text-gray-400 hover:text-blue-400 hover:bg-blue-500/10 rounded-lg transition-colors"
+                        >
                           <Eye className="w-4 h-4" />
                         </button>
                         <button
@@ -249,18 +266,25 @@ export default function DashboardUsers() {
               <div className="flex items-start justify-between gap-3">
                 {/* Avatar + name/email */}
                 <div className="flex items-center gap-3 flex-1 min-w-0">
-                  <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white font-medium flex-shrink-0 text-sm">
-                    {user.name?.charAt(0)?.toUpperCase() || 'U'}
+                  <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white font-medium flex-shrink-0 text-sm overflow-hidden">
+                    {user.photoURL ? (
+                      <img src={user.photoURL} alt={user.displayName} className="w-full h-full object-cover" />
+                    ) : (
+                      user.displayName?.charAt(0)?.toUpperCase() || 'U'
+                    )}
                   </div>
                   <div className="min-w-0">
-                    <div className="text-white font-medium text-sm truncate">{user.name || 'N/A'}</div>
+                    <div className="text-white font-medium text-sm truncate">{user.displayName || 'N/A'}</div>
                     <div className="text-gray-400 text-xs truncate">{user.email || 'N/A'}</div>
                   </div>
                 </div>
 
                 {/* Action buttons */}
                 <div className="flex items-center gap-1 flex-shrink-0">
-                  <button className="p-1.5 text-gray-400 hover:text-blue-400 hover:bg-blue-500/10 rounded-lg transition-colors">
+                  <button
+                    onClick={() => openViewModal(user)}
+                    className="p-1.5 text-gray-400 hover:text-blue-400 hover:bg-blue-500/10 rounded-lg transition-colors"
+                  >
                     <Eye className="w-4 h-4" />
                   </button>
                   <button
@@ -436,6 +460,10 @@ export default function DashboardUsers() {
           </div>
         </div>
       )}
+
+      {/* ══════════ VIEW USER MODAL ══════════ */}
+      <ViewUserModal user={viewModal.user} isOpen={viewModal.show} onClose={closeViewModal} />
+
     </div>
   );
 }
@@ -450,7 +478,7 @@ function ViewUserModal({ user, isOpen, onClose }) {
           <button onClick={onClose} className="text-gray-400 hover:text-white"><X className="w-6 h-6" /></button>
         </div>
         <div className="space-y-4">
-          <div><label className="block text-sm font-medium text-gray-400 mb-1">Name</label><p className="text-white">{user.name || 'N/A'}</p></div>
+          <div><label className="block text-sm font-medium text-gray-400 mb-1">Name</label><p className="text-white">{user.displayName || 'N/A'}</p></div>
           <div><label className="block text-sm font-medium text-gray-400 mb-1">Email</label><p className="text-white">{user.email || 'N/A'}</p></div>
           <div><label className="block text-sm font-medium text-gray-400 mb-1">Role</label><p className="text-white">{user.role || 'User'}</p></div>
           <div><label className="block text-sm font-medium text-gray-400 mb-1">Status</label><p className="text-white">{user.status || 'Active'}</p></div>
@@ -491,7 +519,7 @@ function DeleteUserModal({ user, isOpen, onClose, onConfirm }) {
     <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
       <div className="bg-[#0a0f23] border border-red-500/30 rounded-2xl p-6 w-full max-w-md">
         <div className="flex items-center gap-3 mb-4"><div className="p-2 bg-red-600/20 rounded-lg"><AlertTriangle className="w-6 h-6 text-red-400" /></div><h3 className="text-xl font-semibold text-white">Delete User</h3></div>
-        <p className="text-gray-300 mb-6">Are you sure you want to delete <span className="text-white font-medium">{user.name}</span>? This action cannot be undone.</p>
+        <p className="text-gray-300 mb-6">Are you sure you want to delete <span className="text-white font-medium">{user.displayName}</span>? This action cannot be undone.</p>
         <div className="flex gap-3"><button onClick={onConfirm} className="flex-1 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors">Delete User</button><button onClick={onClose} className="px-4 py-2 border border-white/10 rounded-lg text-gray-300 hover:bg-white/5 transition-colors">Cancel</button></div>
       </div>
     </div>
@@ -504,7 +532,7 @@ function RoleModal({ user, role, setRole, isOpen, onClose, onSave }) {
     <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
       <div className="bg-[#0a0f23] border border-purple-500/30 rounded-2xl p-6 w-full max-w-md">
         <div className="flex items-center gap-3 mb-4"><div className="p-2 bg-purple-600/20 rounded-lg"><Shield className="w-6 h-6 text-purple-400" /></div><h3 className="text-xl font-semibold text-white">Change User Role</h3></div>
-        <p className="text-gray-300 mb-4">Change role for <span className="text-white font-medium">{user.name}</span></p>
+        <p className="text-gray-300 mb-4">Change role for <span className="text-white font-medium">{user.displayName}</span></p>
         <div className="mb-6"><label className="block text-sm font-medium text-gray-400 mb-2">Select Role</label><select value={role} onChange={(e) => setRole(e.target.value)} className="w-full px-3 py-2 bg-white/5 border border-white/10 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-purple-500/50"><option value="user">User</option><option value="admin">Admin</option><option value="moderator">Moderator</option></select></div>
         <div className="flex gap-3"><button onClick={onSave} className="flex-1 flex items-center justify-center gap-2 px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors"><Save className="w-4 h-4" />Update Role</button><button onClick={onClose} className="px-4 py-2 border border-white/10 rounded-lg text-gray-300 hover:bg-white/5 transition-colors">Cancel</button></div>
       </div>
@@ -518,7 +546,7 @@ function StatusModal({ user, status, setStatus, isOpen, onClose, onSave }) {
     <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
       <div className="bg-[#0a0f23] border border-green-500/30 rounded-2xl p-6 w-full max-w-md">
         <div className="flex items-center gap-3 mb-4"><div className="p-2 bg-green-600/20 rounded-lg"><UserCheck className="w-6 h-6 text-green-400" /></div><h3 className="text-xl font-semibold text-white">Change User Status</h3></div>
-        <p className="text-gray-300 mb-4">Change status for <span className="text-white font-medium">{user.name}</span></p>
+        <p className="text-gray-300 mb-4">Change status for <span className="text-white font-medium">{user.displayName}</span></p>
         <div className="mb-6"><label className="block text-sm font-medium text-gray-400 mb-2">Select Status</label><select value={status} onChange={(e) => setStatus(e.target.value)} className="w-full px-3 py-2 bg-white/5 border border-white/10 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-green-500/50"><option value="active">Active</option><option value="inactive">Inactive</option><option value="suspended">Suspended</option><option value="pending">Pending</option></select></div>
         <div className="flex gap-3"><button onClick={onSave} className="flex-1 flex items-center justify-center gap-2 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"><Save className="w-4 h-4" />Update Status</button><button onClick={onClose} className="px-4 py-2 border border-white/10 rounded-lg text-gray-300 hover:bg-white/5 transition-colors">Cancel</button></div>
       </div>
