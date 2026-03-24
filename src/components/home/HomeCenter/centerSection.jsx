@@ -52,6 +52,42 @@ const AboutSection = () => {
     },
   ];
 
+  const showcaseVideoUrl = "https://www.youtube.com/shorts/O3mKsrDlqk8";
+
+  const isYouTubeShort =
+    showcaseVideoUrl.includes("youtube.com/shorts/") ||
+    showcaseVideoUrl.includes("youtu.be/");
+
+  const getYouTubeEmbedUrl = (url) => {
+    let videoId = "";
+
+    try {
+      const parsedUrl = new URL(url);
+      const host = parsedUrl.hostname.replace("www.", "");
+      const pathSegments = parsedUrl.pathname.split("/").filter(Boolean);
+
+      if (host === "youtu.be") {
+        videoId = pathSegments[0] || "";
+      } else if (host.includes("youtube.com")) {
+        if (pathSegments[0] === "shorts") {
+          videoId = pathSegments[1] || "";
+        } else if (pathSegments[0] === "embed") {
+          videoId = pathSegments[1] || "";
+        } else {
+          videoId = parsedUrl.searchParams.get("v") || "";
+        }
+      }
+    } catch {
+      return "";
+    }
+
+    if (!videoId) return "";
+
+    return `https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&mute=1&controls=1&modestbranding=1&rel=0&playsinline=1`;
+  };
+
+  const showcaseEmbedUrl = getYouTubeEmbedUrl(showcaseVideoUrl);
+
   return (
     <section className="relative overflow-hidden bg-linear-to-b from-slate-950 via-slate-900 to-slate-950 px-4 py-16 sm:px-6 sm:py-20 lg:px-8 lg:py-24">
       {/* Background Animations */}
@@ -78,7 +114,7 @@ const AboutSection = () => {
 
       {/* Content Container */}
       <div className="relative z-10 mx-auto max-w-7xl">
-        <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
+        <div className="grid items-center gap-8 lg:grid-cols-2 lg:gap-4">
           {/* Left Content */}
           <div
             className={`space-y-8 transform transition-all duration-1000 ${isVisible
@@ -172,76 +208,95 @@ const AboutSection = () => {
             </div>
           </div>
 
-          {/* Right Content - Real Video */}
+          {/* Right Content - Video */}
           <div
-            className={`transform transition-all duration-1000 delay-300 ${isVisible
+            className={`flex justify-center lg:justify-center transform transition-all duration-1000 delay-300 ${isVisible
               ? "translate-x-0 opacity-100"
               : "translate-x-20 opacity-0"
               }`}
           >
             <div className="relative group">
-              <div className="absolute -inset-4 animate-pulse-slow rounded-3xl bg-linear-to-r from-cyan-500/30 via-blue-500/30 to-purple-500/30 blur-2xl opacity-50 transition-opacity duration-500 group-hover:opacity-75"></div>
+              <div className="absolute -inset-2 animate-pulse-slow rounded-2xl bg-linear-to-r from-cyan-500/30 via-blue-500/30 to-purple-500/30 blur-xl opacity-50 transition-opacity duration-500 group-hover:opacity-75"></div>
 
               <div className="relative overflow-hidden rounded-2xl border border-slate-700/50 bg-linear-to-r from-slate-800 to-slate-900 shadow-2xl transition-transform duration-500 group-hover:scale-[1.02]">
-                <div className="relative aspect-video bg-slate-800">
-                  <video
-                    className="h-full w-full object-cover"
-                    src="/video.mp4"
-                    autoPlay
-                    muted
-                    loop
-                    playsInline
-                    preload="metadata"
-                    title="SoftStack Agency Solutions Showcase"
-                    aria-label="A video showcasing SoftStack Agency software solutions and engineering excellence"
-                  />
+                {/*
+                  For YouTube Shorts (9:16 portrait): use w-[320px] h-[568px]
+                  For regular videos (16:9 landscape): switch back to aspect-video w-full
+                */}
+                <div
+                  className="relative overflow-hidden rounded-2xl"
+                  style={
+                    isYouTubeShort
+                      ? { width: "320px", height: "568px" }
+                      : { position: "relative", paddingTop: "56.25%", width: "100%" }
+                  }
+                >
+                  {showcaseEmbedUrl ? (
+                    <iframe
+                      style={
+                        isYouTubeShort
+                          ? { width: "100%", height: "100%", display: "block" }
+                          : { position: "absolute", top: 0, left: 0, width: "100%", height: "100%" }
+                      }
+                      src={showcaseEmbedUrl}
+                      title="SoftStack Agency Solutions Showcase"
+                      aria-label="A video showcasing SoftStack Agency software solutions and engineering excellence"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                      allowFullScreen
+                    />
+                  ) : (
+                    <div className="flex h-full w-full items-center justify-center text-sm text-gray-400">
+                      Video is unavailable
+                    </div>
+                  )}
 
                   {/* Overlay */}
                   <div className="pointer-events-none absolute inset-0 bg-linear-to-t from-slate-950/40 via-transparent to-slate-950/10"></div>
 
                   {/* Bottom Label */}
-                  <div className="absolute bottom-4 left-4 rounded-lg bg-black/50 px-3 py-1 backdrop-blur-sm">
+                  <div className="pointer-events-none absolute bottom-4 left-4 rounded-lg bg-black/50 px-3 py-1 backdrop-blur-sm">
                     <span className="text-sm font-medium text-white">
-                      SoftStack Agency Showcase
+                      {isYouTubeShort
+                        ? "SoftStack Agency Shorts Showcase"
+                        : "SoftStack Agency Showcase"}
                     </span>
                   </div>
 
-
                   {/* Decorative Corners */}
-                  <div className="absolute top-4 left-4 h-12 w-12 rounded-tl-lg border-t-2 border-l-2 border-cyan-500/50"></div>
-                  <div className="absolute top-4 right-4 h-12 w-12 rounded-tr-lg border-t-2 border-r-2 border-blue-500/50"></div>
-                  <div className="absolute bottom-4 left-4 h-12 w-12 rounded-bl-lg border-b-2 border-l-2 border-cyan-500/50"></div>
-                  <div className="absolute right-4 bottom-4 h-12 w-12 rounded-br-lg border-r-2 border-b-2 border-blue-500/50"></div>
+                  <div className="pointer-events-none absolute top-4 left-4 h-12 w-12 rounded-tl-lg border-t-2 border-l-2 border-cyan-500/50"></div>
+                  <div className="pointer-events-none absolute top-4 right-4 h-12 w-12 rounded-tr-lg border-t-2 border-r-2 border-blue-500/50"></div>
+                  <div className="pointer-events-none absolute bottom-4 left-4 h-12 w-12 rounded-bl-lg border-b-2 border-l-2 border-cyan-500/50"></div>
+                  <div className="pointer-events-none absolute right-4 bottom-4 h-12 w-12 rounded-br-lg border-r-2 border-b-2 border-blue-500/50"></div>
                 </div>
               </div>
 
               {/* Floating Stats */}
-              <div className="absolute -bottom-3 -left-1 animate-float-up-down rounded-lg border border-cyan-500/30 bg-slate-800/90 p-1.5 sm:p-4 shadow-2xl backdrop-blur-xl sm:-bottom-6 sm:-left-6">
-                <div className="flex items-center space-x-1.5 sm:space-x-3">
-                  <div className="flex h-7 w-7 sm:h-10 sm:w-10 items-center justify-center rounded-md sm:rounded-lg bg-linear-to-br from-cyan-500 to-blue-600">
-                    <TrendingUp className="h-3.5 w-3.5 sm:h-5 sm:w-5 text-white" />
+              <div className="absolute -bottom-2 -left-1 animate-float-up-down rounded-lg border border-cyan-500/30 bg-slate-800/90 p-1.5 sm:p-2.5 shadow-2xl backdrop-blur-xl sm:-bottom-4 sm:-left-4">
+                <div className="flex items-center space-x-1.5 sm:space-x-2">
+                  <div className="flex h-6 w-6 sm:h-8 sm:w-8 items-center justify-center rounded-md bg-linear-to-br from-cyan-500 to-blue-600">
+                    <TrendingUp className="h-3 w-3 sm:h-4 sm:w-4 text-white" />
                   </div>
                   <div>
-                    <div className="text-sm font-bold text-white sm:text-2xl leading-none">
+                    <div className="text-xs font-bold text-white sm:text-lg leading-none">
                       500+
                     </div>
-                    <div className="text-[8px] sm:text-xs text-gray-400 mt-0.5 leading-none">
+                    <div className="text-[7px] sm:text-[10px] text-gray-400 mt-0.5 leading-none">
                       Projects Delivered
                     </div>
                   </div>
                 </div>
               </div>
 
-              <div className="absolute -top-3 -right-1 animate-float-up-down-delayed rounded-lg border border-blue-500/30 bg-slate-800/90 p-1.5 sm:p-4 shadow-2xl backdrop-blur-xl sm:-top-6 sm:-right-6">
-                <div className="flex items-center space-x-1.5 sm:space-x-3">
-                  <div className="flex h-7 w-7 sm:h-10 sm:w-10 items-center justify-center rounded-md sm:rounded-lg bg-linear-to-br from-blue-500 to-purple-600">
-                    <Users className="h-3.5 w-3.5 sm:h-5 sm:w-5 text-white" />
+              <div className="absolute -top-2 -right-1 animate-float-up-down-delayed rounded-lg border border-blue-500/30 bg-slate-800/90 p-1.5 sm:p-2.5 shadow-2xl backdrop-blur-xl sm:-top-4 sm:-right-4">
+                <div className="flex items-center space-x-1.5 sm:space-x-2">
+                  <div className="flex h-6 w-6 sm:h-8 sm:w-8 items-center justify-center rounded-md bg-linear-to-br from-blue-500 to-purple-600">
+                    <Users className="h-3 w-3 sm:h-4 sm:w-4 text-white" />
                   </div>
                   <div>
-                    <div className="text-sm font-bold text-white sm:text-2xl leading-none">
+                    <div className="text-xs font-bold text-white sm:text-lg leading-none">
                       98%
                     </div>
-                    <div className="text-[8px] sm:text-xs text-gray-400 mt-0.5 leading-none">
+                    <div className="text-[7px] sm:text-[10px] text-gray-400 mt-0.5 leading-none">
                       Client Satisfaction
                     </div>
                   </div>
