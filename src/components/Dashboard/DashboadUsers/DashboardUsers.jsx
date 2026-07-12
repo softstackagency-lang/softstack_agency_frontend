@@ -65,26 +65,17 @@ export default function DashboardUsers() {
       setUpdating(true);
       setError(null);
 
-      const response = await fetch(`/api/users/${editModal.user._id || editModal.user.id}`, {
-        method: 'PUT',
-        credentials: 'include',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(editFormData),
-      });
-
-      const data = await response.json();
-
-      if (!response.ok || !data.success) {
-        throw new Error(data.message || 'Failed to update user');
-      }
+      // Use the central API client which automatically attaches the Firebase authentication header
+      const data = await userApi.updateUser(
+        editModal.user._id || editModal.user.id,
+        editFormData
+      );
 
       // Update the users array with the new data, ensuring proper immutability
       setUsers(prevUsers =>
         prevUsers.map(user =>
           (user._id || user.id) === (editModal.user._id || editModal.user.id)
-            ? { ...user, ...editFormData }
+            ? { ...user, ...editFormData, displayName: editFormData.name }
             : user
         )
       );
@@ -93,7 +84,7 @@ export default function DashboardUsers() {
       setTimeout(() => setSuccessMessage(''), 3000);
       closeEditModal();
     } catch (error) {
-      setError(error.message || 'Failed to update user');
+      setError(error.userMessage || error.message || 'Failed to update user');
       setTimeout(() => setError(null), 3000);
     } finally {
       setUpdating(false);
